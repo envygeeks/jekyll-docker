@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # -----------------------------------------------------------------------------
-# I don't want to hear your bitching about how this fucks with your shit
+# I don't want to hear your complaining about how this messes with anything
 # because it works for me, and if it works for me it must work for you but
 # seriously, it does not stop you from using -H and -s again - override.
 # That is exactly why I put it at the top and not the bottom but tbh
