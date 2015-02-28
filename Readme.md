@@ -1,32 +1,24 @@
 # Jekyll Docker Images
 
-A set of images for building debian packages with Docker (Jekyll) and for
-running Jekyll in a docker instance. There is both `:latest` and `:build` - The
-build image is for building Debian packages and `:latest` is the actual Jekyll
-instance you are looking for. `:build` is nothing but a public exposure of the
-image used by build systems.
+Jekyll Docker is a set of images that provide Jekyll in an instance and a build
+script for each distro to build a package (using the great fpm.)
 
 ## Notes
+  * When you launch or run anything it is run as a non-priv user jekyll in /srv/jekyll.
   * We "shiv" Jekyll to provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
+  * Jekyll has access to sudo (mostly for the build system.)
+  * Ruby is stored in /opt/jekyll bundled w/ Jekyll.
 
 ## Running
 
 ```sh
-docker run --rm \
-  -v $(pwd):/srv/jekyll \
-  -p 127.0.0.1:4000:4000 \
-  envygeeks/jekyll:latest jekyll s
+docker run --rm -v $(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
+  jekyll/jekyll:ubuntu-stable jekyll s
 ```
 
 ## Building a Deb
 
 ```sh
-docker run --rm \
-  -v $(pwd):/srv/jekyll envygeeks/jekyll:build buildeb
-```
-
-## Building the images
-
-```
-cd latest && docker build -t username/jekyll:latest .
+docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:ubuntu-stable buildeb
+docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:ubuntu-master buildeb
 ```
