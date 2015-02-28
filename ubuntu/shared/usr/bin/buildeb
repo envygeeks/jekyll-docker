@@ -1,0 +1,40 @@
+#!/bin/sh
+set -e
+set -x
+
+rm -rf ~/builds && mkdir ~/builds
+maj=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[0]')
+min=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[1]')
+rev=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[2]')
+ver=$(/opt/jekyll/bin/jekyll -v |cut -d" " -f2)
+
+cd ~/builds
+mkdir -p src/opt && cp -R /opt/jekyll src/opt/
+cp /usr/share/jekyll/buildeb/Gemfile .
+
+sudo apt-get update
+sudo apt-get install libffi-dev build-essential --no-install-recommends --yes
+bundle install --path vendor/bundle -j4
+
+sudo apt-get autoremove --purge libffi-dev build-essential --yes
+bundle exec fpm -s dir -t deb -n jekyll${maj} -v ${ver}-${min}jekyll${rev} \
+    --maintainer "Jordon Bedwell <jordon@envygeeks.io>" \
+    --after-install /usr/share/jekyll/buildeb/install \
+    --after-remove /usr/share/jekyll/buildeb/remove \
+    --description "Jekyll ${ver}" \
+    --url https://jekyllrb.com \
+    --vendor "Jekyll Core Team" \
+    --license MIT \
+    --provides jekyll \
+    --provides jekyll${ver} \
+    --provides jekyll${maj} \
+    --depends libc6 \
+    --depends libffi6  \
+    --depends libgdbm3 \
+    --depends libncurses5 \
+    --depends libreadline6 \
+    --depends libssl1.0.0 \
+    --depends libyaml-0-2 \
+    --depends zlib1g \
+    -p /srv/jekyll \
+    -C src ./
