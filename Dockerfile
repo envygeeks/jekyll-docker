@@ -1,10 +1,13 @@
-FROM envygeeks/ubuntu:utopic
+FROM ubuntu:utopic
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 ENV RUBY_SHA=7671e394abfb5d262fbcd3b27a71bf78737c7e9347fa21c39e58b0bb9c4840fc
+ENV DEBCONF_FRONTEND=noninteractive
 ENV PATH=$PATH:/opt/jekyll/bin
 ENV JEKYLL_VERSION=2.5.3
 ENV RUBY_VERSION=2.2.0
 
+# Double down and have Debian shut it's mouth about term, it's like damn dude.
+RUN echo "debconf debconf/frontend select Noninteractive" | debconf-set-selections
 RUN useradd -m -s /bin/bash jekyll
 RUN apt-get update && \
   apt-get dist-upgrade --yes && \
@@ -77,6 +80,6 @@ RUN  rm /home/jekyll/.bash_logout
 RUN  cp ~/.bashrc /home/jekyll/.bashrc
 RUN  chown jekyll.jekyll /home/jekyll/.bashrc
 RUN  chmod og-rwx /etc/sudoers
-COPY shared/ /
+COPY copy/ /
 EXPOSE 4000
 USER jekyll

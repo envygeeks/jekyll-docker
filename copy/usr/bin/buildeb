@@ -21,7 +21,7 @@ bundle install --path vendor/bundle -j4
 
 sudo apt-get autoremove --purge libffi-dev build-essential --yes
 bundle exec fpm -s dir -t deb -n jekyll${maj} -v ${ver}-${min}jekyll${rev} \
-    --maintainer "${author} <${author_email}>" \
+    --maintainer "Jekyll Packaging Team <packages@jekyllrb.com>" \
     --after-install /usr/share/jekyll/buildeb/install \
     --after-remove /usr/share/jekyll/buildeb/remove \
     --description "Jekyll ${ver}" \
