@@ -1,7 +1,7 @@
 # Jekyll Docker Images
 
 Jekyll Docker is a set of images that provide Jekyll in an instance and a build
-script for each distro to build a package (using the great fpm.)
+script for Ubuntu to build a deb if it pleases you (Fedora/openSUSE/Arch tba.)
 
 ## Notes
   * When you launch or run anything it is run as a non-priv user jekyll in /srv/jekyll.
@@ -13,12 +13,12 @@ script for each distro to build a package (using the great fpm.)
 
 ```sh
 docker run --rm -v $(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
-  jekyll/jekyll:ubuntu-stable jekyll s
+  jekyll/jekyll:stable jekyll s
 ```
 
 ## Building a Deb
 
 ```sh
-docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:ubuntu-stable buildeb
-docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:ubuntu-master buildeb
+docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:beta   buildeb
+docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:stable buildeb
 ```
