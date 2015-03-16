@@ -2,15 +2,10 @@
 set -e
 set -x
 
-if [[ -z "${JEKYLL_DOCKER_TAG}" ]]
-then
-  echo "JEKYLL_DOCKER_TAG missing."
-  echo "Examples: 'jekyll/jekyll' or for local only 'username'"
-  exit 1
-fi
-
+JEKYLL_DOCKER_TAG=${JEKYLL_DOCKER_TAG-"jekyll/jekyll"}
 docker build --no-cache --force-rm -t ${JEKYLL_DOCKER_TAG}:stable .
 docker run --rm -v $(pwd):/srv/jekyll -it ${JEKYLL_DOCKER_TAG}:stable buildeb
+
 if [[ ! -z "${JEKYLL_BETA_VERSION}" ]]
 then
   sed -r "s/(ENV JEKYLL_VERSION=).*/\1${JEKYLL_BETA_VERSION}/" Dockerfile > beta.dockerfile
