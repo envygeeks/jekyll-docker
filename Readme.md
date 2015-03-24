@@ -1,7 +1,10 @@
 # Jekyll Docker Images
 
-Jekyll Docker is a set of images that provide Jekyll in an instance and a build
-script for Ubuntu to build a deb if it pleases you (Fedora/openSUSE/Arch tba.)
+Jekyll Docker is an Ubuntu based Docker image that provides an isolated Jekyll
+instance with the latest version of Jekyll, the current releases are:
+
+* beta
+* stable, latest
 
 ## Notes
   * When you launch or run anything it is run as a non-priv user jekyll in /srv/jekyll.
@@ -9,16 +12,31 @@ script for Ubuntu to build a deb if it pleases you (Fedora/openSUSE/Arch tba.)
   * Jekyll has access to sudo (mostly for the build system.)
   * Ruby is stored in /opt/jekyll bundled w/ Jekyll.
 
+## Building
+
+Because we have a global copy folder you need to build from the root and tell
+Docker which type you want to build so replace `<TYPE>`` with stable, master or
+beta and it will build that.
+
+```sh
+docker build --no-cache --force-rm -t jekyll/jekyll:<TYPE> -f <TYPE>/Dockerfile .
+```
+
 ## Running
 
 ```sh
 docker run --rm -v $(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
-  jekyll/jekyll:stable jekyll s
+  jekyll/jekyll:<TYPE> jekyll s
 ```
 
 ## Building a Deb
 
 ```sh
-docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:beta   buildeb
-docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:stable buildeb
+docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll:<TYPE> buildeb
 ```
+
+## Do we Publish Debs?
+
+Yes! We certainly do publish some of the debs, we publish stable (via this
+repos release system until we have a new stable release of Jekyll) and we release
+beta debs via the jekyll/jekyll release system.  We do not sign them, yet...
