@@ -72,3 +72,13 @@ cp ~/.bashrc /home/jekyll/.bashrc
 chown jekyll.jekyll /home/jekyll/.bashrc
 chown jekyll.jekyll /home/jekyll /srv/jekyll
 chmod og-rwx /etc/sudoers
+
+sudo -u jekyll jekyll new /srv/jekyll
+# -----------------------------------------------------------------------------
+# This hack is because the default jekyll _posts file seems to error out on
+# the image, and that is pretty not ok, so we have a hacked file that removes
+# the problem until the next version fixes it. So track this file.
+# -----------------------------------------------------------------------------
+
+cd /srv/jekyll/_posts
+sudo -u jekyll cp /usr/share/jekyll/hacks/post.md $(ls)
