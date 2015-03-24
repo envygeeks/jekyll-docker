@@ -15,7 +15,11 @@ apt-get install --no-install-recommends --yes \
   autoconf \
   git \
   wget \
-  deborphan
+  deborphan \
+  python \
+  python-chardet \
+  python-pkg-resources \
+  python-pygments
 rm -rf /var/lib/apt/lists/*
 
 cd /usr/src
@@ -37,15 +41,20 @@ yes | gem update --system --no-document
 yes | gem update --no-document
 yes | gem install jekyll -v ${JEKYLL_VERSION} --no-document
 yes | gem install therubyracer bundler --no-document
+yes | gem install pry --no-document
 rm -rf /opt/jekyll/lib/ruby/gems/2.2.0/cache/*
 gem clean
 rm -rf ~/.gem
 
-echo libxslt1.1   hold | dpkg --set-selections
-echo libreadline6 hold | dpkg --set-selections
-echo libyaml-0-2  hold | dpkg --set-selections
-echo libxml2      hold | dpkg --set-selections
-echo libffi6      hold | dpkg --set-selections
+echo libxslt1.1           hold | dpkg --set-selections
+echo libreadline6         hold | dpkg --set-selections
+echo libyaml-0-2          hold | dpkg --set-selections
+echo libxml2              hold | dpkg --set-selections
+echo libffi6              hold | dpkg --set-selections
+echo python               hold | dpkg --set-selections
+echo python-chardet       hold | dpkg --set-selections
+echo python-pkg-resources hold | dpkg --set-selections
+echo python-pygments      hold | dpkg --set-selections
 
 deborphan --add-keep libxml2 libxslt1 libssl libff1 libyaml libreadline6
 apt-get autoremove --purge --yes \
@@ -64,7 +73,10 @@ apt-get autoremove --purge --yes \
   gcc \
   g++ \
   git \
-  deborphan
+  deborphan \
+  cpp-4.9
+
+sudo apt-get autoremove --purge --yes
 
 mkdir -p /srv/jekyll
 rm /home/jekyll/.bash_logout
@@ -74,11 +86,3 @@ chown jekyll.jekyll /home/jekyll /srv/jekyll
 chmod og-rwx /etc/sudoers
 
 sudo -u jekyll jekyll new /srv/jekyll
-# -----------------------------------------------------------------------------
-# This hack is because the default jekyll _posts file seems to error out on
-# the image, and that is pretty not ok, so we have a hacked file that removes
-# the problem until the next version fixes it. So track this file.
-# -----------------------------------------------------------------------------
-
-cd /srv/jekyll/_posts
-sudo -u jekyll cp /usr/share/jekyll/hacks/post.md $(ls)
