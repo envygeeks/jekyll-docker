@@ -1,0 +1,3 @@
+/opt/nginx/logs/error.log
+/opt/nginx/logs/access.log
+/var/log/mentos.log

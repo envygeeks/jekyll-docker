@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source /etc/envars
+# Make sure the user gets access to their own _site, caches too!
+exec chpst -u jekyll jekyll build --trace --watch -d /srv/jekyll/_site 2>&1
