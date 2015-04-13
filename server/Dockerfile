@@ -1,4 +1,4 @@
-FROM envygeeks/nginx:1.7.10
+FROM envygeeks/nginx
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 ENV RUBY_SHA=5a4de38068eca8919cb087d338c0c2e3d72c9382c804fb27ab746e6c7819ab28
 ENV DEBCONF_FRONTEND=noninteractive
