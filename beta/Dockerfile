@@ -6,6 +6,9 @@ ENV JEKYLL_VERSION=3.0.0.pre.beta2
 ENV PATH=${PATH}:/opt/jekyll/bin
 ENV RUBY_VERSION=2.2.1
 
+RUN apt-get -y update
+RUN apt-get -y install build-essential zlib1g nodejs
+
 COPY copy/ /
 RUN useradd -m -s /bin/bash jekyll
 RUN echo "debconf debconf/frontend select Noninteractive" | debconf-set-selections
