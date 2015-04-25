@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+class Build
+  def right_now
+    version = File.read("Dockerfile").match(/ENV JEKYLL_VERSION=([^\s]+)/)[1]
+    system "docker build -t jekyll/jekyll:#{version} ."
+
+    unless version =~ /\.(pre|beta|alpha)/
+      system "docker tag -f jekyll/jekyll:#{version} jekyll/jekyll:latest"
+    end
+  end
+end
+
+Build.new.right_now

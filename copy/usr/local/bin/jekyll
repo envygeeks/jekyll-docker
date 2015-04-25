@@ -1,13 +1,22 @@
 #!/usr/bin/env ruby
 
+begin
+  Process::Sys.setuid(1000)
+  Process::Sys.setgid(1000)
+rescue
+  nil
+end
+
 if %W(s serve server).include?(ARGV[0])
   ARGV.unshift(ARGV.shift,
     "-H", "0.0.0.0", "-s", "/srv/jekyll"
   )
 else
-  ARGV.unshift(ARGV.shift,
-    "-s", "/srv/jekyll"
-  )
+  unless ARGV.any? { |v| v == "-s" }
+    ARGV.unshift(ARGV.shift,
+      "-s", "/srv/jekyll"
+    )
+  end
 end
 
 # Dropping the mic and walking out.
