@@ -1,0 +1,23 @@
+#!/bin/bash
+exec 2>&1
+
+trap '{
+  echo "Stopping services."
+  sv stop /etc/service/* 2>&1
+  trap - EXIT
+  exit 0
+}' \
+EXIT QUIT TERM INT
+export > /etc/envars
+echo "Starting services."
+runsvdir -P /etc/service 2>&1 &
+
+if [[ ! -z "$@" ]]
+then
+  "$@"
+  wait $!
+else
+  cd /srv/jekyll
+  jekyll s &
+  wait $!
+fi
