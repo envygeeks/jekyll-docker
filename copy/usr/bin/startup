@@ -4,13 +4,32 @@ exec 2>&1
 trap '{
   echo "Stopping services."
   sv stop /etc/service/* 2>&1
+  mv /srv/jekyll/Gemfile.docker /srv/jekyll/Gemfile 2>/dev/null
   trap - EXIT
   exit 0
 }' \
 EXIT QUIT TERM INT
 export > /etc/envars
 echo "Starting services."
-runsvdir -P /etc/service 2>&1 &
+runsvdir -P /etc/service &
+
+if [[ -f "/srv/jekyll/Gemfile" ]]
+then
+  echo "# --------------------------------------------------------------------"
+  echo "  Installing the Gems you supply in your Gemfile (without Bundler.)"
+  echo "# --------------------------------------------------------------------"
+
+  gem install -g \
+    /srv/jekyll/Gemfile
+
+  if ! grep -P "gem (?:\"|')jekyll(?:\"|')" Gemfile
+  then
+    echo "# ------------------------------------------------------------------"
+    echo "  Moving Gemfile to Gemfile.docker because jekyll is not included."
+    echo "# ------------------------------------------------------------------"
+    mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
+  fi
+fi
 
 if [[ ! -z "$@" ]]
 then
