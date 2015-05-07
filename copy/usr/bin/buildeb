@@ -1,25 +1,52 @@
-#!/bin/sh
-set -e
-set -x
+#!/bin/bash
+set -ex
 
-author_email=${PACKAGE_AUTHOR_EMAIL-'unknown@local'}
-author=${PACKAGE_AUTHOR-'unknown'}
+source /usr/share/envygeeks/helpers.bash
+ruby_sha=5ffc0f317e429e6b29d4a98ac521c3ce65481bfd22a8cf845fa02a7b113d9b44
+author_email=${PACKAGE_AUTHOR_EMAIL-'hello@jekyllrb.com'}
+author=${PACKAGE_AUTHOR-'Jekyll Core'}
+
+# -----------------------------------------------------------------------------
+
+addpkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
+  build-essential libxml2-dev libffi-dev libyaml-dev autoconf wget
+
+# -----------------------------------------------------------------------------
+
+cd /usr/src
+download http://cache.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.gz
+testsha ruby-$RUBY_VERSION.tar.gz $ruby_sha
+
+tar xzf ruby-$RUBY_VERSION.tar.gz
+cd /usr/src/ruby-$RUBY_VERSION
+
+./configure \
+  --prefix=/opt/jekyll \
+  --enable-shared \
+  --disable-install-doc
+make install
+
+cd /usr/src
+rm ruby-$RUBY_VERSION.tar.gz
+rm -r /usr/src/ruby-$RUBY_VERSION
+
+# -----------------------------------------------------------------------------
+
+/usr/share/jekyll/other/gem/install.bash /opt/jekyll/bin
+
+# -----------------------------------------------------------------------------
 
 rm -rf ~/builds && mkdir ~/builds
-maj=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[0]')
-min=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[1]')
-rev=$(/opt/jekyll/bin/ruby -e 'puts `/opt/jekyll/bin/jekyll -v |cut -d" " -f2`.split(".")[2]')
-ver=$(/opt/jekyll/bin/jekyll -v |cut -d" " -f2)
-
+maj=$(ruby -e 'puts `jekyll -v |cut -d" " -f2`.split(".")[0]')
+min=$(ruby -e 'puts `jekyll -v |cut -d" " -f2`.split(".")[1]')
+rev=$(ruby -e 'puts `jekyll -v |cut -d" " -f2`.split(".")[2]')
+ver=$(jekyll -v |cut -d" " -f2)
 cd ~/builds
+
 mkdir -p src/opt && cp -R /opt/jekyll src/opt/
 cp /usr/share/jekyll/buildeb/Gemfile .
 
-sudo apt-get update
-sudo apt-get install libffi-dev build-essential --no-install-recommends --yes
 bundle install --path vendor/bundle -j4
-
-sudo apt-get autoremove --purge libffi-dev build-essential --yes
 bundle exec fpm -s dir -t deb -n jekyll${maj} -v ${ver}-${min}jekyll${rev} \
     --maintainer "Jekyll Packaging Team <packages@jekyllrb.com>" \
     --after-install /usr/share/jekyll/buildeb/install \
@@ -41,3 +68,9 @@ bundle exec fpm -s dir -t deb -n jekyll${maj} -v ${ver}-${min}jekyll${rev} \
     --depends zlib1g \
     -p /srv/jekyll \
     -C src ./
+
+# -----------------------------------------------------------------------------
+
+rm -rf /opt/jekyll
+cleanpkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
+  build-essential libxml2-dev libffi-dev libyaml-dev autoconf wget

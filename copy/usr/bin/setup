@@ -9,25 +9,7 @@ useradd  -u  1000 -g 1000 \
   -rMd /home/jekyll jekyll
 
 cd ~
-yes | gem update --system --no-document
-yes | gem update --no-document
-yes | gem install jekyll -v ${JEKYLL_VERSION} --no-document
-yes | gem install therubyracer bundler --no-document
-yes | gem install RedCloth --no-document
-yes | gem install pry --no-document
-
-# -----------------------------------------------------------------------------
-# Any default plugins we want to include go here!
-# -----------------------------------------------------------------------------
-
-yes | gem install jekyll-sitemap --no-document
-
-# -----------------------------------------------------------------------------
-
-gem clean
-rm -rf /opt/jekyll/lib/ruby/gems/2.2.0/cache/*
-rm -rf ~/.gem
-
+/usr/share/jekyll/other/gem/install.bash
 echo python               hold | dpkg --set-selections
 echo python-chardet       hold | dpkg --set-selections
 echo python-pkg-resources hold | dpkg --set-selections

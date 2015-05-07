@@ -23,7 +23,7 @@ docker run --rm -v $(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
 ## I would like to get a Gem included by default:
 
 We only allow Jekyll gems by default, but you can fork our image and edit
-copy/usr/bin/setup and add your Gem and just hit script/build and it will do
+copy/usr/share/jekyll/gems and add your Gem and just hit script/build and it will do
 the rest for you.
 
 ## Contributing
