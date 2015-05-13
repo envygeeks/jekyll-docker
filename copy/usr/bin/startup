@@ -1,7 +1,17 @@
 #!/bin/bash
 exec 2>&1
 
+if [[ ! -z "$@" ]]
+then
+  exec 1>/dev/null
+  running_user_context=true
+fi
+
 trap '{
+  if [[ ! -z "$running_user_context" ]]
+    then exec 1>/dev/null
+  fi
+
   echo "Stopping services."
   sv stop /etc/service/* 2>&1
   mv /srv/jekyll/Gemfile.docker /srv/jekyll/Gemfile 2>/dev/null
@@ -15,28 +25,28 @@ runsvdir -P /etc/service &
 
 if [[ -f "/srv/jekyll/Gemfile" ]]
 then
-  echo "# --------------------------------------------------------------------"
+  exec 1>/dev/tty
   echo "  Installing the Gems you supply in your Gemfile (without Bundler.)"
-  echo "# --------------------------------------------------------------------"
-
   gem install -g \
     /srv/jekyll/Gemfile
 
   if ! grep -P "gem (?:\"|')jekyll(?:\"|')" Gemfile
   then
-    echo "# ------------------------------------------------------------------"
     echo "  Moving Gemfile to Gemfile.docker because jekyll is not included."
-    echo "# ------------------------------------------------------------------"
     mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
   fi
 fi
 
 if [[ ! -z "$@" ]]
 then
+  exec 1>/dev/tty
+
   "$@"
-  wait $!
+  status=$?
+  exit $status
 else
   cd /srv/jekyll
   jekyll s &
   wait $!
+  exit $?
 fi
