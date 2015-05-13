@@ -2,7 +2,8 @@
 
 source /usr/share/envygeeks/helpers.bash
 addpkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
-  libreadline6-dev \ python python-chardet python-pkg-resources python-pygments
+  libreadline6-dev \ python python-chardet python-pkg-resources \
+  python-pygments git ca-certificates
 
 groupadd -rg 1000 jekyll
 useradd  -u  1000 -g 1000 \
@@ -16,7 +17,7 @@ echo python-pkg-resources hold | dpkg --set-selections
 echo python-pygments      hold | dpkg --set-selections
 
 cleanpkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
-  libreadline6-dev
+  libreadline6-dev git ca-certificates
 
 createdir jekyll.jekyll /home/jekyll
 createdir jekyll.jekyll /srv/jekyll
