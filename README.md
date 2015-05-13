@@ -1,15 +1,24 @@
 # Jekyll Docker Images
 
-Jekyll Docker is an Ubuntu based Docker image that provides an isolated Jekyll
-instance with the latest version of Jekyll.
+Jekyll Docker is a full featured Ubuntu based Docker image that provides an
+isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
+stuff to make your life easier when working with Jekyll in both production
+and development.
 
 ## Gemfiles
 
-This docker image supports Gemfiles.  There is nothing you need to do other than have the Gemfile in your docker root when you link it to `/srv/jekyll`, our startup script will detect the Gemfile and `gem install -g` all the gems in that file.
+This docker image supports Gemfiles.  There is nothing you need to do other
+than have the Gemfile in your docker root when you link it to `/srv/jekyll`,
+our startup script will detect the Gemfile and `gem install -g` all the gems in
+that file.
 
 #### WARNING NOTE
 
-If you do not include "jekyll" in your Gemfile sources then we will move the Gemfile to Gemfile.docker until you exit out of the image, this is because Gem does not allow you to have conflicting dependencies so we resolve this by just moving the file so that Gem can't find it allowing everything to proceed as normal.
+If you do not include "jekyll" in your Gemfile sources then we will move the
+Gemfile to Gemfile.docker until you exit out of the image, this is because Gem
+does not allow you to have conflicting dependencies so we resolve this by
+just moving the file so that Gem can't find it allowing everything to proceed
+as normal.
 
 ## Running
 
@@ -34,8 +43,8 @@ in that if we install and cleanup inside of the Docker file our image
 size stays the same, please edit `copy/usr/bin/setup` instead.
 
 ## Notes
-  * When you launch or run anything it is run as a non-priv user jekyll in /srv/jekyll.
   * We "shiv" Jekyll to provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
+  * When you launch or run anything via jekyll command it is run as a non-priv user jekyll in /srv/jekyll.
   * Jekyll has access to sudo (mostly for the build system.)
   * Ruby is stored in /opt/jekyll bundled w/ Jekyll.
 
