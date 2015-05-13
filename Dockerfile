@@ -1,7 +1,7 @@
 FROM envygeeks/ruby
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 ENV PATH=${PATH}:/opt/jekyll/bin
-ENV JEKYLL_VERSION=2.5.3
+ENV JEKYLL_VERSION=master
 
 COPY copy/usr/bin/setup /usr/bin/setup
 COPY copy/usr/share/jekyll/other/gem/install.bash /usr/share/jekyll/other/gem/install.bash

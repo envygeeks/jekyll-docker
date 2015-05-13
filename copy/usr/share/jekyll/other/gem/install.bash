@@ -16,9 +16,17 @@ then
 fi
 
 yes | gem update --no-document
-yes | gem install jekyll -v ${JEKYLL_VERSION} --no-document
-yes | gem update --system --no-document
 
+cd /usr/src
+git clone https://github.com/jekyll/jekyll.git
+cd jekyll
+
+rake build
+gem install pkg/jekyll-*.gem
+cd ~
+rm -rf /usr/src/jekyll
+
+yes | gem update --system --no-document
 for g in $(cat /usr/share/jekyll/gems); do
   yes | gem install "$g" --no-document
 done
