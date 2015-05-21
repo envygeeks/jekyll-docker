@@ -1,6 +1,6 @@
 FROM envygeeks/ruby
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
-ENV JEKYLL_VERSION=__VERSION__
+ENV JEKYLL_VERSION=git@master
 
 COPY copy/ /
 COPY version /
