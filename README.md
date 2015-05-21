@@ -5,6 +5,24 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
 and development.
 
+## Current Default Gems
+
+* therubyracer
+* pygments.rb
+* jekyll-sitemap
+* jekyll-coffeescript
+* jekyll-sass-converter
+* jekyll-redirect-from
+* jekyll-mentions
+* jekyll-compose
+* rdiscount
+* redcarpet
+* kramdown
+* jemoji
+* RedCloth
+* maruku
+* pry
+
 ## Boot2Docker Caveats
 
 If you are on Windows using Boot2Docker you will need to `--force-polling`
