@@ -25,7 +25,7 @@ and development.
 
 ## Boot2Docker Caveats
 
-If you are on Windows using Boot2Docker you will need to `--force-polling`
+If you are on Windows using Boot2Docker you will need to `--force_polling`
 because there is no built-in support for NTFS notify events to inotify and the
 verse, you'll be on two different file systems so only the basic API's
 are implemented.
