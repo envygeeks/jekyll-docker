@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 for f in $(ls images/); do
   rm -rf images/$f/Dockerfile
@@ -8,6 +8,5 @@ for f in $(ls images/); do
   cp copy -R images/$f/copy
   cp .dockerignore images/$f/.dockerignore
   cp images/$f/gems images/$f/copy/usr/share/jekyll/gems
-  cat Dockerfile | sed -r "s/__VERSION__/$(cat images/$f/version)/" \
-    > images/$f/Dockerfile
+  cat Dockerfile | sed -r "s/__VERSION__/$(cat images/$f/version)/" > images/$f/Dockerfile
 done
