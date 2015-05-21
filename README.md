@@ -5,6 +5,13 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
 and development.
 
+## Boot2Docker Caveats
+
+If you are on Windows using Boot2Docker you will need to `--force-polling`
+because there is no built-in support for NTFS notify events to inotify and the
+verse, you'll be on two different file systems so only the basic API's
+are implemented.
+
 ## Gemfiles
 
 This docker image supports Gemfiles.  There is nothing you need to do other
@@ -41,6 +48,10 @@ Please do not edit the Dockerfile unless there is good reason to do so...
 because of the way that Docker currently works, there are extreme space probs
 in that if we install and cleanup inside of the Docker file our image
 size stays the same, please edit `copy/usr/bin/setup` instead.
+
+If you edit anything inside of `copy`, remember the following: Some of our
+images use git and make sure to `sync` when you are done because we have to
+keep a copy in context for Docker.
 
 ## Notes
   * We "shiv" Jekyll to provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
