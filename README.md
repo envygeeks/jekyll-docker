@@ -48,7 +48,7 @@ as normal.
 ## Running
 
 ```sh
-docker run --rm -v $(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
+docker run --rm ---volume=$(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
   jekyll/jekyll jekyll s
 ```
 
@@ -75,10 +75,9 @@ keep a copy in context for Docker.
   * We "shiv" Jekyll to provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
   * When you launch or run anything via jekyll command it is run as a non-priv user jekyll in /srv/jekyll.
   * Jekyll has access to sudo (mostly for the build system.)
-  * Ruby is stored in /opt/jekyll bundled w/ Jekyll.
 
 ## Building a Deb
 
 ```sh
-docker run --rm -v $(pwd):/srv/jekyll -i -t jekyll/jekyll buildeb
+docker run --rm -v $(pwd):/srv/jekyll -it jekyll/jekyll buildeb
 ```
