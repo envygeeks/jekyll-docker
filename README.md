@@ -15,6 +15,7 @@ and development.
 * jekyll-redirect-from
 * jekyll-mentions
 * jekyll-compose
+* jekyll-feed
 * rdiscount
 * redcarpet
 * kramdown
