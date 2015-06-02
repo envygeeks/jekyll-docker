@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ -f "/srv/jekyll/Gemfile" ]]
+then
+  exec 1>/dev/tty
+  echo "Installing the Gems you supply in your Gemfile (without Bundler.)"
+  gem install -g /srv/jekyll/Gemfile
+
+  chown jekyll.jekyll /srv/jekyll/Gemfile.lock
+  if ! grep -P "gem (?:\"|')jekyll(?:\"|')" Gemfile
+  then
+    echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
+    mv /srv/jekyll/Gemfile \
+      /srv/jekyll/Gemfile.docker
+  else
+    echo "BE WARNED: You are using a custom Gemfile, you will not have access"
+    echo "           to the default Gems that we provide because you have chosen"
+    echo "           the overriding path, you should add these gems: "
+    cat /gems
+  fi
+fi
