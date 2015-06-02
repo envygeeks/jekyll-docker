@@ -10,7 +10,7 @@ useradd  -u  1000 -g 1000 \
   -rMd /home/jekyll jekyll
 
 cd ~
-/usr/share/jekyll/other/gem/install
+/usr/share/jekyll/other/gem/install.bash
 echo python               hold | dpkg --set-selections
 echo python-chardet       hold | dpkg --set-selections
 echo python-pkg-resources hold | dpkg --set-selections

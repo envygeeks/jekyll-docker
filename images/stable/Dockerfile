@@ -4,6 +4,7 @@ ENV JEKYLL_VERSION=2.5.3
 
 COPY copy/ /
 COPY version /
+COPY gems /
 RUN /usr/bin/setup
 WORKDIR /srv/jekyll
 EXPOSE 4000
