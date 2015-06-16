@@ -3,10 +3,12 @@
 for f in $(ls images/); do
   rm -rf images/$f/Dockerfile
   rm -rf images/$f/.dockerignore
+  rm -rf images/$f/README.md
   rm -rf images/$f/copy
 
   cp copy -R images/$f/copy
   cp .dockerignore images/$f/.dockerignore
   cp images/$f/gems images/$f/copy/usr/share/jekyll/gems
   cat Dockerfile | sed -r "s/__VERSION__/$(cat images/$f/version)/" > images/$f/Dockerfile
+  cp README.md images/$f/README.md
 done
