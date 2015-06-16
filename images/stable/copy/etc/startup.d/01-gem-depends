@@ -1,0 +1,88 @@
+#!/bin/bash
+
+cd /srv/jekyll
+source /etc/envars
+if [[ -f "Gemfile" || "$1" == "bundle" ]]
+then
+  exec 1>/dev/tty
+
+  # ---------------------------------------------------------------------------
+  # This is probably some slippery code because it doesn't take into
+  # account the many scenarios that happen such as if you already have jekyll
+  # and we add Jekyll with a different version but that is easy enough
+  # to add if you really want it that way, but not right now.
+  # ---------------------------------------------------------------------------
+
+  if [[ ! -z "$UPDATE_GEMFILE" ]]
+  then
+    cat Gemfile > Gemfile.old.$(date --date=now +%m%d%Y)
+    for g in $(cat /gems); do
+      echo "gem \"$g\"" >> Gemfile
+    done
+
+    awk '!_[$0]++'  Gemfile > Gemfile.new
+    mv  Gemfile.new Gemfile
+
+    # -------------------------------------------------------------------------
+    # Strip out the current version of Jekyll you supply because ours is
+    # the most important, you did ask us to keep your Gemfile up-to-date after
+    # all, so you no longer have a choice in the matter.
+    # -------------------------------------------------------------------------
+
+    if grep -qP "gem (?:\"|')jekyll(?:\"|')" Gemfile
+      then sed -ri "s/^gem\s+(\"|')jekyll\1.*//" \
+        Gemfile
+    fi
+
+    if echo $JEKYLL_VERSION | grep -qP '^git@'
+    then
+      branch=$(echo $JEKYLL_VERSION | sed -r 's/^git@//')
+      echo "gem \"jekyll\", :github => 'jekyll/jekyll', :branch => \"$branch\"" >> \
+        Gemfile
+    else
+      # Hello version in the image!
+      echo "gem \"jekyll\", \"$JEKYLL_VERSION\"" >> \
+        Gemfile
+    fi
+  fi
+
+  # Don't constantly reinstall the apt dependencies if we don't need to, be nice about it..
+  if [[ ! -z "$(diff Gemfile Gemfile.old.$(date --date=now +%m%d%Y))" ]] && [[ -f ".apt" ]]
+  then
+    echo "Apt installing quietly."
+    source /usr/share/envygeeks/helpers.bash
+    addpkgs $(cat .apt) > /dev/null
+  fi
+
+  echo "Installing dependencies, quietly."
+  if grep -qP "git(hub)?\s+(:|=>)\s+" Gemfile || $BUNDLE_CACHE
+  then
+    if [[ -z "$BUNDLE_CACHE" ]]
+      then bundle install | grep -v "Don't run Bundler as root." > /dev/null
+      else bundle install --path vendor/bundle | \
+        grep -v "Don't run Bundler as root." > /dev/null
+    fi
+  else
+    gem install -g \
+      /srv/jekyll/Gemfile > /dev/null
+  fi
+
+  chown jekyll.jekyll .bundle Gemfile Gemfile.lock Gemfile.old.* vendor/ -R
+  # ---------------------------------------------------------------------------
+  # If you do not have jekyll and you request to use Jekyll gem will flip
+  # the cookies early and cause them to be undercooked which will lead to burn
+  # or in short, RubyGems sucks at actually not sucking.
+  # ---------------------------------------------------------------------------
+
+  if ! grep -qP "gem (?:\"|')jekyll(?:\"|')" Gemfile
+  then
+    echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
+    mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
+  elif [[ -z "$SKIP_BUNDLE_WARNING" ]] && [[ -z "$UPDATE_GEMFILE" ]]
+  then
+    echo "BE WARNED: You are using a custom Gemfile, you will not have"
+    echo "access to the default Gems that we provide because you have chosen the"
+    echo -e "overriding path, you should add these gems: \n\n"
+    cat /gems
+  fi
+fi
