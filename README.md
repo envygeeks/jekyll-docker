@@ -5,6 +5,18 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
 and development.
 
+## Current images:
+
+* jekyll/pages
+* jekyll/jekyll
+* jekyll/stable
+* jekyll/master
+* jekyll/beta
+
+The jekyll/pages tries to be as close to Github pages as possible,
+without changing much, there might be some differences and if there are please
+do file a ticket and they will be corrected if possible.
+
 ## Current Default Gems
 
 * therubyracer
@@ -33,18 +45,33 @@ are implemented.
 
 ## Gemfiles
 
-This docker image supports Gemfiles.  There is nothing you need to do other
-than have the Gemfile in your docker root when you link it to `/srv/jekyll`,
-our startup script will detect the Gemfile and `gem install -g` all the gems in
-that file.
+This docker image supports Gemfiles, updating your Gemfile and even changing
+the way it behaves based on what you tell it to do.  We also try to detect if
+if you are using things like Github or Git to pull dependencies with bundler
+so that we can transform and optimize for you.
 
-#### WARNING NOTE
+* **Gemfile with a Git(hub)? dependency:** If you have
+  `gem "name", :github =>"repo/name"` we will automatically use bundler, but
+  this puts everything in your hands as far as dependency management is
+  concerned, unless you do one of the latter options.
 
-If you do not include "jekyll" in your Gemfile sources then we will move the
-Gemfile to Gemfile.docker until you exit out of the image, this is because Gem
-does not allow you to have conflicting dependencies so we resolve this by
-just moving the file so that Gem can't find it allowing everything to proceed
-as normal.
+* **With env var `$UPDATE_GEMFILE`:** If you tell us to update your Gemfile we
+  will actually modify your Gemfile and add our default dependencies and make
+  sure only uniq entires exist in a very naive way, we will also make sure you
+  are on the same Jekyll version the image uses so you are okay on that front.
+
+* **With env var `$BUNDLE_CACHE`:** If you send us $BUNDLE_CACHE we will cache
+  your Gems inside of `vendor/bundle` so that you don't have to constantly wait
+  for them to reinstall, we know that sometimes RubyGems has uptime problems
+  in some areas so this option will help make relieve that pressure.
+
+## Apt dependencies for Gems
+
+We have you covered here too.  If you provide an .apt file inside of your
+root we will detect it and install those dependencies inside of the image for
+you and attempt to be smart about running it all the time, in that we diff
+the Gemfile and if diff says there is a difference we will install and
+if there is no difference we will not install them.
 
 ## Running
 
