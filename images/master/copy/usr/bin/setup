@@ -15,9 +15,10 @@ echo python               hold | dpkg --set-selections
 echo python-chardet       hold | dpkg --set-selections
 echo python-pkg-resources hold | dpkg --set-selections
 echo python-pygments      hold | dpkg --set-selections
+echo git                  hold | dpkg --set-selections
 
 cleanpkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
-  libreadline6-dev git ca-certificates zlib1g-dev
+  libreadline6-dev ca-certificates zlib1g-dev
 
 createdir jekyll.jekyll /home/jekyll
 createdir jekyll.jekyll /srv/jekyll
