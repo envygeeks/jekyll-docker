@@ -1,73 +1,137 @@
 #!/bin/bash
+set -e
 
-cd /srv/jekyll
+apt_ran=false
+if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
+  echo "Github does not allow user dependencies. Bye."
+  exit 0
+fi
+
+backup_gemfile() {
+  cp Gemfile Gemfile.old.$(
+    date --date=now +%m%d%Y
+  )
+}
+
+strip_jekyll() {
+  if grep -qP "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile
+    then sed -ri "/^gem\s+(\"|')jekyll\1.*$/d" \
+      Gemfile
+  fi
+}
+
+copy_default_gems() {
+  for g in $(cat /gems); do
+    echo "gem \"$g\"" >> Gemfile
+  done
+}
+
+mkuniq_gemfile() {
+  # Unless it's end or a blank line, remove it if !uniq.
+  awk '/^\s*end$/ || !NF || !_[$0]++' Gemfile > Gemfile.new
+  mv  Gemfile.new Gemfile
+}
+
+# -----------------------------------------------------------------------------
+# Some of our images are updated directly from the repo, such as master and
+# our future dev and if you build a custom image you can use your own repo if
+# you really wish, we will try our best to detect it!
+# -----------------------------------------------------------------------------
+
+add_img_jekyll() {
+  if echo $JEKYLL_VERSION | grep -qP '^git@'
+  then
+    branch=$(echo $JEKYLL_VERSION | sed -r 's/^git@//')
+    echo "gem \"jekyll\", :github => 'jekyll/jekyll', :branch => \"$branch\"" \
+      >> Gemfile
+  else
+    echo "gem \"jekyll\", \"$JEKYLL_VERSION\"" >> \
+      Gemfile
+  fi
+}
+
+optionally_run_apt_install() {
+  if ([[ ! -z "$(diff Gemfile Gemfile.old.$(date --date=now +%m%d%Y))" ]] ||
+        [[ "$1" == "force" ]]) && [[ -f ".apt" ]]; then
+
+    apt_ran=true
+    source /usr/share/envygeeks/helpers.bash
+    if [[ -z "$NOISY_INSTALL" ]]
+    then
+      echo "Apt installing quietly"
+      echo "Use \$NOISY_INSTALL if you wish to view it."
+      exec 1>/dev/null
+    fi
+
+    addpkgs $(cat .apt)
+        exec 1>/dev/tty
+  fi
+}
+
+install_gem_assets() {
+  if [[ -z "$NOISY_INSTALL" ]]
+  then
+    echo "Installing dependencies, quietly."
+    echo "use \$NOISY_INSTALL if you wish to view it."
+    exec 1>/dev/null
+  fi
+
+  # ---
+  # Adds a bit of retry logic so that we can run apt if there
+  # is a problem and retry the command again, or if it was already
+  # ran then just bail out and leave it.
+  # ---
+
+  for i in {1..3}; do
+    if [[ $i -gt 1 ]]
+    then
+      if [[ "$apt_ran" == "true" ]]
+      then
+        echo "There was an unrecoverable error, bye."
+        exit 1
+      else
+        echo "Trying with apt this time."
+        optionally_run_apt_install "force"
+      fi
+    fi
+
+    if grep -qP "git(hub)?\s+(:|=>)\s+" Gemfile || $BUNDLE_CACHE
+    then
+      if [[ -z "$BUNDLE_CACHE" ]]
+        then bundle install "${BUNDLE_ARGS[@]}" && break
+        else bundle install "${BUNDLE_ARGS[@]}" --path \
+          vendor/bundle && break
+      fi
+    else
+      gem install -g /srv/jekyll/Gemfile \
+        > /dev/null && break
+    fi
+  done
+
+  exec 1>/dev/tty
+  chown jekyll.jekyll .bundle Gemfile Gemfile.lock \
+    Gemfile.old.* vendor/ -R 2>/dev/null
+}
+
 source /etc/envars
+cd /srv/jekyll
+
 if [[ -f "Gemfile" || "$1" == "bundle" ]]
 then
   exec 1>/dev/tty
 
-  # ---------------------------------------------------------------------------
-  # This is probably some slippery code because it doesn't take into
-  # account the many scenarios that happen such as if you already have jekyll
-  # and we add Jekyll with a different version but that is easy enough
-  # to add if you really want it that way, but not right now.
-  # ---------------------------------------------------------------------------
-
   if [[ ! -z "$UPDATE_GEMFILE" ]]
   then
-    cat Gemfile > Gemfile.old.$(date --date=now +%m%d%Y)
-    for g in $(cat /gems); do
-      echo "gem \"$g\"" >> Gemfile
-    done
-
-    awk '!_[$0]++'  Gemfile > Gemfile.new
-    mv  Gemfile.new Gemfile
-
-    # -------------------------------------------------------------------------
-    # Strip out the current version of Jekyll you supply because ours is
-    # the most important, you did ask us to keep your Gemfile up-to-date after
-    # all, so you no longer have a choice in the matter.
-    # -------------------------------------------------------------------------
-
-    if grep -qP "gem (?:\"|')jekyll(?:\"|')" Gemfile
-      then sed -ri "s/^gem\s+(\"|')jekyll\1.*//" \
-        Gemfile
-    fi
-
-    if echo $JEKYLL_VERSION | grep -qP '^git@'
-    then
-      branch=$(echo $JEKYLL_VERSION | sed -r 's/^git@//')
-      echo "gem \"jekyll\", :github => 'jekyll/jekyll', :branch => \"$branch\"" >> \
-        Gemfile
-    else
-      # Hello version in the image!
-      echo "gem \"jekyll\", \"$JEKYLL_VERSION\"" >> \
-        Gemfile
-    fi
+    backup_gemfile
+    copy_default_gems
+    mkuniq_gemfile
+    strip_jekyll
+    add_img_jekyll
   fi
 
-  # Don't constantly reinstall the apt dependencies if we don't need to, be nice about it..
-  if [[ ! -z "$(diff Gemfile Gemfile.old.$(date --date=now +%m%d%Y))" ]] && [[ -f ".apt" ]]
-  then
-    echo "Apt installing quietly."
-    source /usr/share/envygeeks/helpers.bash
-    addpkgs $(cat .apt) > /dev/null
-  fi
+  optionally_run_apt_install
+  install_gem_assets
 
-  echo "Installing dependencies, quietly."
-  if grep -qP "git(hub)?\s+(:|=>)\s+" Gemfile || $BUNDLE_CACHE
-  then
-    if [[ -z "$BUNDLE_CACHE" ]]
-      then bundle install | grep -v "Don't run Bundler as root." > /dev/null
-      else bundle install --path vendor/bundle | \
-        grep -v "Don't run Bundler as root." > /dev/null
-    fi
-  else
-    gem install -g \
-      /srv/jekyll/Gemfile > /dev/null
-  fi
-
-  chown jekyll.jekyll .bundle Gemfile Gemfile.lock Gemfile.old.* vendor/ -R
   # ---------------------------------------------------------------------------
   # If you do not have jekyll and you request to use Jekyll gem will flip
   # the cookies early and cause them to be undercooked which will lead to burn

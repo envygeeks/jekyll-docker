@@ -27,3 +27,4 @@ cp ~/.bashrc /home/jekyll/.bashrc
 chown jekyll.jekyll /home/jekyll/.bashrc
 echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
 sudo -u jekyll jekyll new /srv/jekyll
+rm -rf /usr/lib/ruby/gems/2.2.0/cache/*.gem
