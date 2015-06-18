@@ -11,4 +11,5 @@ for f in $(ls images/); do
   cp images/$f/gems images/$f/copy/usr/share/jekyll/gems
   cat Dockerfile | sed -r "s/__VERSION__/$(cat images/$f/version)/" > images/$f/Dockerfile
   cp README.md images/$f/README.md
+  echo $f > images/$f/copy/image
 done
