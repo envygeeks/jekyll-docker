@@ -82,12 +82,6 @@ docker run --rm -it --volume=$(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
 
 ***If you do not provide a command then it will default to booting `jekyll s` for you***
 
-## I would like to get a Gem included by default:
-
-We only allow Jekyll gems by default, but you can fork our image and edit
-copy/usr/share/jekyll/gems and add your Gem and just hit script/build and it will do
-the rest for you.
-
 ## Contributing
 
 Please do not edit the Dockerfile unless there is good reason to do so...
