@@ -76,8 +76,9 @@ if there is no difference we will not install them.
 ## Running
 
 ```sh
-docker run --rm -it --volume=$(pwd):/srv/jekyll -p 127.0.0.1:4000:4000 \
-  jekyll/jekyll jekyll s
+# Labels requires Docker 1.7, if you get an error remove them.
+docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
+  -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
 ```
 
 ***If you do not provide a command then it will default to booting `jekyll s` for you***
