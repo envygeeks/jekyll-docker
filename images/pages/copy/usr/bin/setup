@@ -1,7 +1,7 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
-source /usr/share/envygeeks/helpers.bash
-addpkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
+source /usr/share/docker/helpers
+add-pkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
   libreadline6-dev \ python python-chardet python-pkg-resources \
   python-pygments git ca-certificates zlib1g-dev
 
@@ -10,18 +10,18 @@ useradd  -u  1000 -g 1000 \
   -rMd /home/jekyll jekyll
 
 cd ~
-/usr/share/jekyll/other/gem/install.bash
+/usr/share/jekyll/other/gem/install
 echo python               hold | dpkg --set-selections
 echo python-chardet       hold | dpkg --set-selections
 echo python-pkg-resources hold | dpkg --set-selections
 echo python-pygments      hold | dpkg --set-selections
 echo git                  hold | dpkg --set-selections
 
-cleanpkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
+clean-pkgs build-essential libxml2-dev libxslt1-dev libffi-dev libyaml-dev \
   libreadline6-dev ca-certificates zlib1g-dev
 
-createdir jekyll.jekyll /home/jekyll
-createdir jekyll.jekyll /srv/jekyll
+create-dir jekyll.jekyll /home/jekyll
+create-dir jekyll.jekyll /srv/jekyll
 
 cp ~/.bashrc /home/jekyll/.bashrc
 chown jekyll.jekyll /home/jekyll/.bashrc

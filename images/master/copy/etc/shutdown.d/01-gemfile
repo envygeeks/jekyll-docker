@@ -1,6 +1,8 @@
 #!/bin/bash
 
-if [[ -f /srv/jekyll/Gemfile.docker ]]
+if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
+  exit 0
+elif [[ -f /srv/jekyll/Gemfile.docker ]]
 then
   echo "Moving Gemfile.docker back to Gemfile"
   echo "I hope you did not have a Gemfile actually called that."

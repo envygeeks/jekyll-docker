@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -e
 
 apt_ran=false
 if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
@@ -7,11 +6,28 @@ if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
   exit 0
 fi
 
+# -----------------------------------------------------------------------------
+
+previous_gemfile=false
+if [[ ! -z "$(find /srv/jekyll -type f -iname Gemfile.old.\* )" ]]
+  then previous_gemfile=true
+fi
+
+# -----------------------------------------------------------------------------
+
 backup_gemfile() {
   cp Gemfile Gemfile.old.$(
     date --date=now +%m%d%Y
   )
+
+  if [[ "0" == "$(id -u)" ]]
+  then
+    chown jekyll:jekyll \
+      Gemfile.old.*
+  fi
 }
+
+# -----------------------------------------------------------------------------
 
 strip_jekyll() {
   if grep -qP "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile
@@ -20,16 +36,24 @@ strip_jekyll() {
   fi
 }
 
+# -----------------------------------------------------------------------------
+
 copy_default_gems() {
   for g in $(cat /gems); do
     echo "gem \"$g\"" >> Gemfile
   done
 }
 
+# -----------------------------------------------------------------------------
+
 mkuniq_gemfile() {
   # Unless it's end or a blank line, remove it if !uniq.
   awk '/^\s*end$/ || !NF || !_[$0]++' Gemfile > Gemfile.new
   mv  Gemfile.new Gemfile
+
+  if [[ "0" == "$(id -u)" ]]
+    then chown jekyll:jekyll Gemfile
+  fi
 }
 
 # -----------------------------------------------------------------------------
@@ -52,10 +76,11 @@ add_img_jekyll() {
 
 optionally_run_apt_install() {
   if ([[ ! -z "$(diff Gemfile Gemfile.old.$(date --date=now +%m%d%Y))" ]] ||
-        [[ "$1" == "force" ]]) && [[ -f ".apt" ]]; then
+        [[ "$1" == "force" ]]) && [[ -f ".apt" ]] ||
+          [[ "false" == "$previous_gemfile" ]]; then
 
     apt_ran=true
-    source /usr/share/envygeeks/helpers.bash
+    source /usr/share/docker/helpers
     if [[ -z "$NOISY_INSTALL" ]]
     then
       echo "Apt installing quietly"
@@ -63,8 +88,8 @@ optionally_run_apt_install() {
       exec 1>/dev/null
     fi
 
-    addpkgs $(cat .apt)
-        exec 1>/dev/tty
+    add-pkgs $(cat .apt)
+    exec 1>/dev/tty
   fi
 }
 
@@ -98,8 +123,8 @@ install_gem_assets() {
     if grep -qP "git(hub)?\s+(:|=>)\s+" Gemfile || $BUNDLE_CACHE
     then
       if [[ -z "$BUNDLE_CACHE" ]]
-        then bundle install "${BUNDLE_ARGS[@]}" && break
-        else bundle install "${BUNDLE_ARGS[@]}" --path \
+        then sudo -u jekyll bundle install "${BUNDLE_ARGS[@]}" && break
+        else sudo -u jekyll bundle install "${BUNDLE_ARGS[@]}" --path \
           vendor/bundle && break
       fi
     else
@@ -109,13 +134,9 @@ install_gem_assets() {
   done
 
   exec 1>/dev/tty
-  chown jekyll.jekyll .bundle Gemfile Gemfile.lock \
-    Gemfile.old.* vendor/ -R 2>/dev/null
 }
 
-source /etc/envars
 cd /srv/jekyll
-
 if [[ -f "Gemfile" || "$1" == "bundle" ]]
 then
   exec 1>/dev/tty
