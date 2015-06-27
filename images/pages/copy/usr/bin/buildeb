@@ -1,17 +1,16 @@
-#!/bin/bash
-set -ex
+#!/bin/bash -ex
 
-source /usr/share/envygeeks/helpers.bash
+source /usr/share/envygeeks/helpers
 ruby_sha=5ffc0f317e429e6b29d4a98ac521c3ce65481bfd22a8cf845fa02a7b113d9b44
 author_email=${PACKAGE_AUTHOR_EMAIL-'hello@jekyllrb.com'}
 author=${PACKAGE_AUTHOR-'Jekyll Core'}
 
-addpkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
+add-pkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
   build-essential libxml2-dev libffi-dev libyaml-dev autoconf wget
 
 cd /usr/src
 download http://cache.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.gz
-testsha ruby-$RUBY_VERSION.tar.gz $ruby_sha
+test-sha ruby-$RUBY_VERSION.tar.gz $ruby_sha
 
 tar xzf ruby-$RUBY_VERSION.tar.gz
 cd /usr/src/ruby-$RUBY_VERSION
@@ -26,7 +25,7 @@ cd /usr/src
 rm ruby-$RUBY_VERSION.tar.gz
 rm -r /usr/src/ruby-$RUBY_VERSION
 
-/usr/share/jekyll/other/gem/install.bash /opt/jekyll/bin
+/usr/share/jekyll/other/gem/install /opt/jekyll/bin
 
 rm -rf ~/builds && mkdir ~/builds
 maj=$(ruby -e 'puts `jekyll -v |cut -d" " -f2`.split(".")[0]')
@@ -62,5 +61,5 @@ bundle exec fpm -s dir -t deb -n jekyll${maj} -v ${ver}-${min}jekyll${rev} \
     -C src ./
 
 rm -rf /opt/jekyll
-cleanpkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
+clean-pkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
   build-essential libxml2-dev libffi-dev libyaml-dev autoconf wget

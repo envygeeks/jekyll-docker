@@ -43,35 +43,37 @@ because there is no built-in support for NTFS notify events to inotify and the
 verse, you'll be on two different file systems so only the basic API's
 are implemented.
 
+## Environment Variables
+
+* `$UPDATE_GEMFILE` - Will update your Gemfile in a naive way and try
+  to sync it and remove duplicates, it will not remove groups (but could remove
+  duplicate group names.) and will not remove any blank lines that you add
+  yourself even if they are repeated.
+
+* `$BUNDLE_CACHE` - Install to vendor/bundle (by default) so that
+  you can cache the gems you install and speed up, this should probably be
+  mixed with $UPDATE_GEMFILE or you should add "jekyll" to your gem
+  list so you have very little trouble.
+
 ## Gemfiles
 
-This docker image supports Gemfiles, updating your Gemfile and even changing
-the way it behaves based on what you tell it to do.  We also try to detect if
-if you are using things like Github or Git to pull dependencies with bundler
-so that we can transform and optimize for you.
+This docker image supports Gemfiles, updating your Gemfile and even
+changing the way it behaves based on what you tell it to do.  See `Environment
+Variables`. We also try to detect if if you are using things like Github or Git to pull dependencies with bundler so that we can transform and optimize for
+you.
 
-* **Gemfile with a Git(hub)? dependency:** If you have
-  `gem "name", :github =>"repo/name"` we will automatically use bundler, but
-  this puts everything in your hands as far as dependency management is
-  concerned, unless you do one of the latter options.
-
-* **With env var `$UPDATE_GEMFILE`:** If you tell us to update your Gemfile we
-  will actually modify your Gemfile and add our default dependencies and make
-  sure only uniq entires exist in a very naive way, we will also make sure you
-  are on the same Jekyll version the image uses so you are okay on that front.
-
-* **With env var `$BUNDLE_CACHE`:** If you send us $BUNDLE_CACHE we will cache
-  your Gems inside of `vendor/bundle` so that you don't have to constantly wait
-  for them to reinstall, we know that sometimes RubyGems has uptime problems
-  in some areas so this option will help make relieve that pressure.
+If you provide a Gemfile and that Gemfile has a `Git(hub)` dependency we can
+quickly detect with a Regexp we will default to installing with bundler so that
+we do not break anything that you are trying to accomplish.
 
 ## Apt dependencies for Gems
 
-We have you covered here too.  If you provide an .apt file inside of your
-root we will detect it and install those dependencies inside of the image for
-you and attempt to be smart about running it all the time, in that we diff
-the Gemfile and if diff says there is a difference we will install and
-if there is no difference we will not install them.
+If you provide an .apt file inside of your root we will detect it and
+install those dependencies inside of the image for you and attempt to be smart
+about running it all the time, in that we diff the Gemfile and if diff says
+there is a difference we will install and if there is no difference we will
+not install them unless there is a `gem` or `bundle` error, and if there
+is then we will try to install before trying to install gems again.
 
 ## Running
 
@@ -81,7 +83,41 @@ docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
   -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
 ```
 
-***If you do not provide a command then it will default to booting `jekyll s` for you***
+***If you do not provide a command then it will default to `jekyll s`.***
+
+## A Helper Script to Boot Docker Quickly
+
+You can create a simple `script/dev` script that will make your life
+ultra easy with Docker and Jekyll:
+
+```shell
+#!/bin/bash
+
+extra_args=()
+if [[ "$1" == "debug" ]]
+then
+  extra_args+=(
+    "--env='NOISY_INSTALL=true'"
+  )
+fi
+
+docker run --rm --label=mysite \
+  -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
+  --volume=$(pwd):/srv/jekyll \
+  --env=JEKYLL_ENV=development \
+  --env=UPDATE_GEMFILE=true \
+  --env=BUNDLE_CACHE=true \
+  --env=BUNDLER_ARGS="-j 128" \
+  ${extra_args[*]} \
+  --user=jekyll:jekyll \
+  -it jekyll/beta \
+  bundle exec /usr/local/bin/jekyll serve \
+    --watch --drafts --trace
+```
+
+We hit `/usr/local/bin/jekyll` so that it boots as `jekyll:jekyll` but you
+can also just do `sudo -u jekyll:jekyll bundle exec jekyll serve` and get the
+same thing.
 
 ## Contributing
 
@@ -95,8 +131,9 @@ images use git and make sure to `sync` when you are done because we have to
 keep a copy in context for Docker.
 
 ## Notes
-  * We "shiv" Jekyll to provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
-  * When you launch or run anything via jekyll command it is run as a non-priv user jekyll in /srv/jekyll.
+  * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
+  * When you launch or run anything via the `jekyll` cmd it is run as a non-priv
+    user `jekyll` with a `uid=1000` and `gid=1000` in `/srv/jekyll`.
   * Jekyll has access to sudo (mostly for the build system.)
 
 ## Building a Deb

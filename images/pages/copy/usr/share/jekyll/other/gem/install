@@ -1,5 +1,4 @@
-#!/bin/bash
-set -ex
+#!/bin/bash -e
 
 if [[ "$#" -gt 1 ]]
 then
