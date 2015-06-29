@@ -1,7 +1,6 @@
 #!/bin/bash -ex
 
-source /usr/share/envygeeks/helpers
-ruby_sha=5ffc0f317e429e6b29d4a98ac521c3ce65481bfd22a8cf845fa02a7b113d9b44
+source /usr/share/docker/helpers
 author_email=${PACKAGE_AUTHOR_EMAIL-'hello@jekyllrb.com'}
 author=${PACKAGE_AUTHOR-'Jekyll Core'}
 
@@ -10,7 +9,7 @@ add-pkgs ca-certificates libssl-dev libreadline6-dev libxslt1-dev libffi-dev \
 
 cd /usr/src
 download http://cache.ruby-lang.org/pub/ruby/${RUBY_VERSION%.*}/ruby-${RUBY_VERSION}.tar.gz
-test-sha ruby-$RUBY_VERSION.tar.gz $ruby_sha
+test-sha ruby-$RUBY_VERSION.tar.gz $RUBY_SHA
 
 tar xzf ruby-$RUBY_VERSION.tar.gz
 cd /usr/src/ruby-$RUBY_VERSION
