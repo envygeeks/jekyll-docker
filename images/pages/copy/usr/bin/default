@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /srv/jekyll
-jekyll s &
+chpst -u jekyll:jekyll jekyll s --watch &!
 wait $!
 exit $?
