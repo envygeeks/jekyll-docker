@@ -89,7 +89,7 @@ optionally_run_apt_install() {
     fi
 
     add-pkgs $(cat .apt)
-    exec 1>/dev/tty
+    exec 1>&0
   fi
 }
 
@@ -133,13 +133,13 @@ install_gem_assets() {
     fi
   done
 
-  exec 1>/dev/tty
+  exec 1>&0
 }
 
 cd /srv/jekyll
 if [[ -f "Gemfile" || "$1" == "bundle" ]]
 then
-  exec 1>/dev/tty
+  exec 1>&0
 
   if [[ ! -z "$UPDATE_GEMFILE" ]]
   then
