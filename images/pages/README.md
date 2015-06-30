@@ -91,28 +91,26 @@ You can create a simple `script/dev` script that will make your life
 ultra easy with Docker and Jekyll:
 
 ```shell
-#!/bin/bash
-
 extra_args=()
 if [[ "$1" == "debug" ]]
 then
+  shift
   extra_args+=(
     "--env='NOISY_INSTALL=true'"
   )
 fi
 
-docker run --rm --label=mysite \
-  -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
+docker run --rm \
+  --label=envygeeks -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd):/srv/jekyll \
-  --env=JEKYLL_ENV=development \
-  --env=UPDATE_GEMFILE=true \
-  --env=BUNDLE_CACHE=true \
-  --env=BUNDLER_ARGS="-j 128" \
+  -e JEKYLL_ENV=development \
+  -e UPDATE_GEMFILE=true \
+  -e BUNDLE_CACHE=true \
+  -e BUNDLER_ARGS="-j 128" \
   ${extra_args[*]} \
-  --user=jekyll:jekyll \
   -it jekyll/beta \
-  bundle exec /usr/local/bin/jekyll serve \
-    --watch --drafts --trace
+  sudo -u jekyll bundle exec /usr/local/bin/jekyll serve \
+    --watch --drafts --trace "$@"
 ```
 
 We hit `/usr/local/bin/jekyll` so that it boots as `jekyll:jekyll` but you
