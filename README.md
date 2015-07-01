@@ -50,6 +50,12 @@ are implemented.
   duplicate group names.) and will not remove any blank lines that you add
   yourself even if they are repeated.
 
+  At this time this method is considered alpha unless you know how to
+  edit a Gemfile because it doesn't guarantee any uniqueness even if it tries
+  in that if we stick a Gem you could end up with two versions, of which
+  one you have to remove, including if you have a gem without a version
+  and we add one with a version.
+
 * `$BUNDLE_CACHE` - Install to vendor/bundle (by default) so that
   you can cache the gems you install and speed up, this should probably be
   mixed with $UPDATE_GEMFILE or you should add "jekyll" to your gem
