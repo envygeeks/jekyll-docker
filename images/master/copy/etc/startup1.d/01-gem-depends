@@ -40,7 +40,15 @@ strip_jekyll() {
 
 copy_default_gems() {
   for g in $(cat /gems); do
-    echo "gem \"$g\"" >> Gemfile
+    if echo $g | grep -q "@"
+    then
+      name=$(echo $g | awk -F@ '{ print $1 }')
+      vers=$(echo $g | awk -F@ '{ print $2 }')
+      echo "gem \"$name\", \"$vers\"" >> \
+        Gemfile
+    else
+      echo "gem \"$g\"" >> Gemfile
+    fi
   done
 }
 

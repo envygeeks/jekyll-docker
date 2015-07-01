@@ -39,7 +39,7 @@ for g in $(cat /usr/share/jekyll/gems); do
   then
     yes | gem install --no-document \
          "$(echo $g | awk -F@ '{ print $1 }')" \
-      -v "$(echo $g | sed -r 's/[^@]+@(.*)/\1/')"
+      -v "$(echo $g | awk -F@ '{ print $2 }')"
   else
     yes | gem install "$g" --no-document
   fi
