@@ -9,21 +9,20 @@ fi
 # -----------------------------------------------------------------------------
 
 previous_gemfile=false
-if [[ ! -z "$(find /srv/jekyll -type f -iname Gemfile.old.\* )" ]]
+if [[ ! -z "$(find /srv/jekyll -type f -iname vendor/Gemfile.old.\* 2>/dev/null)" ]]
   then previous_gemfile=true
 fi
 
 # -----------------------------------------------------------------------------
 
 backup_gemfile() {
-  cp Gemfile Gemfile.old.$(
-    date --date=now +%m%d%Y
-  )
+  mkdir -p vendor/
+  cp Gemfile vendor/Gemfile.old.$(date --date=now +%m%d%Y)
 
   if [[ "0" == "$(id -u)" ]]
   then
-    chown jekyll:jekyll \
-      Gemfile.old.*
+    chown jekyll:jekyll vendor/ \
+      vendor/Gemfile.old.*
   fi
 }
 
@@ -83,10 +82,13 @@ add_img_jekyll() {
 }
 
 optionally_run_apt_install() {
-  if ([[ ! -z "$(diff Gemfile Gemfile.old.$(date --date=now +%m%d%Y))" ]] ||
-        [[ "$1" == "force" ]]) && [[ -f ".apt" ]] ||
-          [[ "false" == "$previous_gemfile" ]]; then
+  if [[ "$previous_gemfile" == "false" ]] && [[ ! -d "vendor/bundle" ]]; then apt_install=true
+    elif [[ ! -z "$(diff Gemfile vendor/Gemfile.old.$(date --date=now +%m%d%Y))" ]]; then apt_install=true
+    elif [[ "$1" == "force" ]]; then apt_install=true
+  fi
 
+  if [[ "$apt_install" == "true" ]]
+  then
     apt_ran=true
     source /usr/share/docker/helpers
     if [[ -z "$NOISY_INSTALL" ]]
@@ -104,8 +106,6 @@ optionally_run_apt_install() {
 install_gem_assets() {
   if [[ -z "$NOISY_INSTALL" ]]
   then
-    echo "Installing dependencies, quietly."
-    echo "use \$NOISY_INSTALL if you wish to view it."
     exec 1>/dev/null
   fi
 
