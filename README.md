@@ -86,7 +86,7 @@ is then we will try to install before trying to install gems again.
 ```sh
 # Labels requires Docker 1.7, if you get an error remove them.
 docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
-  -p -t 127.0.0.1:4000:4000 jekyll/stable jekyll s
+  -t -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
 ```
 
 ***If you do not provide a command then it will default to `jekyll s`.***
