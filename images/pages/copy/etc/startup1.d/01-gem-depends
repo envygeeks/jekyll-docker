@@ -82,8 +82,9 @@ add_img_jekyll() {
 }
 
 optionally_run_apt_install() {
+  old_gemfile="vendor/Gemfile.old.$(date --date=now +%m%d%Y)"
   if [[ "$previous_gemfile" == "false" ]] && [[ ! -d "vendor/bundle" ]]; then apt_install=true
-    elif [[ ! -z "$(diff Gemfile vendor/Gemfile.old.$(date --date=now +%m%d%Y))" ]]; then apt_install=true
+    elif [[ -f "$old_gemfile" ]] && [[ ! -z "$(diff Gemfile $old_gemfile)" ]]; then apt_install=true
     elif [[ "$1" == "force" ]]; then apt_install=true
   fi
 
