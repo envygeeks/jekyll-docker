@@ -1,6 +1,7 @@
 libv8@3.16.14.7
 therubyracer
 pygments.rb
+liquid-c
 jekyll-sitemap
 jekyll-coffeescript
 jekyll-sass-converter
