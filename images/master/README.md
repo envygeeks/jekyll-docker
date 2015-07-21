@@ -97,15 +97,6 @@ You can create a simple `script/dev` script that will make your life
 ultra easy with Docker and Jekyll:
 
 ```shell
-extra_args=()
-if [[ "$1" == "debug" ]]
-then
-  shift
-  extra_args+=(
-    "--env='NOISY_INSTALL=true'"
-  )
-fi
-
 docker run --rm \
   --label=envygeeks -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd):/srv/jekyll \
@@ -113,7 +104,6 @@ docker run --rm \
   -e UPDATE_GEMFILE=true \
   -e BUNDLE_CACHE=true \
   -e BUNDLER_ARGS="-j 128" \
-  ${extra_args[*]} \
   -it jekyll/beta \
   sudo -u jekyll bundle exec /usr/local/bin/jekyll serve \
     --watch --drafts --trace "$@"

@@ -2,7 +2,7 @@
 
 apt_ran=false
 if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
-  echo "Github does not allow user dependencies. Bye."
+  echo "Github does not allow user dependencies."
   exit 0
 fi
 
@@ -92,23 +92,11 @@ optionally_run_apt_install() {
   then
     apt_ran=true
     source /usr/share/docker/helpers
-    if [[ -z "$NOISY_INSTALL" ]]
-    then
-      echo "Apt installing quietly"
-      echo "Use \$NOISY_INSTALL if you wish to view it."
-      exec 1>/dev/null
-    fi
-
     add-pkgs $(cat .apt)
-    exec 1>&0
   fi
 }
 
 install_gem_assets() {
-  if [[ -z "$NOISY_INSTALL" ]]
-  then
-    exec 1>/dev/null
-  fi
 
   # ---
   # Adds a bit of retry logic so that we can run apt if there
@@ -137,19 +125,15 @@ install_gem_assets() {
           vendor/bundle && break
       fi
     else
-      gem install -g /srv/jekyll/Gemfile \
-        > /dev/null && break
+      gem install -g /srv/jekyll/Gemfile && \
+        break
     fi
   done
-
-  exec 1>&0
 }
 
 cd /srv/jekyll
 if [[ -f "Gemfile" || "$1" == "bundle" ]]
 then
-  exec 1>&0
-
   if [[ ! -z "$UPDATE_GEMFILE" ]]
   then
     backup_gemfile
