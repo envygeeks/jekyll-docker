@@ -20,11 +20,11 @@ that repo.
 
 ## Current images:
 
-* jekyll/pages
-* jekyll/jekyll
-* jekyll/stable
-* jekyll/master
-* jekyll/beta
+* jekyll/pages [![](https://badge.imagelayers.io/jekyll/pages:latest.svg)](https://imagelayers.io/?images=jekyll/pages:latest 'Get your own badge on imagelayers.io')
+* jekyll/jekyll [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)](https://imagelayers.io/?images=jekyll/jekyll:latest 'Get your own badge on imagelayers.io')
+* jekyll/stable [![](https://badge.imagelayers.io/jekyll/stable:latest.svg)](https://imagelayers.io/?images=jekyll/stable:latest 'Get your own badge on imagelayers.io')
+* jekyll/master [![](https://badge.imagelayers.io/jekyll/master:latest.svg)](https://imagelayers.io/?images=jekyll/master:latest 'Get your own badge on imagelayers.io')
+* jekyll/beta [![](https://badge.imagelayers.io/jekyll/beta:latest.svg)](https://imagelayers.io/?images=jekyll/beta:latest 'Get your own badge on imagelayers.io')
 
 The jekyll/pages tries to be as close to Github pages as possible,
 without changing much, there might be some differences and if there are please
