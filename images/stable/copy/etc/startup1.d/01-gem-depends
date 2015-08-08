@@ -1,32 +1,15 @@
-#!/bin/bash -e
+#!/usr/bin/env bash
+set -e
 
-apt_ran=false
+if [[ "$DEBUG" == true ]]
+  then set -x
+fi
+
+source /usr/share/docker/helpers
 if [[ -f "/image" ]] && [[ "$(cat /image)" == "pages" ]]; then
   echo "Github does not allow user dependencies."
   exit 0
 fi
-
-# -----------------------------------------------------------------------------
-
-previous_gemfile=false
-if [[ ! -z "$(find /srv/jekyll -type f -iname vendor/Gemfile.old.\* 2>/dev/null)" ]]
-  then previous_gemfile=true
-fi
-
-# -----------------------------------------------------------------------------
-
-backup_gemfile() {
-  mkdir -p vendor/
-  cp Gemfile vendor/Gemfile.old.$(date --date=now +%m%d%Y)
-
-  if [[ "0" == "$(id -u)" ]]
-  then
-    chown jekyll:jekyll vendor/ \
-      vendor/Gemfile.old.*
-  fi
-}
-
-# -----------------------------------------------------------------------------
 
 strip_jekyll() {
   if grep -qP "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile
@@ -35,132 +18,26 @@ strip_jekyll() {
   fi
 }
 
-# -----------------------------------------------------------------------------
-
-copy_default_gems() {
-  for g in $(cat /gems); do
-    if echo $g | grep -q "@"
-    then
-      name=$(echo $g | awk -F@ '{ print $1 }')
-      vers=$(echo $g | awk -F@ '{ print $2 }')
-      echo "gem \"$name\", \"$vers\"" >> \
-        Gemfile
-    else
-      echo "gem \"$g\"" >> Gemfile
-    fi
-  done
-}
-
-# -----------------------------------------------------------------------------
-
-mkuniq_gemfile() {
-  # Unless it's end or a blank line, remove it if !uniq.
-  awk '/^\s*end$/ || !NF || !_[$0]++' Gemfile > Gemfile.new
-  mv  Gemfile.new Gemfile
-
-  if [[ "0" == "$(id -u)" ]]
-    then chown jekyll:jekyll Gemfile
-  fi
-}
-
-# -----------------------------------------------------------------------------
-# Some of our images are updated directly from the repo, such as master and
-# our future dev and if you build a custom image you can use your own repo if
-# you really wish, we will try our best to detect it!
-# -----------------------------------------------------------------------------
-
-add_img_jekyll() {
-  if echo $JEKYLL_VERSION | grep -qP '^git@'
-  then
-    branch=$(echo $JEKYLL_VERSION | sed -r 's/^git@//')
-    echo "gem \"jekyll\", :github => 'jekyll/jekyll', :branch => \"$branch\"" \
-      >> Gemfile
-  else
-    echo "gem \"jekyll\", \"$JEKYLL_VERSION\"" >> \
-      Gemfile
-  fi
-}
-
-optionally_run_apt_install() {
-  old_gemfile="vendor/Gemfile.old.$(date --date=now +%m%d%Y)"
-  if [[ "$previous_gemfile" == "false" ]] && [[ ! -d "vendor/bundle" ]]; then apt_install=true
-    elif [[ -f "$old_gemfile" ]] && [[ ! -z "$(diff Gemfile $old_gemfile)" ]]; then apt_install=true
-    elif [[ "$1" == "force" ]]; then apt_install=true
-  fi
-
-  if [[ "$apt_install" == "true" ]]
-  then
-    apt_ran=true
-    source /usr/share/docker/helpers
-    add-pkgs $(cat .apt)
-  fi
-}
-
-install_gem_assets() {
-
-  # ---
-  # Adds a bit of retry logic so that we can run apt if there
-  # is a problem and retry the command again, or if it was already
-  # ran then just bail out and leave it.
-  # ---
-
-  for i in {1..3}; do
-    if [[ $i -gt 1 ]]
-    then
-      if [[ "$apt_ran" == "true" ]]
-      then
-        echo "There was an unrecoverable error, bye."
-        exit 1
-      else
-        echo "Trying with apt this time."
-        optionally_run_apt_install "force"
-      fi
-    fi
-
-    if grep -qP "git(hub)?\s+(:|=>)\s+" Gemfile || $BUNDLE_CACHE
-    then
-      if [[ -z "$BUNDLE_CACHE" ]]
-        then sudo -u jekyll bundle install "${BUNDLE_ARGS[@]}" && break
-        else sudo -u jekyll bundle install "${BUNDLE_ARGS[@]}" --path \
-          vendor/bundle && break
-      fi
-    else
-      gem install -g /srv/jekyll/Gemfile && \
-        break
-    fi
-  done
-}
-
 cd /srv/jekyll
-if [[ -f "Gemfile" || "$1" == "bundle" ]]
-then
-  if [[ ! -z "$UPDATE_GEMFILE" ]]
-  then
-    backup_gemfile
-    copy_default_gems
-    mkuniq_gemfile
+if [[ -f "Gemfile" ]] || ([[ "$1" == "bundle" ]]); then
+  if [[ ! -z "$UPDATE_GEMFILE" ]]; then
+    chpst -u jekyll:jekyll docker-helper backup_gemfile
+    chpst -u jekyll:jekyll docker-helper copy_default_gems_to_gemfile
+    chpst -u jekyll:jekyll docker-helper make_gemfile_uniq
+
     strip_jekyll
-    add_img_jekyll
+    chpst -u jekyll:jekyll docker-helper \
+      add_gemfile_dependency "$JEKYLL_VERSION"
   fi
 
-  optionally_run_apt_install
-  install_gem_assets
-
-  # ---------------------------------------------------------------------------
-  # If you do not have jekyll and you request to use Jekyll gem will flip
-  # the cookies early and cause them to be undercooked which will lead to burn
-  # or in short, RubyGems sucks at actually not sucking.
-  # ---------------------------------------------------------------------------
-
-  if ! grep -qP "gem (?:\"|')jekyll(?:\"|')" Gemfile
-  then
+  chpst -u jekyll:jekyll docker-helper install_users_gems
+  if ! grep -qP "gem (?:\"|')jekyll(?:\"|')" Gemfile; then
     echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
     mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
-  elif [[ -z "$SKIP_BUNDLE_WARNING" ]] && [[ -z "$UPDATE_GEMFILE" ]]
-  then
+  elif [[ -z "$SKIP_BUNDLE_WARNING" ]] && [[ -z "$UPDATE_GEMFILE" ]]; then
     echo "BE WARNED: You are using a custom Gemfile, you will not have"
     echo "access to the default Gems that we provide because you have chosen the"
     echo -e "overriding path, you should add these gems: \n\n"
-    cat /gems
+    cat /usr/share/ruby/default-gems
   fi
 fi

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ ! -z "$1" ]] && [[ -f "script/syncers/$1" ]]
+  then "script/syncers/$1"
+else
+  rm -rf images/*
+  mkdir -p images
+  for v in $(ls .versions/); do
+    version=$(cat .versions/$v)
+    mkdir -p images/$v
+    cp copy -R images/$v/copy
+    cp .dockerignore images/$v/.dockerignore
+    mkdir -p images/$v/copy/usr/share/ruby
+    cp .gems/$v images/$v/copy/usr/share/ruby/default-gems
+    cat Dockerfile | sed -r "s!__VERSION__!$version!" > images/$v/Dockerfile
+    sed -ri "s/__TYPE__/$v/" images/$v/Dockerfile
+    cp README.md images/$v/README.md
+  done
+fi
