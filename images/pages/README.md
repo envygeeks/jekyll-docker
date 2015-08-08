@@ -1,9 +1,22 @@
 # Jekyll Docker Images
 
-Jekyll Docker is a full featured Ubuntu based Docker image that provides an
+***We no longer use Ubuntu, we now use Alpine Linux for our Docker images
+because it provides our users with a smaller image and it can be used in bw
+limited countries, there is a huge difference between 90mb and 540mb.***
+
+Jekyll Docker is a full featured Alpine based Docker image that provides an
 isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
 and development.
+
+## If you are using an `.apt` file.
+
+You can convert your `.apt` file to an `.apk` file but we will do our best
+to convert your apt file for you automatically unless you have both then we
+we will just use your apk over apt. Visit: http://pkgs.alpinelinux.org if you
+would like to search for your package.  If it's only available in testing
+then you can do package@testing in your `.apk` file to trigger it from
+that repo.
 
 ## Current images:
 
@@ -65,7 +78,8 @@ are implemented.
 
 This docker image supports Gemfiles, updating your Gemfile and even
 changing the way it behaves based on what you tell it to do.  See `Environment
-Variables`. We also try to detect if if you are using things like Github or Git to pull dependencies with bundler so that we can transform and optimize for
+Variables`. We also try to detect if if you are using things like Github or Git
+to pull dependencies with bundler so that we can transform and optimize for
 you.
 
 If you provide a Gemfile and that Gemfile has a `Git(hub)` dependency we can
@@ -86,7 +100,7 @@ is then we will try to install before trying to install gems again.
 ```sh
 # Labels requires Docker 1.7, if you get an error remove them.
 docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
-  -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
+  -t -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
 ```
 
 ***If you do not provide a command then it will default to `jekyll s`.***
@@ -98,7 +112,7 @@ ultra easy with Docker and Jekyll:
 
 ```shell
 docker run --rm \
-  --label=envygeeks -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
+  --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd):/srv/jekyll \
   -e JEKYLL_ENV=development \
   -e UPDATE_GEMFILE=true \
@@ -113,16 +127,41 @@ We hit `/usr/local/bin/jekyll` so that it boots as `jekyll:jekyll` but you
 can also just do `sudo -u jekyll:jekyll bundle exec jekyll serve` and get the
 same thing.
 
+## Building
+
+It's quite simple, `script/build` will build all the images and
+`script/build type` will build a specific image, where `type` is `beta` or
+another image name.
+
+### Custom account
+
+You can set `JEKYLL_IMAGE_ACCOUNT=account` and it will use your account.
+Remember that account is your account, and not some sort of fancy trigger...
+Well it is a trigger but `account` should be replaced.
+
 ## Contributing
 
-Please do not edit the Dockerfile unless there is good reason to do so...
-because of the way that Docker currently works, there are extreme space probs
-in that if we install and cleanup inside of the Docker file our image
-size stays the same, please edit `copy/usr/bin/setup` instead.
+* Fork.
+* `.versions/*` holds the version table for images.
+* `.gems/*` holds the gem tables for images /usr/share/ruby/default-gems
+* DO NOT EDIT `images/*` directly, edit `.gems/*`, `.versions/*`, `Dockerfile`, `copy`
+* After you are done, `script/sync`
+* script/test
 
-If you edit anything inside of `copy`, remember the following: Some of our
-images use git and make sure to `sync` when you are done because we have to
-keep a copy in context for Docker.
+### Notes
+
+* Use `script/build type` to build the image.
+* Use `script/sync versions` if you want to update the gem versions.
+* Use `test/manual` which will boot up an image so you can browse the demo.
+* Use `script/sync pages` if you want to sync pages gem versions!
+* Use `script/test` to test the image basics and stuff.
+
+We only verify the image with testing, that means we only check that a few
+setup items are created, since most of our base helpers and functions come from
+the parent image and are tested there... If you do something special add a
+test, they are in test and are mounted when running tests.  If you wish to add
+a helper then please consider submitting it to the parent image unless it's
+directly related but in most cases it won't be.
 
 ## Notes
   * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.

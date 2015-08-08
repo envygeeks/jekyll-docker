@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+
+stable=$(gem search jekyll | grep -P '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/')
+beta=$(gem search jekyll --pre | grep -P '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/' | awk -F', ' '{ print $1 }')
+pages=$(curl -vs https://pages.github.com/versions.json 2>/dev/null | ruby \
+  -rjson -e '$stdout.puts JSON.parse($stdin.gets)["jekyll"];')
+
+echo "jekyll@$stable" > .versions/stable
+echo "jekyll@$beta"   > .versions/beta
+echo "jekyll@$pages"  > .versions/pages
+echo "Gem versions have been updated."
+script/sync

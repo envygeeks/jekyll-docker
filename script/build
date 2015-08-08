@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+script/sync
+set -e
+
+: ${JEKYLL_IMAGE_ACCOUNT:=jekyll}
+if [[ $# -gt 0 ]] && [[ -d "images/$1" ]]; then
+  cd images/$1
+  docker build -t \
+    "$JEKYLL_IMAGE_ACCOUNT/$1" .
+elif [[ ! -z "$1" ]]; then
+  echo "Bad Image"
+  exit 1
+else
+  for v in $(ls .versions); do
+    script/build "$v"
+  done
+fi
