@@ -6,8 +6,8 @@ curl -vs https://pages.github.com/versions.json 2>/dev/null | \
     JSON.parse($stdin.gets).map do |k, v|
       $stdout.puts "#{k}@#{v}" if k != "ruby"
     end' \
-  > .gems/pages
+  > gems/pages
 
-echo "jekyll-compose" >> .gems/pages
+echo "jekyll-compose" >> gems/pages
 echo "Pages has been updated."
 script/sync
