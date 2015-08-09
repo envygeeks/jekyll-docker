@@ -11,7 +11,7 @@ elif [[ ! -z "$1" ]]; then
   echo "Bad Image"
   exit 1
 else
-  for v in $(ls .versions); do
+  for v in $(ls versions); do
     script/build "$v"
   done
 fi
