@@ -2,11 +2,10 @@
 script/sync
 set -e
 
-: ${JEKYLL_IMAGE_ACCOUNT:=jekyll}
 if [[ $# -gt 0 ]] && [[ -d "images/$1" ]]; then
   cd images/$1
   docker build -t \
-    "$JEKYLL_IMAGE_ACCOUNT/$1" .
+    jekyll/$1 .
 elif [[ ! -z "$1" ]]; then
   echo "Bad Image"
   exit 1

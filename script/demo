@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 echo 'source "https://rubygems.org"' > demo/Gemfile
-: ${JEKYLL_IMAGE_ACCOUNT:=jekyll}
 image="$1"
 
 if [[ -z "$image" ]]
@@ -16,7 +15,7 @@ docker run --rm \
   --env="UPDATE_GEMFILE=true" \
   --env="BUNDLE_CACHE=true" \
   --env='BUNDLER_ARGS="-j 128"' \
-  -it "$JEKYLL_IMAGE_ACCOUNT/$image" \
+  -it jekyll/$1 \
   chpst -u jekyll bundle exec /usr/local/bin/jekyll serve \
     --watch --drafts --trace "$@"
 
