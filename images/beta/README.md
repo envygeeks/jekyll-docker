@@ -9,15 +9,6 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
 and development.
 
-## If you are using an `.apt` file.
-
-You can convert your `.apt` file to an `.apk` file but we will do our best
-to convert your apt file for you automatically unless you have both then we
-we will just use your apk over apt. Visit: http://pkgs.alpinelinux.org if you
-would like to search for your package.  If it's only available in testing
-then you can do package@testing in your `.apk` file to trigger it from
-that repo.
-
 ## Current images:
 
 * jekyll/pages [![](https://badge.imagelayers.io/jekyll/pages:latest.svg)](https://imagelayers.io/?images=jekyll/pages:latest 'Get your own badge on imagelayers.io')
@@ -95,6 +86,15 @@ there is a difference we will install and if there is no difference we will
 not install them unless there is a `gem` or `bundle` error, and if there
 is then we will try to install before trying to install gems again.
 
+### If you are using an `.apt` file.
+
+You can convert your `.apt` file to an `.apk` file but we will do our best
+to convert your apt file for you automatically unless you have both then we
+we will just use your apk over apt. Visit: http://pkgs.alpinelinux.org if you
+would like to search for your package.  If it's only available in testing
+then you can do package@testing in your `.apk` file to trigger it from
+that repo.
+
 ## Running
 
 ```sh
@@ -105,39 +105,11 @@ docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
 
 ***If you do not provide a command then it will default to `jekyll s`.***
 
-## A Helper Script to Boot Docker Quickly
-
-You can create a simple `script/dev` script that will make your life
-ultra easy with Docker and Jekyll:
-
-```shell
-docker run --rm \
-  --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
-  --volume=$(pwd):/srv/jekyll \
-  -e JEKYLL_ENV=development \
-  -e UPDATE_GEMFILE=true \
-  -e BUNDLE_CACHE=true \
-  -e BUNDLER_ARGS="-j 128" \
-  -it jekyll/beta \
-  sudo -u jekyll bundle exec /usr/local/bin/jekyll serve \
-    --watch --drafts --trace "$@"
-```
-
-We hit `/usr/local/bin/jekyll` so that it boots as `jekyll:jekyll` but you
-can also just do `sudo -u jekyll:jekyll bundle exec jekyll serve` and get the
-same thing.
-
 ## Building
 
 It's quite simple, `script/build` will build all the images and
 `script/build type` will build a specific image, where `type` is `beta` or
 another image name.
-
-### Custom account
-
-You can set `JEKYLL_IMAGE_ACCOUNT=account` and it will use your account.
-Remember that account is your account, and not some sort of fancy trigger...
-Well it is a trigger but `account` should be replaced.
 
 ## Contributing
 
