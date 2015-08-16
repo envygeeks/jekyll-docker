@@ -7,7 +7,7 @@ if [[ -z "$image" ]]
   then image=beta
 fi
 
-# env script/build "$image"
+script/build "$image"
 docker run --rm \
   --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd)/demo:/srv/jekyll \
@@ -15,13 +15,14 @@ docker run --rm \
   --env="UPDATE_GEMFILE=true" \
   --env="BUNDLE_CACHE=true" \
   --env='BUNDLER_ARGS="-j 128"' \
-  -it jekyll/$1 \
+  -it jekyll/$image \
   chpst -u jekyll bundle exec /usr/local/bin/jekyll serve \
     --watch --drafts --trace "$@"
 
 rm -rf demo/.bundle
 rm -rf demo/.sass-cache
 rm -rf demo/.jekyll-metadata
+rm -rf demo/Gemfile.lock
 rm -rf demo/Gemfile
 rm -rf demo/_site
 exit 0
