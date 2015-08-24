@@ -3,9 +3,7 @@ script/sync
 set -e
 
 if [[ $# -gt 0 ]] && [[ -d "images/$1" ]]; then
-  cd images/$1
-  docker build -t \
-    jekyll/$1 .
+  cd images/$1 && docker build -t jekyll/$1 .
 elif [[ ! -z "$1" ]]; then
   echo "Bad Image"
   exit 1
