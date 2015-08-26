@@ -8,8 +8,8 @@ ENV \
 RUN \
   apk --update add readline readline-dev libxml2 libxml2-dev libxslt  \
     libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
-      yaml-dev libffi libffi-dev build-base nodejs \
-      ruby-io-console ruby-irb ruby-json git && \
+      yaml-dev libffi libffi-dev build-base nodejs ruby-io-console \
+        ruby-irb ruby-json ruby-rake ruby-rdoc git && \
 
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
@@ -17,8 +17,8 @@ RUN \
   chown jekyll:jekyll /home/jekyll && \
 
   cd ~ && \
-  yes | gem update --system --no-document -- --no-document --use-system-libraries && \
-  yes | gem update --no-document -- --no-document --use-system-libraries && \
+  yes | gem update --system --no-document -- --use-system-libraries && \
+  yes | gem update --no-document -- --use-system-libraries && \
 
   repo=$(docker-helper git_clone_ruby_repo "jekyll@2.5.3") && \
   if [[ ! -z "$repo" ]]; then \
