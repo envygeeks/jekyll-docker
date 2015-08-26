@@ -11,6 +11,7 @@ script/build "$image"
 docker run --rm \
   --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd)/demo:/srv/jekyll \
+  --env="DEBUG=true" \
   --env="JEKYLL_ENV=development" \
   --env="UPDATE_GEMFILE=true" \
   --env="BUNDLE_CACHE=true" \
