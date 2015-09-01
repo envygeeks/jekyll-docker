@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-[[ "$debug" ]] && set -x
+#!/bin/sh
+[ "$debug" ] && set -x
 set -e
 
 stable=$(gem search jekyll | grep --color=never -E '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/')

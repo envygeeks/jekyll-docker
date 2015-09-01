@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
 curl -vs https://pages.github.com/versions.json 2>/dev/null | \
