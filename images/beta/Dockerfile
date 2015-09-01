@@ -21,7 +21,8 @@ RUN \
   yes | gem update --no-document -- --use-system-libraries && \
 
   repo=$(docker-helper git_clone_ruby_repo "jekyll@3.0.0.pre.beta8") && \
-  if [[ ! -z "$repo" ]]; then \
+  if [ ! -z "$repo" ]; \
+  then \
     cd $repo && \
     rake build && gem install pkg/jekyll-*.gem --no-document -- \
       --use-system-libraries && \
@@ -39,15 +40,13 @@ RUN \
     ruby-dev yaml-dev libffi-dev && \
 
   # Only remove python if we are on 3.0.0+ because it uses Ruby.
-  if [[ "$(echo $JEKYLL_VERSION | sed -r 's/[^0-9]//g')" -gt 253 ]]; then \
-    apk del python; \
+  if [ "$(echo $JEKYLL_VERSION | sed -r 's/[^0-9]//g')" -gt 253 ]; \
+    then apk del python; \
   fi && \
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
-  cp ~/.bashrc /home/jekyll/.bashrc && \
-  chown jekyll:jekyll /home/jekyll/.bashrc && \
-  sudo -u jekyll jekyll new /srv/jekyll && \
+  chpst -u jekyll jekyll new /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup

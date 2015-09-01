@@ -1,9 +1,9 @@
-#!/usr/bin/env bash
-
+#!/bin/sh
+set -e
 echo 'source "https://rubygems.org"' > demo/Gemfile
 image="$1"
 
-if [[ -z "$image" ]]
+if [ -z "$image" ]
   then image=beta
 fi
 
@@ -11,15 +11,14 @@ script/build "$image"
 docker run --rm \
   --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
   --volume=$(pwd)/demo:/srv/jekyll \
-  --env="DEBUG=true" \
   --env="JEKYLL_ENV=development" \
   --env="UPDATE_GEMFILE=true" \
-  --env="BUNDLE_CACHE=true" \
-  --env='BUNDLER_ARGS="-j 128"' \
+  --env='BUNDLE_ARGS="-j 128 --path=vendor/bundle"' \
   -it jekyll/$image \
-  chpst -u jekyll bundle exec /usr/local/bin/jekyll serve \
-    --watch --drafts --trace "$@"
+    chpst -u jekyll bundle exec /usr/local/bin/jekyll serve \
+      --watch --drafts --trace "$@"
 
+rm -rf demo/vendor
 rm -rf demo/.bundle
 rm -rf demo/.sass-cache
 rm -rf demo/.jekyll-metadata
