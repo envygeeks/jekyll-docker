@@ -17,6 +17,10 @@ strip_jekyll() {
 }
 
 cd /srv/jekyll
+if [ "$FORCE_APK_INSTALL" ]; then
+  install_user_pkgs_from_file
+fi
+
 if [ -f "Gemfile" ] || [ "$1" = "bundle" ]
 then
   if [ "$UPDATE_GEMFILE" ]
@@ -39,7 +43,7 @@ then
   then
     echo "BE WARNED: You are using a custom Gemfile, you will not have"
     echo "access to the default Gems that we provide because you have chosen the"
-    echo -e "overriding path, you should add these gems: \n\n"
+    printf "overriding path, you should add these gems: \n\n"
     cat /usr/share/ruby/default-gems
   fi
 fi

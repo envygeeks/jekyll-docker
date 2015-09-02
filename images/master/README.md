@@ -49,6 +49,10 @@ are implemented.
 
 ## Environment Variables
 
+* `$FORCE_APK_INSTALL` - Will force us to always install `.apk` depenendcies
+  for you, regardless of whether we detect a Gemfile, so you can always have
+  things you want available.  (WARNING: This is *not* cached.)
+
 * `$UPDATE_GEMFILE` - Will update your Gemfile in a naive way and try
   to sync it and remove duplicates, it will not remove groups (but could remove
   duplicate group names.) and will not remove any blank lines that you add
