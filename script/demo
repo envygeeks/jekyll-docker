@@ -3,14 +3,14 @@ set -e
 echo 'source "https://rubygems.org"' > demo/Gemfile
 image="$1"
 
-if [ -z "$image" ]
-  then image=beta
+if [ -z "$image" ]; then
+  image=beta
 fi
 
 script/build "$image"
 docker run --rm \
   --label=jekyll -p 127.0.0.1:80:4000 -p 127.0.0.1:4000:4000 \
-  --volume=$(pwd)/demo:/srv/jekyll \
+  --volume="$(pwd)/demo:/srv/jekyll" \
   --env="JEKYLL_ENV=development" \
   --env="UPDATE_GEMFILE=true" \
   --env='BUNDLE_ARGS="-j 128 --path=vendor/bundle"' \

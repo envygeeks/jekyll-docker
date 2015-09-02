@@ -2,14 +2,13 @@
 [ "$debug" ] && set -x
 set -e
 
-if [ ! -z "$1" ] && [ -f "script/syncers/$1" ]
-  then "script/syncers/$1"
+if [ ! -z "$1" ] && [ -f "script/syncers/$1" ]; then
+  "script/syncers/$1"
 else
   rm -rf images/*
   mkdir -p images
-  
-  for v in $(ls versions/)
-  do
+
+  for v in versions/*; do
     version=$(cat versions/$v)
     mkdir -p images/$v
     cp copy -R images/$v/copy
