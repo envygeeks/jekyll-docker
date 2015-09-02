@@ -3,12 +3,11 @@ script/sync
 set -e
 
 if [ $# -gt 0 ] && [ -d "images/$1" ]; then cd images/$1 && docker build -t jekyll/$1 .
-elif [ ! -z "$1" ]
-then
-  echo "Bad Image"
+elif [ ! -z "$1" ]; then
+  >&2 echo "Bad Image"
   exit 1
 else
-  for v in $(ls versions)
-    do script/build "$v"
+  for v in versions/*; do
+    script/build "$v"
   done
 fi
