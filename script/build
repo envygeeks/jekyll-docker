@@ -8,6 +8,8 @@ elif [ ! -z "$1" ]; then
   exit 1
 else
   for v in versions/*; do
-    script/build "$v"
+    script/build "$(
+      echo "$v" | sed -r 's/^versions\///'
+    )"
   done
 fi
