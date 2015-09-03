@@ -9,6 +9,7 @@ else
   mkdir -p images
 
   for v in versions/*; do
+    v="$(echo "$v" | sed -r 's/^versions\///')"
     version=$(cat versions/$v)
     mkdir -p images/$v
     cp copy -R images/$v/copy
