@@ -3,15 +3,14 @@
 set -e
 
 . /usr/local/share/docker/helpers
-if [ -f "/image" ] && [ "$(cat /image)" = "pages" ]
-then
+if [ -f "/image" ] && [ "$(cat /image)" = "pages" ]; then
   echo "Github does not allow user dependencies."
   exit 0
 fi
 
 strip_jekyll() {
-  if grep -qE "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile
-    then sed -ri "/^gem\s+(\"|')jekyll\1.*$/d" \
+  if grep -qE "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile; then
+    sed -ri "/^gem\s+(\"|')jekyll\1.*$/d" \
       Gemfile
   fi
 }
@@ -21,10 +20,8 @@ if [ "$FORCE_APK_INSTALL" ]; then
   install_user_pkgs_from_file
 fi
 
-if [ -f "Gemfile" ] || [ "$1" = "bundle" ]
-then
-  if [ "$UPDATE_GEMFILE" ]
-  then
+if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
+  if [ "$UPDATE_GEMFILE" ]; then
     chpst -u jekyll:jekyll docker-helper backup_gemfile
     chpst -u jekyll:jekyll docker-helper copy_default_gems_to_gemfile
     chpst -u jekyll:jekyll docker-helper make_gemfile_uniq
@@ -35,15 +32,13 @@ then
   fi
 
   chpst -u jekyll:jekyll docker-helper install_users_gems
-  if ! grep -qE "^gem\s+(\"|')jekyll(\"|')" Gemfile
-  then
+  if ! grep -qE "^gem\s+(\"|')jekyll(\"|')" Gemfile; then
     echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
     mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
-  elif [ -z "$SKIP_BUNDLE_WARNING" ] && [ -z "$UPDATE_GEMFILE" ]
-  then
+  elif [ -z "$SKIP_BUNDLE_WARNING" ] && [ -z "$UPDATE_GEMFILE" ]; then
     echo "BE WARNED: You are using a custom Gemfile, you will not have"
     echo "access to the default Gems that we provide because you have chosen the"
-    printf "overriding path, you should add these gems: \n\n"
+    echo "overriding path, you should add these gems:"
     cat /usr/share/ruby/default-gems
   fi
 fi
