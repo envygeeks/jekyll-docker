@@ -4,7 +4,10 @@ root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
 set -e
 
 if [ $# -eq 1 ] && [ -f "$root/vendor/sync/$1" ]; then
-  exec "script/sync/$1" "$@"
+  sync=$1 && shift
+  exec "$root/vendor/sync/$sync" \
+    "$@"
+
 elif [ $# -gt 0 ]; then
   >&2 echo "Unknown Image."
   exit 1
