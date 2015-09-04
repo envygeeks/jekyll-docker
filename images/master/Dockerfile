@@ -46,7 +46,6 @@ RUN \
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
-  chpst -u jekyll jekyll new /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
