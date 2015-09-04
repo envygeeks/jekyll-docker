@@ -121,9 +121,9 @@ another image name.
 ## Contributing
 
 * Fork.
-* `.versions/*` holds the version table for images.
-* `.gems/*` holds the gem tables for images /usr/share/ruby/default-gems
-* DO NOT EDIT `images/*` directly, edit `.gems/*`, `.versions/*`, `Dockerfile`, `copy`
+* `options/versions/*` holds the version table for images.
+* `options/gems/*` holds the gem tables for images /usr/share/ruby/default-gems
+* DO NOT EDIT `images/*` directly, edit stuff in options, `Dockerfile`, and `copy`
 * After you are done, `script/sync`
 
 ## Notes

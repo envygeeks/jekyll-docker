@@ -1,8 +1,0 @@
-demo/vendor
-demo/.bundle
-demo/.sass-cache
-demo/.jekyll-metadata
-demo/.asset-cache
-demo/_site
-*.deb
-/recipe
