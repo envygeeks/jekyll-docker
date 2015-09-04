@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# This file is included so that the build system can use it's builder to
+# build these images outside of the context of Docker.  The recipe file wraps
+# and tells it how these images are build.  It also makes it so that
+# parent helpers can use it too.
+
+script/sync
+if ! echo "$1" | grep -q ':'; then script/build
+else
+
+  # To build a specific image from the parent helpers send in
+  # script/build jekyll:beta and it will wrap it into this recipe
+  # and build jekyll/images/beta for you locally.
+
+  script/build "$(echo "$1" | awk -F: '{ print $2 }')"
+fi
