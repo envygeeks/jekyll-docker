@@ -1,9 +1,5 @@
 # Jekyll Docker Images
 
-***We no longer use Ubuntu, we now use Alpine Linux for our Docker images
-because it provides our users with a smaller image and it can be used in bw
-limited countries, there is a huge difference between 90mb and 540mb.***
-
 Jekyll Docker is a full featured Alpine based Docker image that provides an
 isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production
@@ -11,11 +7,17 @@ and development.
 
 ## Current images:
 
-* jekyll/pages [![](https://badge.imagelayers.io/jekyll/pages:latest.svg)](https://imagelayers.io/?images=jekyll/pages:latest 'Get your own badge on imagelayers.io')
-* jekyll/jekyll [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)](https://imagelayers.io/?images=jekyll/jekyll:latest 'Get your own badge on imagelayers.io')
-* jekyll/stable [![](https://badge.imagelayers.io/jekyll/stable:latest.svg)](https://imagelayers.io/?images=jekyll/stable:latest 'Get your own badge on imagelayers.io')
-* jekyll/master [![](https://badge.imagelayers.io/jekyll/master:latest.svg)](https://imagelayers.io/?images=jekyll/master:latest 'Get your own badge on imagelayers.io')
-* jekyll/beta [![](https://badge.imagelayers.io/jekyll/beta:latest.svg)](https://imagelayers.io/?images=jekyll/beta:latest 'Get your own badge on imagelayers.io')
+* [![](https://badge.imagelayers.io/jekyll/pages.svg)][pages] `pages`
+* [![](https://badge.imagelayers.io/jekyll/jekyll.svg)][jekyll] `jekyll`
+* [![](https://badge.imagelayers.io/jekyll/stable.svg)][stable] `stable`
+* [![](https://badge.imagelayers.io/jekyll/master.svg)][master] `master`
+* [![](https://badge.imagelayers.io/jekyll/beta.svg)][beta] `beta`
+
+[pages]: https://imagelayers.io?images=jekyll/pages
+[jekyll]: https://imagelayers.io?images=jekyll/jekyll
+[stable]: https://imagelayers.io?images=jekyll/stable
+[master]: https://imagelayers.io?images=jekyll/master
+[beta]: https://imagelayers.io?images=jekyll/beta
 
 The jekyll/pages tries to be as close to Github pages as possible,
 without changing much, there might be some differences and if there are please
@@ -71,33 +73,34 @@ are implemented.
 
 ## Gemfiles
 
-This docker image supports Gemfiles, updating your Gemfile and even
+This docker image supports `Gemfile`'s, updating your Gemfile and even
 changing the way it behaves based on what you tell it to do.  See `Environment
 Variables`. We also try to detect if if you are using things like Github or Git
 to pull dependencies with bundler so that we can transform and optimize for
-you.
+you, just a tiny bit though.
 
-If you provide a Gemfile and that Gemfile has a `Git(hub)` dependency we can
-quickly detect with a Regexp we will default to installing with bundler so that
+If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we
+can quickly detect with a Regexp we will default to installing with bundler so that
 we do not break anything that you are trying to accomplish.
 
-## Apt dependencies for Gems
+## Apk (Alpine) dependencies for Gems
 
-If you provide an .apt file inside of your root we will detect it and
+If you provide a `.apk` file inside of your root we will detect it and
 install those dependencies inside of the image for you and attempt to be smart
-about running it all the time, in that we diff the Gemfile and if diff says
-there is a difference we will install and if there is no difference we will
-not install them unless there is a `gem` or `bundle` error, and if there
-is then we will try to install before trying to install gems again.
+about running it all the time, in that we `diff` the `Gemfile` and if `diff`
+says there is a difference we will install and if there is no difference we
+will not install them unless there is a `gem` or `bundle` error, and if
+there is then we will try to install before trying to install gems again.
 
 ### If you are using an `.apt` file.
 
 You can convert your `.apt` file to an `.apk` file but we will do our best
-to convert your apt file for you automatically unless you have both then we
-we will just use your apk over apt. Visit: http://pkgs.alpinelinux.org if you
-would like to search for your package.  If it's only available in testing
-then you can do package@testing in your `.apk` file to trigger it from
-that repo.
+to convert your apt file for you automatically unless you have both. If
+you do have both then we we will just use your apk over apt.
+
+Visit: http://pkgs.alpinelinux.org if you would like to search for your
+package.  If it's only available in testing then you can do package@testing
+in your `.apk` file to trigger it from that repo.
 
 ## Running
 
@@ -122,31 +125,9 @@ another image name.
 * `.gems/*` holds the gem tables for images /usr/share/ruby/default-gems
 * DO NOT EDIT `images/*` directly, edit `.gems/*`, `.versions/*`, `Dockerfile`, `copy`
 * After you are done, `script/sync`
-* script/test
-
-### Notes
-
-* Use `script/build type` to build the image.
-* Use `script/sync versions` if you want to update the gem versions.
-* Use `test/manual` which will boot up an image so you can browse the demo.
-* Use `script/sync pages` if you want to sync pages gem versions!
-* Use `script/test` to test the image basics and stuff.
-
-We only verify the image with testing, that means we only check that a few
-setup items are created, since most of our base helpers and functions come from
-the parent image and are tested there... If you do something special add a
-test, they are in test and are mounted when running tests.  If you wish to add
-a helper then please consider submitting it to the parent image unless it's
-directly related but in most cases it won't be.
 
 ## Notes
   * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
   * When you launch or run anything via the `jekyll` cmd it is run as a non-priv
     user `jekyll` with a `uid=1000` and `gid=1000` in `/srv/jekyll`.
   * Jekyll has access to sudo (mostly for the build system.)
-
-## Building a Deb
-
-```sh
-docker run --rm -v $(pwd):/srv/jekyll -it jekyll/jekyll buildeb
-```
