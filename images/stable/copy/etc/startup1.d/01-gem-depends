@@ -32,7 +32,7 @@ if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
   fi
 
   chpst -u jekyll:jekyll docker-helper install_users_gems
-  if ! grep -qE "^gem\s+(\"|')jekyll(\"|')" Gemfile; then
+  if ! grep -qE "^\s*gem\s+(\"|')jekyll(\"|')" Gemfile; then
     echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
     mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
   elif [ -z "$SKIP_BUNDLE_WARNING" ] && [ -z "$UPDATE_GEMFILE" ]; then
