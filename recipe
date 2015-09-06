@@ -7,12 +7,12 @@ set -e
 # parent helpers can use it too.
 
 script/sync
-if ! echo "$1" | grep -q ':'; then script/build
+if echo "$1" | grep -q ':'; then
+  script/build "$(
+    echo "$1" | awk -F: '{
+      print $2
+    }'
+  )"
 else
-
-  # To build a specific image from the parent helpers send in
-  # script/build jekyll:beta and it will wrap it into this recipe
-  # and build jekyll/images/beta for you locally.
-
-  script/build "$(echo "$1" | awk -F: '{ print $2 }')"
+  script/build
 fi
