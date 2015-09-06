@@ -1,23 +1,13 @@
 #!/usr/bin/env ruby
 
-begin
-  Process::Sys.setuid(1000)
-  Process::Sys.setgid(1000)
-rescue
-  nil
-end
-
+Process::Sys.setuid(1000) rescue nil
+Process::Sys.setgid(1000) rescue nil
 if %W(s serve server).include?(ARGV[0])
   ARGV.unshift(ARGV.shift,
-    "-H", "0.0.0.0", "-s", "/srv/jekyll"
+    "-H", "0.0.0.0"
   )
-else
-  unless ARGV.any? { |v| v == "-s" }
-    ARGV.unshift(ARGV.shift,
-      "-s", "/srv/jekyll"
-    )
-  end
 end
 
-# Dropping the mic and walking out.
-load Gem.bin_path("jekyll", "jekyll")
+load Gem.bin_path(
+  "jekyll", "jekyll"
+)
