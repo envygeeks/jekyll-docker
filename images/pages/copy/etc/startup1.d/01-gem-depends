@@ -35,10 +35,5 @@ if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
   if ! grep -qE "^\s*gem\s+(\"|')jekyll(\"|')" Gemfile; then
     echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
     mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
-  elif [ -z "$SKIP_BUNDLE_WARNING" ] && [ -z "$UPDATE_GEMFILE" ]; then
-    echo "BE WARNED: You are using a custom Gemfile, you will not have"
-    echo "access to the default Gems that we provide because you have chosen the"
-    echo "overriding path, you should add these gems:"
-    cat /usr/share/ruby/default-gems
   fi
 fi
