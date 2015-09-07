@@ -1,15 +1,23 @@
 #!/bin/sh
+user=${DOCKER_USER:-jekyll}
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
+repo=$(basename $root)
 $root/script/sync
 set -e
 
-if [ $# -eq 1 ] && [ -d "$root/images/$1" ]; then
-  cd $root/images/$1 && docker build -t jekyll/jekyll:$1 .
+cd $root
+if [ $# -eq 1 ] && [ -d "images/$1" ]; then
+  cd $root/images/$1
+  docker build -t \
+    $user/$repo:$1 .
+
 elif [ $# -gt 0 ]; then
   >&2 echo "Bad Image"
   exit 1
 else
-  for v in $root/options/versions/*; do
-    script/build "$(basename "$v")"
+  for v in options/versions/*; do
+    $0 "$(
+      basename $v
+    )"
   done
 fi

@@ -3,12 +3,13 @@
 root=$(cd "$(dirname "$(readlink -f $0)")/../.."; pwd)
 set -e
 
+cd $root
 curl -vs https://pages.github.com/versions.json 2>/dev/null | \
   ruby -rjson -e '
     JSON.parse($stdin.gets).map do |k, v|
       $stdout.puts "#{k}@#{v}" if k != "ruby"
     end' \
   > $root/options/gems/pages
-echo "jekyll-compose" >> $root/options/gems/pages
+echo "jekyll-compose" >> options/gems/pages
 echo "Pages has been updated."
 script/sync
