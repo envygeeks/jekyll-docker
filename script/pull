@@ -3,7 +3,7 @@
 [ "$DEBUG" ] && set -x
 user=${DOCKER_USER:-jekyll}
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
-repo=$(basename $root)
+repo=${DOCKER_REPO:-jekyll}
 set -e
 
 cd $root
