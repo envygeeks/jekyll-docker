@@ -7,8 +7,15 @@ repo=${DOCKER_REPO:-jekyll}
 set -e
 
 cd $root
-for v in images/*; do
-  docker pull "$user/$repo:$(
-    basename $v
-  )"
-done
+if [ $# -eq 1 ] && [ -d "images/$1" ]; then
+  docker pull "$user/$repo:$1"
+elif [ $# -gt 0 ]; then
+  echo "Bad Tag"
+  exit 1
+else
+  for v in images/*; do
+    $0 "$(
+      basename $v
+    )"
+  done
+fi
