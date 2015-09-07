@@ -5,23 +5,23 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production and
 development.
 
-## Current images:
+## Current Tags
 
-* [![](https://badge.imagelayers.io/jekyll/pages.svg)][pages] `pages`
-* [![](https://badge.imagelayers.io/jekyll/jekyll.svg)][jekyll] `jekyll`
-* [![](https://badge.imagelayers.io/jekyll/stable.svg)][stable] `stable`
-* [![](https://badge.imagelayers.io/jekyll/master.svg)][master] `master`
-* [![](https://badge.imagelayers.io/jekyll/beta.svg)][beta] `beta`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
 
-[pages]: https://imagelayers.io?images=jekyll/pages
-[jekyll]: https://imagelayers.io?images=jekyll/jekyll
-[stable]: https://imagelayers.io?images=jekyll/stable
-[master]: https://imagelayers.io?images=jekyll/master
-[beta]: https://imagelayers.io?images=jekyll/beta
+[pages]: https://imagelayers.io?images=jekyll/jekyll:pages
+[latest]: https://imagelayers.io?images=jekyll/jekyll:latest
+[stable]: https://imagelayers.io?images=jekyll/jekyll:stable
+[master]: https://imagelayers.io?images=jekyll/jekyll:master
+[beta]: https://imagelayers.io?images=jekyll/jekyll:beta
 
-The jekyll/pages tries to be as close to Github pages as possible, without
-changing much, there might be some differences and if there are please do file a
-ticket and they will be corrected if possible.
+The `jekyll/jekyll:pages` tries to be as close to Github pages as possible,
+without changing much, there might be some differences and if there are please
+do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
@@ -106,8 +106,8 @@ file to trigger it from that repo.
 
 ```sh
 # Labels requires Docker 1.7, if you get an error remove them.
-docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
-  -t -p 127.0.0.1:4000:4000 jekyll/stable jekyll s
+docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
+  -t -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
 ```
 
 ***If you do not provide a command then it will default to `jekyll s`.***
@@ -119,7 +119,7 @@ type` will build a specific image, where `type` is `beta` or another image name.
 
 ## Contributing
 
-* Fork.
+* Fork the current repo jekyll/docker
 * `options/versions/*` holds the version table for images.
 * `options/gems/*` holds the gem tables for images /usr/share/ruby/default-gems
 * DO NOT EDIT `images/*` directly, edit stuff in options, `Dockerfile`, and `copy`
