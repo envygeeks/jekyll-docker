@@ -2,8 +2,8 @@
 
 Jekyll Docker is a full featured Alpine based Docker image that provides an
 isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
-stuff to make your life easier when working with Jekyll in both production
-and development.
+stuff to make your life easier when working with Jekyll in both production and
+development.
 
 ## Current images:
 
@@ -19,9 +19,9 @@ and development.
 [master]: https://imagelayers.io?images=jekyll/master
 [beta]: https://imagelayers.io?images=jekyll/beta
 
-The jekyll/pages tries to be as close to Github pages as possible,
-without changing much, there might be some differences and if there are please
-do file a ticket and they will be corrected if possible.
+The jekyll/pages tries to be as close to Github pages as possible, without
+changing much, there might be some differences and if there are please do file a
+ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
@@ -46,8 +46,8 @@ do file a ticket and they will be corrected if possible.
 
 If you are on Windows using Boot2Docker you will need to `--force_polling`
 because there is no built-in support for NTFS notify events to inotify and the
-verse, you'll be on two different file systems so only the basic API's
-are implemented.
+verse, you'll be on two different file systems so only the basic API's are
+implemented.
 
 ## Environment Variables
 
@@ -73,34 +73,34 @@ are implemented.
 
 ## Gemfiles
 
-This docker image supports `Gemfile`'s, updating your Gemfile and even
-changing the way it behaves based on what you tell it to do.  See `Environment
+This docker image supports `Gemfile`'s, updating your Gemfile and even changing
+the way it behaves based on what you tell it to do.  See `Environment
 Variables`. We also try to detect if if you are using things like Github or Git
-to pull dependencies with bundler so that we can transform and optimize for
-you, just a tiny bit though.
+to pull dependencies with bundler so that we can transform and optimize for you,
+just a tiny bit though.
 
-If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we
-can quickly detect with a Regexp we will default to installing with bundler so that
+If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can
+quickly detect with a Regexp we will default to installing with bundler so that
 we do not break anything that you are trying to accomplish.
 
 ## Apk (Alpine) dependencies for Gems
 
-If you provide a `.apk` file inside of your root we will detect it and
-install those dependencies inside of the image for you and attempt to be smart
-about running it all the time, in that we `diff` the `Gemfile` and if `diff`
-says there is a difference we will install and if there is no difference we
-will not install them unless there is a `gem` or `bundle` error, and if
-there is then we will try to install before trying to install gems again.
+If you provide a `.apk` file inside of your root we will detect it and install
+those dependencies inside of the image for you and attempt to be smart about
+running it all the time, in that we `diff` the `Gemfile` and if `diff` says
+there is a difference we will install and if there is no difference we will not
+install them unless there is a `gem` or `bundle` error, and if there is then we
+will try to install before trying to install gems again.
 
 ### If you are using an `.apt` file.
 
-You can convert your `.apt` file to an `.apk` file but we will do our best
-to convert your apt file for you automatically unless you have both. If
-you do have both then we we will just use your apk over apt.
+You can convert your `.apt` file to an `.apk` file but we will do our best to
+convert your apt file for you automatically unless you have both. If you do have
+both then we we will just use your apk over apt.
 
-Visit: http://pkgs.alpinelinux.org if you would like to search for your
-package.  If it's only available in testing then you can do package@testing
-in your `.apk` file to trigger it from that repo.
+Visit: http://pkgs.alpinelinux.org if you would like to search for your package.
+If it's only available in testing then you can do package@testing in your `.apk`
+file to trigger it from that repo.
 
 ## Running
 
@@ -114,9 +114,8 @@ docker run --rm --label=jekyll --label=stable --volume=$(pwd):/srv/jekyll \
 
 ## Building
 
-It's quite simple, `script/build` will build all the images and
-`script/build type` will build a specific image, where `type` is `beta` or
-another image name.
+It's quite simple, `script/build` will build all the images and `script/build
+type` will build a specific image, where `type` is `beta` or another image name.
 
 ## Contributing
 
