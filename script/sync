@@ -3,31 +3,32 @@
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
 set -e
 
-if [ $# -eq 1 ] && [ -f "$root/vendor/sync/$1" ]; then
+cd $root
+if [ $# -eq 1 ] && [ -f "vendor/sync/$1" ]; then
   sync=$1 && shift
-  exec "$root/vendor/sync/$sync" \
+  exec "vendor/sync/$sync" \
     "$@"
 
 elif [ $# -gt 0 ]; then
   >&2 echo "Unknown Image."
   exit 1
 else
-  imgs="$root/images"
-  mkdir -p $imgs
-  rm -rf $imgs/*
+  mkdir -p images
+  rm -rf images/*
 
-  for v in $root/options/versions/*; do
-    v="$(basename "$v")" # All we care about.
-    version=$(cat $root/options/versions/$v)
-    mkdir -p $imgs/$v && img="$imgs/$v"
+  for v in options/versions/*; do
+    v="$(basename $v)"
+    version=$(cat options/versions/$v)
+    mkdir -p images/$v
+    img="images/$v"
 
-    [ -f $root/.dockerignore ] && cp $root/.dockerignore $img/.dockerignore
-    cp $root/copy -R $img/copy
+    [ -f .dockerignore ] && cp .dockerignore $img/.dockerignore
+    cp copy -R $img/copy
 
     mkdir -p $img/copy/usr/share/ruby
-    cp $root/options/gems/$v $img/copy/usr/share/ruby/default-gems
-    cat $root/Dockerfile | sed -r "s!__VERSION__!$version!" > $img/Dockerfile
+    cp options/gems/$v $img/copy/usr/share/ruby/default-gems
+    cat Dockerfile | sed -r "s!__VERSION__!$version!" > $img/Dockerfile
     sed -ri "s/__TYPE__/$v/" $img/Dockerfile
-    cp $root/README.md $img/README.md
+    cp README.md $img/README.md
   done
 fi

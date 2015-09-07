@@ -3,13 +3,14 @@
 root=$(cd "$(dirname "$(readlink -f $0)")/../.."; pwd)
 set -e
 
+cd $root
 stable=$(gem search jekyll       | grep --color=never -E '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/')
   beta=$(gem search jekyll --pre | grep --color=never -E '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/' | awk -F', ' '{ print $1 }')
 pages=$(curl -vs https://pages.github.com/versions.json 2>/dev/null | ruby \
   -rjson -e '$stdout.puts JSON.parse($stdin.gets)["jekyll"];')
 
-printf "jekyll@%s" $pages  > $root/options/versions/pages
-printf "jekyll@%s" $stable > $root/options/versions/stable
-printf "jekyll@%s" $beta   > $root/options/versions/beta
+printf "jekyll@%s" $pages  > options/versions/pages
+printf "jekyll@%s" $stable > options/versions/stable
+printf "jekyll@%s" $beta   > options/versions/beta
 echo "Gem versions have been updated."
 script/sync
