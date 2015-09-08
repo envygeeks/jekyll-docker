@@ -13,22 +13,22 @@ elif [ $# -gt 0 ]; then
   >&2 echo "Unknown Image."
   exit 1
 else
-  mkdir -p images
-  rm -rf images/*
+  mkdir -p tags
+  rm -rf tags/*
 
   for v in options/versions/*; do
     v="$(basename $v)"
     version=$(cat options/versions/$v)
-    mkdir -p images/$v
-    img="images/$v"
+    mkdir -p tags/$v
+    tag=tags/$v
 
-    [ -f .dockerignore ] && cp .dockerignore $img/.dockerignore
-    cp copy -R $img/copy
+    [ -f .dockerignore ] && cp .dockerignore $tag/.dockerignore
+    cp copy -R $tag/copy
 
-    mkdir -p $img/copy/usr/share/ruby
-    cp options/gems/$v $img/copy/usr/share/ruby/default-gems
-    cat Dockerfile | sed -r "s!__VERSION__!$version!" > $img/Dockerfile
-    sed -ri "s/__TYPE__/$v/" $img/Dockerfile
-    cp README.md $img/README.md
+    mkdir -p $tag/copy/usr/share/ruby
+    cp options/gems/$v $tag/copy/usr/share/ruby/default-gems
+    cat Dockerfile | sed -r "s!__VERSION__!$version!" > $tag/Dockerfile
+    sed -ri "s/__TYPE__/$v/" $tag/Dockerfile
+    cp README.md $tag/README.md
   done
 fi

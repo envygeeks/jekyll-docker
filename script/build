@@ -1,20 +1,22 @@
 #!/bin/sh
-user=${DOCKER_USER:-jekyll}
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
-repo=${DOCKER_REPO:-jekyll}
-$root/script/sync
+repo=${DOCKER_REPO:-$(cat $root/options/repo)}
+user=${DOCKER_USER:-$(cat $root/options/user)}
 set -e
 
 cd $root
-if [ $# -eq 1 ] && [ -d "images/$1" ]; then
-  cd $root/images/$1
-  docker build -t \
-    $user/$repo:$1 .
-
-elif [ $# -gt 0 ]; then
-  >&2 echo "Bad Image"
+script/sync
+if [ $# -eq 1 ] && [ -d "tags/$1" ]; then
+  cd tags/$1
+  image=$user/$repo:$1
+  printf "Building the image %s\n" $image
+  docker build -t $image .
+  tput clear || true
+elif [ $# -gt 1 ]; then
+  >&2 echo "Too many tags given, only one accepted."
   exit 1
 else
+  # Incase images is fully empty.
   for v in options/versions/*; do
     $0 "$(
       basename $v
