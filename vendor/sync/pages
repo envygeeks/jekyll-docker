@@ -11,5 +11,6 @@ curl -vs https://pages.github.com/versions.json 2>/dev/null | \
     end' \
   > $root/options/gems/pages
 echo "jekyll-compose" >> options/gems/pages
+echo "jekyll-github-metadata" >> options/gems/pages
 echo "Pages has been updated."
 script/sync
