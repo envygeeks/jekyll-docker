@@ -1,8 +1,5 @@
 #!/usr/bin/env ruby
 
-Process::Sys.setuid(1000) rescue nil
-Process::Sys.setgid(1000) rescue nil
-
 # Because of a bug in Jekyll 2.4 that was resolved somewhere between 2.4 and 2.5
 # we work around problems with `s` and host by just changing s to serve for you
 # so that you get -H that works.
@@ -13,12 +10,21 @@ if "s" == ARGV[0]
   )
 end
 
+# Give a default listener of everything for Jekyll inside of Docker so that you
+# can view your site if you are using the server provided by Jekyll.
+
 if %W(serve server).include?(ARGV[0])
   ARGV.unshift(ARGV.shift,
     "-H", "0.0.0.0"
   )
 end
 
-load Gem.bin_path(
-  "jekyll", "jekyll"
-)
+# Pass it onto chpst.
+if Process.uid == 0
+  exec "chpst", "-u", "jekyll:jekyll", Gem.bin_path("jekyll", "jekyll"), \
+    *ARGV
+else
+  load Gem.bin_path(
+    "jekyll", "jekyll"
+  )
+end
