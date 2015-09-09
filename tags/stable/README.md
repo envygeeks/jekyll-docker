@@ -49,6 +49,16 @@ because there is no built-in support for NTFS notify events to inotify and the
 verse, you'll be on two different file systems so only the basic API's are
 implemented.
 
+## TheRubyRacer (Segfaults)
+
+There is an issue currently with TheRubyRacer and Muslc provided by Alpine, to
+work around this you should forgo using TheRubyRacer until it's fixed and rely
+on the nodejs we provide with the image.  If you need to use TheRubyRacer you
+will need to download and unpack Debian Ruby compiled with glibc and install
+glibc@envygeeks, and then reinstall the gems with that Ruby -- GLibC is
+available via https://pkgs.envygeeks.io/docker/alpine/x86_64 -- we hope this
+issue will resolved soon.
+
 ## Environment Variables
 
 * `$FORCE_APK_INSTALL` - Will force us to always install `.apk` depenendcies
