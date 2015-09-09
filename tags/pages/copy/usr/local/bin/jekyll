@@ -2,7 +2,18 @@
 
 Process::Sys.setuid(1000) rescue nil
 Process::Sys.setgid(1000) rescue nil
-if %W(s serve server).include?(ARGV[0])
+
+# Because of a bug in Jekyll 2.4 that was resolved somewhere between 2.4 and 2.5
+# we work around problems with `s` and host by just changing s to serve for you
+# so that you get -H that works.
+
+if "s" == ARGV[0]
+  ARGV.shift and ARGV.unshift(
+    "serve"
+  )
+end
+
+if %W(serve server).include?(ARGV[0])
   ARGV.unshift(ARGV.shift,
     "-H", "0.0.0.0"
   )
