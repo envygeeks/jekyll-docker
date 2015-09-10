@@ -13,14 +13,14 @@ end
 # Give a default listener of everything for Jekyll inside of Docker so that you
 # can view your site if you are using the server provided by Jekyll.
 
-if %W(serve server).include?(ARGV[0])
+if %W(s serve server).include?(ARGV[0])
   ARGV.unshift(ARGV.shift,
-    "-H", "0.0.0.0"
+    "-H", "0.0.0.0",
   )
 end
 
 # Pass it onto chpst.
-if Process.uid == 0
+if Process.uid == 0 || Process.euid == 0
   exec "chpst", "-u", "jekyll:jekyll", Gem.bin_path("jekyll", "jekyll"), \
     *ARGV
 else
