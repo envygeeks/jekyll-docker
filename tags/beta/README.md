@@ -59,6 +59,14 @@ glibc@envygeeks, and then reinstall the gems with that Ruby -- GLibC is
 available via https://pkgs.envygeeks.io/docker/alpine/x86_64 -- we hope this
 issue will resolved soon.
 
+## Nginx
+
+This image includes nginx and even adjusting and adding some location stuff or
+basic customizations via a `.nginx` folder in your Jekyll root.  These do not
+affect the entire server and only affect the server in Jekyll's context, so you
+will be able to add locations and other customizations into Jekyll's server
+directive.
+
 ## Environment Variables
 
 * `$FORCE_APK_INSTALL` - Will force us to always install `.apk` depenendcies
