@@ -27,8 +27,7 @@ else
 
     mkdir -p $tag/copy/usr/share/ruby
     cp options/gems/$v $tag/copy/usr/share/ruby/default-gems
-    cat Dockerfile | sed -r "s!__VERSION__!$version!" > $tag/Dockerfile
-    sed -ri "s/__TYPE__/$v/" $tag/Dockerfile
+    erb "version=$version" "type=$v" Dockerfile > $tag/Dockerfile
     cp README.md $tag/README.md
   done
 fi

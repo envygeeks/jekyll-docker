@@ -2,9 +2,9 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV \
-  JEKYLL_IMAGE_TYPE=__TYPE__ \
+  JEKYLL_IMAGE_TYPE=<%= type %> \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
-  JEKYLL_VERSION=__VERSION__
+  JEKYLL_VERSION=<%= version %>
 RUN \
   apk --update add readline readline-dev libxml2 libxml2-dev libxslt  \
     libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
@@ -27,7 +27,7 @@ RUN \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
 
-  repo=$(docker-helper git_clone_ruby_repo "__VERSION__") && \
+  repo=$(docker-helper git_clone_ruby_repo "<%= version %>") && \
   if [ ! -z "$repo" ]; \
   then \
     cd $repo && \
@@ -36,7 +36,7 @@ RUN \
     rm -rf $repo; \
   else \
     yes | docker-helper ruby_install_gem \
-      "__VERSION__" --no-document -- \
+      "<%= version %>" --no-document -- \
         --use-system-libraries; \
   fi && \
 
