@@ -89,6 +89,11 @@ directive.
   mixed with $UPDATE_GEMFILE or you should add "jekyll" to your gem
   list so you have very little trouble.
 
+* `$PRESERVE_PERMISSIONS` - Disables the chown that happens on boot so
+   that if you dislike us making everything as Jekyll's user you can keep it
+   the same, this does not affect `_site` and `vendor/bundle` if we install
+   and could break things so use with caution.
+
 ## Gemfiles
 
 This docker image supports `Gemfile`'s, updating your Gemfile and even changing
@@ -125,7 +130,7 @@ file to trigger it from that repo.
 ```sh
 # Labels requires Docker 1.7, if you get an error remove them.
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
-  -t -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
+  -ti -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
 ```
 
 ***If you do not provide a command then it will default to `jekyll s`.***
@@ -138,10 +143,9 @@ type` will build a specific image, where `type` is `beta` or another image name.
 ## Contributing
 
 * Fork the current repo jekyll/docker
-* `options/versions/*` holds the version table for images.
-* `options/gems/*` holds the gem tables for images /usr/share/ruby/default-gems
-* DO NOT EDIT `images/*` directly, edit stuff in options, `Dockerfile`, and `copy`
-* After you are done, `script/sync`
+* `opts.yml` holds the version, gems and most everything.
+* DO NOT EDIT `tags/*` directly, edit stuff in options, `Dockerfile`, and `copy`
+* After you are done, `script/sync`, `git commit` and request a patch.
 
 ## Notes
   * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
