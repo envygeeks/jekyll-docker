@@ -1,16 +1,22 @@
 #!/bin/sh
 [ "$DEBUG" ] && set -x
 root=$(cd "$(dirname "$(readlink -f $0)")/../.."; pwd)
+yml=$root/script/update-yml
 set -e
 
 cd $root
-curl -vs https://pages.github.com/versions.json 2>/dev/null | \
+gems=$(curl -vs https://pages.github.com/versions.json 2>/dev/null | \
   ruby -rjson -e '
     JSON.parse($stdin.gets).map do |k, v|
       $stdout.puts "#{k}@#{v}" if k != "ruby"
-    end' \
-  > $root/options/gems/pages
-echo "jekyll-compose" >> options/gems/pages
-echo "jekyll-github-metadata" >> options/gems/pages
+    end')
+
+$yml gems.pages
+for v in "$gems"; do
+  $yml -p gems.pages $v
+done
+
+$yml -p gems.pages jekyll-compose
+$yml -p gems.pages jekyll-github-metadata
 echo "Pages has been updated."
 script/sync
