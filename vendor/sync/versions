@@ -11,9 +11,9 @@ pages=$(curl -vs https://pages.github.com/versions.json 2>/dev/null | ruby \
   -rjson -e '$stdout.puts JSON.parse($stdin.gets)["jekyll"];')
 
 
-$yml versions.pages jekyll@$pages
-$yml versions.stable jekyll@$stable
-$yml versions.latest jekyll@$stable
-$yml versions.beta jekyll@$stable
+$yml tags.pages jekyll@$pages
+$yml tags.stable jekyll@$stable
+$yml tags.latest jekyll@$stable
+$yml tags.beta jekyll@$stable
 echo "Gem versions have been updated."
 script/sync

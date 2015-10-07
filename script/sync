@@ -17,8 +17,8 @@ else
   mkdir -p tags
   rm -rf tags/*
 
-  for v in  $($yml -k versions); do
-    version=$($yml versions.$v)
+  for v in  $($yml -k tags); do
+    version=$($yml tags.$v)
     mkdir -p tags/$v
     tag=tags/$v
 
