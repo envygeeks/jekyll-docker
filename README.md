@@ -138,10 +138,9 @@ type` will build a specific image, where `type` is `beta` or another image name.
 ## Contributing
 
 * Fork the current repo jekyll/docker
-* `options/versions/*` holds the version table for images.
-* `options/gems/*` holds the gem tables for images /usr/share/ruby/default-gems
-* DO NOT EDIT `images/*` directly, edit stuff in options, `Dockerfile`, and `copy`
-* After you are done, `script/sync`
+* `opts.yml` holds the version, gems and most everything.
+* DO NOT EDIT `tags/*` directly, edit stuff in options, `Dockerfile`, and `copy`
+* After you are done, `script/sync`, `git commit` and request a patch.
 
 ## Notes
   * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.

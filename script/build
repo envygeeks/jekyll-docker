@@ -1,34 +1,40 @@
 #!/bin/sh
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
 repo="$(cd $root; basename "$(pwd)")"
+yml=$root/script/yml
 set -e
 
-if [ $# -eq 2 ]; then
-  user=$1; shift
-   tag=$1; shift
+while getopts ":u:" opt "$@"; do
+  case $opt in
+    u) user=$OPTARG;;
+  esac
+done
+shift $((
+  OPTIND-1
+))
 
-elif [ $# -eq 1 ]; then
-  user=${DOCKER_USER:-jekyll}
-   tag=$1; shift
-
-elif [ $# -gt 0 ]; then
-  echo "Too many arguments, only one..two accepted."
-  exit 1
-fi
+echo $user
+exit 1
 
 cd $root
 script/sync
-if [ "$tag" ] && [ -d "tags/$tag" ]; then
+tag=$1
+
+if [ $# -gt 1 ]; then
+  for v in "$@"; do
+    $0 $v
+  done
+elif [ "$tag" ] && [ -d "tags/$tag" ]; then
   cd tags/$tag
   image=$user/$repo:$tag
   printf "Building the image %s\n" $image
   docker build -t $image .
   tput clear || true
-elif [ $# -gt 1 ]; then
-  >&2 echo "Too many tags given, only one accepted."
+elif [ "$tag" ] && [ ! -d "tags/$tag" ]; then
+  >&2 echo "Unknown tag given."
   exit 1
 else
-  for v in options/versions/*; do
-    $0 "$(basename $v)"
+  for v in $($yml -k versions); do
+    $0 $v
   done
 fi

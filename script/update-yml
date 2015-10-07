@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# Copyright 2015 Jordon Bedwell (EnvyGeeks)
+# Taken from envygeeks/docker
+require "optparse"
+require "yaml"
+require "json"
+options = {
+  :file => "opts.yml",
+}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{__FILE__} [options]"
+  opts.on("-p", "--push", "Push onto an array, don't overwrite.") { options[:push] = true }
+  opts.on("-f", "--file [FILE]", "The file to parse; default: opts.yml") do |v|
+    options[:file] = v
+  end
+end.parse!
+
+key_path = ARGV.shift
+keys = key_path.split(".")
+data = YAML.load_file(options[:file])
+current_hash = data[keys[0]] ||= {}
+keys[1...-1].each do |k|
+  current_hash = current_hash[k] \
+    ||= {}
+end
+
+if options[:push]
+  (current_hash[keys[-1]] ||= []).push(
+    *ARGV
+  )
+else
+  current_hash[keys[-1]] = ARGV.size > 1 ? \
+    ARGV[0..-1] : ARGV[0]
+end
+
+# Write it out now.
+File.write(options[:file], data.to_yaml)
