@@ -1,6 +1,6 @@
 ---
 user: jekyll
-versions:
+tags:
   beta: jekyll@2.5.3
   master: jekyll,jekyll/jekyll@master
   latest: jekyll@2.5.3
