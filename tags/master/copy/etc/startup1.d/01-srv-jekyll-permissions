@@ -1,3 +1,3 @@
 #!/bin/sh
-chown -R jekyll:jekyll \
+[ -z "$PRESERVE_PERMISSIONS" ] && chown -R jekyll:jekyll \
   /srv/jekyll
