@@ -13,9 +13,6 @@ shift $((
   OPTIND-1
 ))
 
-echo $user
-exit 1
-
 cd $root
 script/sync
 tag=$1
