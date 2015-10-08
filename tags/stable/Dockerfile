@@ -12,9 +12,9 @@ RUN \
         ruby-irb ruby-json ruby-rake ruby-rdoc git nginx && \
 
   mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
-  rm -rf /etc/nginx && mkdir -p /etc/nginx && \
-  cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-  cd docker/dockerfiles/nginx && cp copy/etc/nginx/* /etc/nginx && \
+  rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
+  cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
+  cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
   mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
   rm -rf /tmp/docker && cd ~/ && \
 
