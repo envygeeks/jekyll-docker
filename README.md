@@ -89,11 +89,6 @@ directive.
   mixed with $UPDATE_GEMFILE or you should add "jekyll" to your gem
   list so you have very little trouble.
 
-* `$PRESERVE_PERMISSIONS` - Disables the chown that happens on boot so
-   that if you dislike us making everything as Jekyll's user you can keep it
-   the same, this does not affect `_site` and `vendor/bundle` if we install
-   and could break things so use with caution.
-
 ## Gemfiles
 
 This docker image supports `Gemfile`'s, updating your Gemfile and even changing
