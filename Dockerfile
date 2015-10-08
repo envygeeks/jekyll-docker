@@ -46,7 +46,7 @@ RUN \
   apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
     ruby-dev yaml-dev libffi-dev && \
 
-  <% if Gem::Version.new(version.tr('^0-9.', '')) > Gem::Version.new('2.5.3') %>
+  <% if Gem::Version.new(version.gsub(/\.pre\.beta\d+/, "").tr('^0-9.', '')) > Gem::Version.new('2.5.3') %>
     apk del python && \
   <% end %>
 
