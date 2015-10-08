@@ -1,7 +1,7 @@
 ---
 user: jekyll
 tags:
-  beta: jekyll@3.0.0.beta9
+  beta: jekyll@3.0.0.pre.beta9
   master: jekyll,jekyll/jekyll@master
   latest: jekyll@2.5.3
   pages: jekyll@2.4.0
