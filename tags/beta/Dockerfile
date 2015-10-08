@@ -4,7 +4,7 @@ COPY copy/ /
 ENV \
   JEKYLL_IMAGE_TYPE=beta \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
-  JEKYLL_VERSION=jekyll@2.5.3
+  JEKYLL_VERSION=jekyll@3.0.0.beta9
 RUN \
   apk --update add readline readline-dev libxml2 libxml2-dev libxslt  \
     libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
@@ -27,7 +27,7 @@ RUN \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
 
-  repo=$(docker-helper git_clone_ruby_repo "jekyll@2.5.3") && \
+  repo=$(docker-helper git_clone_ruby_repo "jekyll@3.0.0.beta9") && \
   if [ ! -z "$repo" ]; \
   then \
     cd $repo && \
@@ -36,7 +36,7 @@ RUN \
     rm -rf $repo; \
   else \
     yes | docker-helper ruby_install_gem \
-      "jekyll@2.5.3" --no-document -- \
+      "jekyll@3.0.0.beta9" --no-document -- \
         --use-system-libraries; \
   fi && \
 
@@ -46,16 +46,14 @@ RUN \
   apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
     ruby-dev yaml-dev libffi-dev && \
 
-  # Only remove python if we are on 3.0.0+ because it uses Ruby.
-  if [ "$(echo $JEKYLL_VERSION | sed -r 's/[^0-9]//g')" -gt 253 ]; \
-    then apk del python; \
-  fi && \
+  
+    apk del python && \
+  
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
-
 WORKDIR /srv/jekyll
 EXPOSE 4000 80

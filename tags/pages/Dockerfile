@@ -46,16 +46,12 @@ RUN \
   apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
     ruby-dev yaml-dev libffi-dev && \
 
-  # Only remove python if we are on 3.0.0+ because it uses Ruby.
-  if [ "$(echo $JEKYLL_VERSION | sed -r 's/[^0-9]//g')" -gt 253 ]; \
-    then apk del python; \
-  fi && \
+  
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
-
 WORKDIR /srv/jekyll
 EXPOSE 4000 80
