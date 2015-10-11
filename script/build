@@ -1,7 +1,7 @@
 #!/bin/sh
 root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
 repo="$(cd $root; basename "$(pwd)")"
-yml=$root/script/yml
+yaml=$root/script/yaml
 set -e
 
 while getopts ":u:" opt "$@"; do
@@ -31,7 +31,7 @@ elif [ "$tag" ] && [ ! -d "tags/$tag" ]; then
   >&2 echo "Unknown tag given."
   exit 1
 else
-  for v in $($yml -k versions); do
+  for v in $($yaml -k versions); do
     $0 $v
   done
 fi
