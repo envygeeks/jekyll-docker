@@ -23,6 +23,7 @@ else
     tag=tags/$v
 
     [ -f .dockerignore ] && cp .dockerignore $tag/.dockerignore
+    [ -f opts.yml ] && cp opts.yml $tag/opts.yml
     cp copy -R $tag/copy
 
     mkdir -p $tag/copy/usr/share/ruby
