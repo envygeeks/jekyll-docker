@@ -44,8 +44,8 @@ do file a ticket and they will be corrected if possible.
 
 ## Boot2Docker Caveats
 
-If you are on Windows using Boot2Docker you will need to `--force_polling`
-because there is no built-in support for NTFS notify events to inotify and the
+If you are on Windows or OS X using Boot2Docker you will need to `--force_polling`
+because there is no built-in support for NTFS/HFS notify events to inotify and the
 verse, you'll be on two different file systems so only the basic API's are
 implemented.
 
