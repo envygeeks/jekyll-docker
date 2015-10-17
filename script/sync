@@ -11,7 +11,8 @@ if [ $# -eq 1 ] && [ -f "vendor/sync/$1" ]; then
     "$@"
 
 elif [ $# -gt 0 ]; then
-  >&2 echo "Unknown Image."
+  >&2 echo "Unknown Sync script, did you mean to script/build?"
+  echo "script/build will also automatically sync on your behalf as well."
   exit 1
 else
   mkdir -p tags
