@@ -30,7 +30,9 @@ else
     gems=$($yaml gems.$v)
     [ "$gems" ] || gems=$($yaml gems.all)
     echo $gems > $tag/copy/usr/share/ruby/default-gems
-    erb "version=$version" "type=$v" Dockerfile > $tag/Dockerfile
     cp README.md $tag/README.md
+
+    (printf '<%% version="%s"; type="%s" %%>' "$version" "$v" && cat \
+      Dockerfile) | erb > $tag/Dockerfile
   done
 fi
