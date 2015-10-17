@@ -1,4 +1,5 @@
 #!/bin/sh
+[[ "$DEBUG" ]] && set -x
 root=$(cd "$(dirname "$(readlink $0)")"; pwd)
 repo="$(cd $root; basename "$(pwd)")"
 yaml=$root/script/yaml
