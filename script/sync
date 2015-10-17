@@ -24,7 +24,7 @@ else
 
     [ -f .dockerignore ] && cp .dockerignore $tag/.dockerignore
     [ -f opts.yml ] && cp opts.yml $tag/opts.yml
-    cp copy -R $tag/copy
+    cp -R copy $tag/copy
 
     mkdir -p $tag/copy/usr/share/ruby
     gems=$($yaml gems.$v)
