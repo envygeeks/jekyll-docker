@@ -1,5 +1,5 @@
 #!/bin/sh
-root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
+root=$(cd "$(dirname "$(readlink $0)")"; pwd)
 repo="$(cd $root; basename "$(pwd)")"
 yaml=$root/script/yaml
 set -e

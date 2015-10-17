@@ -1,6 +1,6 @@
 #!/bin/sh
 [ "$DEBUG" ] && set -x
-root=$(cd "$(dirname "$(readlink -f $0)")/.."; pwd)
+root=$(cd "$(dirname "$(readlink $0)")"; pwd)
 yaml=$root/script/yaml
 set -e
 
