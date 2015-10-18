@@ -9,12 +9,14 @@ development.
 
 * [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
 
 [pages]: https://imagelayers.io?images=jekyll/jekyll:pages
 [latest]: https://imagelayers.io?images=jekyll/jekyll:latest
+[builder]: https://imagelayers.io?images=jekyll/jekyll:builder
 [stable]: https://imagelayers.io?images=jekyll/jekyll:stable
 [master]: https://imagelayers.io?images=jekyll/jekyll:master
 [beta]: https://imagelayers.io?images=jekyll/jekyll:beta
