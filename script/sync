@@ -27,13 +27,15 @@ else
     [ -f opts.yml ] && cp opts.yml $tag/opts.yml
     cp -R copy $tag/copy
 
+    packages=$($yaml packages.$v)
     mkdir -p $tag/copy/usr/share/ruby
     gems=$($yaml gems.$v)
+
     [ "$gems" ] || gems=$($yaml gems.all)
     echo $gems > $tag/copy/usr/share/ruby/default-gems
     cp README.md $tag/README.md
 
-    (printf '<%% version="%s"; type="%s" %%>' "$version" "$v" && cat \
+    (printf '<%% version="%s"; type="%s"; packages="%s" %%>' "$version" "$v" "$packages" && cat \
       Dockerfile) | erb > $tag/Dockerfile
   done
 fi
