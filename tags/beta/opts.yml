@@ -7,8 +7,13 @@ tags:
   latest: jekyll@2.5.3
   pages: jekyll@2.4.0
   stable: jekyll@2.5.3
+  builder: jekyll@2.5.3
 packages:
   all: []
+  builder:
+  - bash
+  - lftp
+  - openssh-client
 gems:
   all:
   - pygments.rb

@@ -30,7 +30,6 @@ gems:
   - jemoji
   - RedCloth
   - maruku
-  - html-proofer
   pages:
   - jekyll@2.4.0
   - jekyll-coffeescript@1.0.1
