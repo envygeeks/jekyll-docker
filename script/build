@@ -24,7 +24,7 @@ if [ $# -gt 1 ]; then
   done
 elif [ "$tag" ] && [ -d "tags/$tag" ]; then
   cd tags/$tag
-  image=$user/$repo:$tag
+  image=${user:-jekyll}/$repo:$tag
   printf "Building the image %s\n" $image
   docker build -t $image .
   tput clear || true
