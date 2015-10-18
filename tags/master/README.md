@@ -41,6 +41,7 @@ do file a ticket and they will be corrected if possible.
 * RedCloth
 * maruku
 * pry
+* html-proofer
 
 ## Boot2Docker Caveats
 
