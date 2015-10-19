@@ -132,6 +132,17 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
 
 ***If you do not provide a command then it will default to `jekyll s`.***
 
+### Building Jekyll sites only
+
+If you want to just build Jekyll sites, you can use `builder` tag, it has some useful tools usable for CI:
+
+* bash (GitLab CI requires it)
+* openssh-client (`ssh` binary), rsync and lftp for deploying
+
+Instead of additions, builder does not have Nginx web server.
+
+[Wiki page with examples how to configure CI solutions to use this image](https://github.com/jekyll/docker/wiki/Deploying-with-Jekyll-Docker)
+
 ## Building
 
 It's quite simple, `script/build` will build all the images and `script/build
