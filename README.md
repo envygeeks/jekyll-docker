@@ -42,6 +42,7 @@ do file a ticket and they will be corrected if possible.
 * jemoji
 * RedCloth
 * maruku
+* pry
 * html-proofer
 
 ## Boot2Docker Caveats
@@ -131,6 +132,33 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
 ```
 
 ***If you do not provide a command then it will default to `jekyll s`.***
+
+### Builder image
+
+If you want to just build Jekyll sites, you can use `builder` tag, it has some useful tools usable for CI:
+
+* bash (GitLab CI requires it)
+* openssh-client (`ssh` binary), rsync and lftp for deploying
+
+Instead of additions, builder does not have Nginx web server.
+
+If you want to use it with GitLab CI you can use this `.gitlab-ci.yml` configuration file:
+
+```
+image: jekyll/jekyll:builder
+
+build and deploy:
+    tags:
+        - docker
+    script:
+        - jekyll build --destination /tmp/build
+        - htmlproof /tmp/build --empty-alt-ignore
+        - LFTP_REMOTE_PATH=builds/$(basename $CI_PROJECT_DIR)/${CI_BUILD_REF_NAME//[!a-zA-Z0-9-]/}
+        - LFTP_REMOTE_PATH=${LFTP_REMOTE_PATH,,}
+        - lftp $LFTP_CONNECT_URL -e "set sftp:auto-confirm yes; mirror -R --delete /tmp/build $LFTP_REMOTE_PATH; bye"
+```
+
+Don't forgot to configure Secret Variable LFTP_CONNECT_URL in project settings like this: `sftp://user:password@ftp.example.com` You can also use other protocols supported by lftp, or use other tools like rsync.
 
 ## Building
 
