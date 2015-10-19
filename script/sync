@@ -37,7 +37,7 @@ else
 
     {
       printf '<%% version="%s" %%>' $version && \
-      printf '<%% packages="%s" %%>' $packages && \
+      printf '<%% packages="%s" %%>' "$packages" && \
       printf '<%% tag="%s" %%>' $v && \
       cat Dockerfile
     } \
