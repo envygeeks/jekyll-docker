@@ -37,9 +37,8 @@ else
 
     {
       printf '<%% version="%s" %%>' $version && \
-      printf '<%% tag="%s" %%>' $(basename $tag) && \
       printf '<%% packages="%s" %%>' $packages && \
-      printf '<%% type="%s" %%>' $v && \
+      printf '<%% tag="%s" %%>' $v && \
       cat Dockerfile
     } \
       | erb > $tag/Dockerfile
