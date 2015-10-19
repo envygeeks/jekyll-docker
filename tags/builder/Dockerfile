@@ -6,11 +6,10 @@ ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@2.5.3
 RUN \
-  echo '@stable http://nl.alpinelinux.org/alpine/latest-stable/main' >> /etc/apk/repositories && \
   apk --update add readline readline-dev libxml2 libxml2-dev libxslt  \
     libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
       yaml-dev libffi libffi-dev build-base nodejs ruby-io-console \
-        ruby-irb ruby-json ruby-rake ruby-rdoc git@stable nginx \
+        ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
           bash lftp openssh-client && \
 
   mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
