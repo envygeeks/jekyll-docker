@@ -42,7 +42,6 @@ do file a ticket and they will be corrected if possible.
 * jemoji
 * RedCloth
 * maruku
-* pry
 * html-proofer
 
 ## Boot2Docker Caveats
