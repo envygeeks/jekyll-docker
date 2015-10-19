@@ -12,12 +12,14 @@ RUN \
         ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
            && \
 
-  mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
-  rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-  cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
-  cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
-  mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
-  rm -rf /tmp/docker && cd ~/ && \
+  
+    mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
+    rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
+    cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
+    cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
+    mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
+    rm -rf /tmp/docker && cd ~/ && \
+  
 
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
@@ -48,7 +50,8 @@ RUN \
     ruby-dev yaml-dev libffi-dev && \
 
   
-    apk del python && \ 
+    apk del python && \
+  
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \

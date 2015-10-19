@@ -12,12 +12,14 @@ RUN \
         ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
           <%= packages %> && \
 
-  mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
-  rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-  cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
-  cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
-  mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
-  rm -rf /tmp/docker && cd ~/ && \
+  <% if tag != "builder" %>
+    mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
+    rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
+    cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
+    cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
+    mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
+    rm -rf /tmp/docker && cd ~/ && \
+  <% end %>
 
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
@@ -48,7 +50,7 @@ RUN \
     ruby-dev yaml-dev libffi-dev && \
 
   <% if Gem::Version.new(version.gsub(/\.pre\.beta\d+/, "").tr('^0-9.', '')) > Gem::Version.new('2.5.3') %>
-    apk del python && \ <% elsif tag == "builder" %> apk del nginx && \
+    apk del python && \
   <% end %>
 
   mkdir -p /srv/jekyll && \

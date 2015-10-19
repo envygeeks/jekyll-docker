@@ -12,12 +12,7 @@ RUN \
         ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
           bash openssh-client lftp && \
 
-  mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
-  rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-  cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
-  cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
-  mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
-  rm -rf /tmp/docker && cd ~/ && \
+  
 
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
@@ -47,7 +42,6 @@ RUN \
   apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
     ruby-dev yaml-dev libffi-dev && \
 
-   apk del nginx && \
   
 
   mkdir -p /srv/jekyll && \
