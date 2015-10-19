@@ -13,6 +13,8 @@ RUN \
           bash openssh-client lftp && \
 
   
+    apk del nginx && \
+  
 
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
