@@ -2,7 +2,7 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV \
-  JEKYLL_IMAGE_TYPE=beta \
+  JEKYLL_IMAGE_TYPE= \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@3.0.0.pre.beta9
 RUN \
@@ -48,8 +48,7 @@ RUN \
     ruby-dev yaml-dev libffi-dev && \
 
   
-    apk del python && \
-  
+    apk del python && \ 
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \

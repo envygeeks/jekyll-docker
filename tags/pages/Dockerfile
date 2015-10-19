@@ -2,7 +2,7 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV \
-  JEKYLL_IMAGE_TYPE=pages \
+  JEKYLL_IMAGE_TYPE= \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@2.4.0
 RUN \
