@@ -19,6 +19,8 @@ RUN \
     cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
     mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
     rm -rf /tmp/docker && cd ~/ && \
+  <% elsif tag == "builder" %>
+    apk del nginx && \
   <% end %>
 
   mkdir -p /home/jekyll && \
