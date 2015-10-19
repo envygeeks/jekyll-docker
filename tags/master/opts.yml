@@ -12,8 +12,8 @@ packages:
   all: []
   builder:
   - bash
-  - lftp
   - openssh-client
+  - lftp
 gems:
   all:
   - pygments.rb

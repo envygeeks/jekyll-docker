@@ -35,7 +35,13 @@ else
     echo $gems > $tag/copy/usr/share/ruby/default-gems
     cp README.md $tag/README.md
 
-    (printf '<%% version="%s"; type="%s"; packages="%s" %%>' "$version" "$v" "$packages" && cat \
-      Dockerfile) | erb > $tag/Dockerfile
+    {
+      printf '<%% version="%s" %%>' $version && \
+      printf '<%% tag="%s" %%>' $(basename $tag) && \
+      printf '<%% packages="%s" %%>' $packages && \
+      printf '<%% type="%s" %%>' $type && \
+      cat Dockerfile
+    } \
+      | erb > $tag/Dockerfile
   done
 fi

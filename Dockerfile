@@ -48,7 +48,7 @@ RUN \
     ruby-dev yaml-dev libffi-dev && \
 
   <% if Gem::Version.new(version.gsub(/\.pre\.beta\d+/, "").tr('^0-9.', '')) > Gem::Version.new('2.5.3') %>
-    apk del python && \
+    apk del python && \ <% elsif tag == "builder" %> apk del nginx && \
   <% end %>
 
   mkdir -p /srv/jekyll && \

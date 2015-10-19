@@ -2,7 +2,7 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV \
-  JEKYLL_IMAGE_TYPE=builder \
+  JEKYLL_IMAGE_TYPE= \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@2.5.3
 RUN \
@@ -10,7 +10,7 @@ RUN \
     libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
       yaml-dev libffi libffi-dev build-base nodejs ruby-io-console \
         ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
-          bash lftp openssh-client && \
+          lftp && \
 
   mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
   rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
@@ -47,6 +47,7 @@ RUN \
   apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
     ruby-dev yaml-dev libffi-dev && \
 
+   apk del nginx && \
   
 
   mkdir -p /srv/jekyll && \
