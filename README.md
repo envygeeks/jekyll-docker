@@ -134,10 +134,12 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
 
 ### Building Jekyll sites only
 
-If you want to just build Jekyll sites, you can use `builder` tag, it has some useful tools usable for CI:
+If you want to just build Jekyll sites, you can use `builder` tag. Additionaly to other tags, it has:
 
-* bash (GitLab CI requires it)
-* openssh-client (`ssh` binary), rsync and lftp for deploying
+* bash
+* openssh-client (`ssh` binary)
+* rsync
+* lftp
 
 Instead of additions, builder does not have Nginx web server.
 
