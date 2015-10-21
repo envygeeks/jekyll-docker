@@ -19,7 +19,7 @@ else
   rm -rf tags/*
 
   for v in  $($yaml -k tags); do
-    version=$($yaml tags.$v)
+    version=$($yaml versions.$($yaml tags.$v))
     mkdir -p tags/$v
     tag=tags/$v
 
@@ -27,7 +27,7 @@ else
     [ -f opts.yml ] && cp opts.yml $tag/opts.yml
     cp -R copy $tag/copy
 
-    packages=$($yaml packages.$v)
+    packages=$($yaml pkgs.$v)
     mkdir -p $tag/copy/usr/share/ruby
     gems=$($yaml gems.$v)
 
