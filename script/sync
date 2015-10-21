@@ -24,7 +24,6 @@ else
     tag=tags/$v
 
     [ -f .dockerignore ] && cp .dockerignore $tag/.dockerignore
-    [ -f opts.yml ] && cp opts.yml $tag/opts.yml
     cp -R copy $tag/copy
 
     packages=$($yaml pkgs.$v)
