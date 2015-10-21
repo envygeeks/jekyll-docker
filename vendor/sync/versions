@@ -4,15 +4,17 @@ root=$(cd "$(dirname "$(readlink -f $0)")/../.."; pwd)
 yaml=$root/script/yaml
 set -e
 
+jsed() { sed -r 's/^jekyll\s+\((.*)\)$/\1/'; }
+jgrep() { grep --color=never -E '^jekyll\s+\(.*\)'; }
 cd $root
-stable=$(gem search jekyll       | grep --color=never -E '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/')
-  beta=$(gem search jekyll --pre | grep --color=never -E '^jekyll\s+\(.*\)' | sed -r 's/^jekyll\s+\((.*)\)$/\1/' | awk -F', ' '{ print $1 }')
+
+stable=$(gem search jekyll       | jgrep | jsed)
+  beta=$(gem search jekyll --pre | jgrep | jsed | awk -F', ' '{ print $1 }')
 pages=$(curl -vs https://pages.github.com/versions.json 2>/dev/null | ruby \
   -rjson -e '$stdout.puts JSON.parse($stdin.gets)["jekyll"];')
 
-$yaml update tags.pages jekyll@$pages
-$yaml update tags.stable jekyll@$stable
-$yaml update tags.latest jekyll@$stable
-$yaml update tags.beta jekyll@$beta
+$yaml update versions.pages jekyll@$pages
+$yaml update versions.stable jekyll@$stable
+$yaml update versions.beta jekyll@$beta
 echo "Gem versions have been updated."
 script/sync
