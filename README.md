@@ -27,7 +27,7 @@ do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
-* therubyracer
+* [therubyracer](https://github.com/cowboyd/therubyracer) - Embed the V8 Javascript Interpreter into Ruby
 * pygments.rb
 * jekyll-sitemap
 * jekyll-coffeescript
