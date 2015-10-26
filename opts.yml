@@ -3,7 +3,7 @@ build_type: tags
 user: jekyll
 versions:
   pages: jekyll@2.4.0
-  beta: jekyll@3.0.0.pre.beta10
+  beta: jekyll@3.0.0.pre.rc1
   master: jekyll,jekyll/jekyll@master
   stable: jekyll@2.5.3
 tags:
