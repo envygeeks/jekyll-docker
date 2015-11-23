@@ -162,7 +162,7 @@ Instead of additions, builder does not have Nginx web server.
 
 [Wiki page with examples how to configure CI solutions to use this image](https://github.com/jekyll/docker/wiki/Deploying-with-Jekyll-Docker)
 
-## Building
+## Building Our Images
 
 It's quite simple, `script/build` will build all the images and `script/build
 type` will build a specific image, where `type` is `beta` or another image name.
