@@ -123,12 +123,27 @@ If it's only available in testing then you can do package@testing in your `.apk`
 file to trigger it from that repo.
 
 ## Running
+### On Native Docker
 
 ```sh
-# Labels requires Docker 1.7, if you get an error remove them.
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
 ```
+
+### On Docker-Machine, and possibly Boot2Docker
+```sh
+docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
+  -it -p $(docker-machine ip `docker-machine active`):4000:4000 \
+    jekyll/jekyll jekyll s
+```
+
+### If all else fails
+
+Remove the IP from the `-p` and just do `4000:4000` and file a ticket and we
+will help you figure out if this might be a bug in your networking setup or if
+this might be a bug with us or an upstream bug.  ***Do not file a bug if you
+need to purposefully enable 4000:4000 because you want access from a
+public IP***
 
 ***If you do not provide a command then it will default to `jekyll s`.***
 
