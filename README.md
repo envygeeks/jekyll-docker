@@ -148,12 +148,13 @@ this might be a bug with us or an upstream bug.  ***Do not file a bug if you
 need to purposefully enable 4000:4000 because you want access from a
 public IP***
 
-### Building Jekyll sites only
+## Building Only
 
-If you want to just build Jekyll sites, you can use `builder` tag. Additionaly to other tags, it has:
+If you want to just build Jekyll sites, you can use `builder` tag. Additionaly to other
+tags, it has:
 
+* ssh
 * bash
-* openssh-client (`ssh` binary)
 * rsync
 * lftp
 
