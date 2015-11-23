@@ -123,6 +123,9 @@ If it's only available in testing then you can do package@testing in your `.apk`
 file to trigger it from that repo.
 
 ## Running
+
+***If you do not provide a command then it will default to `jekyll s`.***
+
 ### On Native Docker
 
 ```sh
@@ -144,8 +147,6 @@ will help you figure out if this might be a bug in your networking setup or if
 this might be a bug with us or an upstream bug.  ***Do not file a bug if you
 need to purposefully enable 4000:4000 because you want access from a
 public IP***
-
-***If you do not provide a command then it will default to `jekyll s`.***
 
 ### Building Jekyll sites only
 
