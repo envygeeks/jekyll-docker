@@ -27,22 +27,39 @@ do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
-* [therubyracer](https://github.com/cowboyd/therubyracer) - Embed the V8 Javascript Interpreter into Ruby
-* pygments.rb
-* jekyll-sitemap
-* jekyll-coffeescript
-* jekyll-sass-converter
-* jekyll-redirect-from
-* jekyll-mentions
-* jekyll-compose
-* jekyll-feed
-* rdiscount
-* redcarpet
-* kramdown
-* jemoji
-* RedCloth
-* maruku
-* html-proofer
+* [therubyracer][1] - embed the V8 Javascript Interpreter into Ruby
+* [pygments.rb][2] - pygments syntax highlighting in ruby
+* [jekyll-sitemap][3] - silently generate a sitemaps.org compliant sitemap
+* [jekyll-coffeescript][4] - a CoffeeScript converter
+* [jekyll-sass-converter][5] - a SASS converter
+* [jekyll-redirect-from][6] - seamlessly specify multiple redirections URLs for your pages and posts
+* [jekyll-mentions][7] - @mention support
+* [jekyll-compose][8] - streamline your writing in Jekyll with these commands
+* [jekyll-feed][9] - generate an Atom (RSS-like) feed of your Jekyll posts
+* [rdiscount][10] - discount (For Ruby) Implementation of John Gruber's Markdown
+* [redcarpet][11] - the safe Markdown parser, reloaded
+* [kramdown][12] - fast, pure-Ruby Markdown-superset converter
+* [jemoji][13] - GitHub-flavored emoji plugin for Jekyll
+* [RedCloth][14] - a Ruby library for converting Textile into HTML
+* [Maruku][15] - a Markdown interpreter written in Ruby
+* [html-proofer][16] - test your rendered HTML files to make sure they're accurate
+
+[1]: https://github.com/cowboyd/therubyracer
+[2]: https://github.com/tmm1/pygments.rb
+[3]: https://github.com/jekyll/jekyll-sitemap
+[4]: https://github.com/jekyll/jekyll-coffeescript
+[5]: https://github.com/jekyll/jekyll-sass-converter
+[6]: https://github.com/jekyll/jekyll-redirect-from
+[7]: https://github.com/jekyll/jekyll-mentions
+[8]: https://github.com/jekyll/jekyll-compose
+[9]: https://github.com/jekyll/jekyll-feed
+[10]: https://github.com/davidfstr/rdiscount
+[11]: https://github.com/vmg/redcarpet
+[12]: http://kramdown.gettalong.org
+[13]: https://github.com/jekyll/jemoji
+[14]: http://redcloth.org
+[15]: http://maruku.rubyforge.org/index.html
+[16]: https://github.com/gjtorikian/html-proofer
 
 ## Boot2Docker Caveats
 
