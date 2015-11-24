@@ -27,38 +27,37 @@ do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
-* [pygments.rb][1] - pygments syntax highlighting in ruby
-* [jekyll-sitemap][2] - silently generate a sitemaps.org compliant sitemap
-* [jekyll-coffeescript][3] - a CoffeeScript converter
-* [jekyll-sass-converter][4] - a SASS converter
-* [jekyll-redirect-from][5] - seamlessly specify multiple redirections URLs for your pages and posts
-* [jekyll-mentions][6] - @mention support
-* [jekyll-compose][7] - streamline your writing in Jekyll with these commands
-* [jekyll-feed][8] - generate an Atom (RSS-like) feed of your Jekyll posts
-* [rdiscount][9] - discount (For Ruby) Implementation of John Gruber's Markdown
-* [redcarpet][10] - the safe Markdown parser, reloaded
-* [kramdown][11] - fast, pure-Ruby Markdown-superset converter
-* [jemoji][12] - GitHub-flavored emoji plugin for Jekyll
-* [RedCloth][13] - a Ruby library for converting Textile into HTML
-* [Maruku][14] - a Markdown interpreter written in Ruby
-* [html-proofer][15] - test your rendered HTML files to make sure they're accurate
+* [pygments.rb][pygments.rb] - pygments syntax highlighting in ruby
+* [jekyll-sitemap][jekyll-sitemap] - silently generate a sitemaps.org compliant sitemap
+* [jekyll-coffeescript][jekyll-coffeescript] - a CoffeeScript converter
+* [jekyll-sass-converter][jekyll-sass-converter] - a SASS converter
+* [jekyll-redirect-from][jekyll-redirect-from] - seamlessly specify multiple redirections URLs for your pages and posts
+* [jekyll-mentions][jekyll-mentions] - @mention support
+* [jekyll-compose][jekyll-compose] - streamline your writing in Jekyll with these commands
+* [jekyll-feed][jekyll-feed] - generate an Atom (RSS-like) feed of your Jekyll posts
+* [rdiscount][rdiscount] - discount (For Ruby) Implementation of John Gruber's Markdown
+* [redcarpet][redcarpet] - the safe Markdown parser, reloaded
+* [kramdown][kramdown] - fast, pure-Ruby Markdown-superset converter
+* [jemoji][jemoji] - GitHub-flavored emoji plugin for Jekyll
+* [RedCloth][redcloth] - a Ruby library for converting Textile into HTML
+* [Maruku][maruku] - a Markdown interpreter written in Ruby
+* [html-proofer][html-proofer] - test your rendered HTML files to make sure they're accurate
 
-[1]: https://github.com/cowboyd/therubyracer
-[2]: https://github.com/tmm1/pygments.rb
-[3]: https://github.com/jekyll/jekyll-sitemap
-[4]: https://github.com/jekyll/jekyll-coffeescript
-[5]: https://github.com/jekyll/jekyll-sass-converter
-[6]: https://github.com/jekyll/jekyll-redirect-from
-[7]: https://github.com/jekyll/jekyll-mentions
-[8]: https://github.com/jekyll/jekyll-compose
-[9]: https://github.com/jekyll/jekyll-feed
-[10]: https://github.com/davidfstr/rdiscount
-[11]: https://github.com/vmg/redcarpet
-[12]: http://kramdown.gettalong.org
-[13]: https://github.com/jekyll/jemoji
-[14]: http://redcloth.org
-[15]: http://maruku.rubyforge.org/index.html
-[16]: https://github.com/gjtorikian/html-proofer
+[pygments.rb]: https://github.com/tmm1/pygments.rb
+[jekyll-sitemap]: https://github.com/jekyll/jekyll-sitemap
+[jekyll-coffeescript]: https://github.com/jekyll/jekyll-coffeescript
+[jekyll-sass-converter]: https://github.com/jekyll/jekyll-sass-converter
+[jekyll-redirect-from]: https://github.com/jekyll/jekyll-redirect-from
+[jekyll-mentions]: https://github.com/jekyll/jekyll-mentions
+[jekyll-compose]: https://github.com/jekyll/jekyll-compose
+[jekyll-feed]: https://github.com/jekyll/jekyll-feed
+[rdiscount]: https://github.com/davidfstr/rdiscount
+[redcarpet]: https://github.com/vmg/redcarpet
+[kramdown]: https://github.com/gettalong/kramdown
+[jemoji]: https://github.com/jekyll/jemoji
+[redcloth]: https://github.com/jgarber/redcloth
+[maruku]: https://github.com/bhollis/maruku
+[html-proofer]: https://github.com/gjtorikian/html-proofer
 
 ## Boot2Docker Caveats
 
