@@ -27,22 +27,21 @@ do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
-* [therubyracer][1] - embed the V8 Javascript Interpreter into Ruby
-* [pygments.rb][2] - pygments syntax highlighting in ruby
-* [jekyll-sitemap][3] - silently generate a sitemaps.org compliant sitemap
-* [jekyll-coffeescript][4] - a CoffeeScript converter
-* [jekyll-sass-converter][5] - a SASS converter
-* [jekyll-redirect-from][6] - seamlessly specify multiple redirections URLs for your pages and posts
-* [jekyll-mentions][7] - @mention support
-* [jekyll-compose][8] - streamline your writing in Jekyll with these commands
-* [jekyll-feed][9] - generate an Atom (RSS-like) feed of your Jekyll posts
-* [rdiscount][10] - discount (For Ruby) Implementation of John Gruber's Markdown
-* [redcarpet][11] - the safe Markdown parser, reloaded
-* [kramdown][12] - fast, pure-Ruby Markdown-superset converter
-* [jemoji][13] - GitHub-flavored emoji plugin for Jekyll
-* [RedCloth][14] - a Ruby library for converting Textile into HTML
-* [Maruku][15] - a Markdown interpreter written in Ruby
-* [html-proofer][16] - test your rendered HTML files to make sure they're accurate
+* [pygments.rb][1] - pygments syntax highlighting in ruby
+* [jekyll-sitemap][2] - silently generate a sitemaps.org compliant sitemap
+* [jekyll-coffeescript][3] - a CoffeeScript converter
+* [jekyll-sass-converter][4] - a SASS converter
+* [jekyll-redirect-from][5] - seamlessly specify multiple redirections URLs for your pages and posts
+* [jekyll-mentions][6] - @mention support
+* [jekyll-compose][7] - streamline your writing in Jekyll with these commands
+* [jekyll-feed][8] - generate an Atom (RSS-like) feed of your Jekyll posts
+* [rdiscount][9] - discount (For Ruby) Implementation of John Gruber's Markdown
+* [redcarpet][10] - the safe Markdown parser, reloaded
+* [kramdown][11] - fast, pure-Ruby Markdown-superset converter
+* [jemoji][12] - GitHub-flavored emoji plugin for Jekyll
+* [RedCloth][13] - a Ruby library for converting Textile into HTML
+* [Maruku][14] - a Markdown interpreter written in Ruby
+* [html-proofer][15] - test your rendered HTML files to make sure they're accurate
 
 [1]: https://github.com/cowboyd/therubyracer
 [2]: https://github.com/tmm1/pygments.rb
