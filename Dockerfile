@@ -2,25 +2,18 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV \
-  JEKYLL_IMAGE_TYPE=<%= tag %> \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
-  JEKYLL_VERSION=<%= version %>
+  JEKYLL_VERSION=<%= @metadata.as_gem_version %>
 RUN \
-  apk --update add readline readline-dev libxml2 libxml2-dev libxslt  \
-    libxslt-dev python zlib zlib-dev ruby ruby-dev yaml \
-      yaml-dev libffi libffi-dev build-base nodejs ruby-io-console \
-        ruby-irb ruby-json ruby-rake ruby-rdoc git nginx \
-          <%= packages %> && \
+  apk --update add <%= @metadata["pkgs"].as_string_set %> && \
 
-  <% if tag != "builder" %>
+  <% if @metadata["tag"] != "builder" %>
     mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
     rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
     cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
     cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
     mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
     rm -rf /tmp/docker && cd ~/ && \
-  <% elsif tag == "builder" %>
-    apk del nginx && \
   <% end %>
 
   mkdir -p /home/jekyll && \
@@ -32,7 +25,7 @@ RUN \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
 
-  repo=$(docker-helper git_clone_ruby_repo "<%= version %>") && \
+  repo=$(docker-helper git_clone_ruby_repo "<%= @metadata['version'].fallback %>") && \
   if [ ! -z "$repo" ]; \
   then \
     cd $repo && \
@@ -41,19 +34,18 @@ RUN \
     rm -rf $repo; \
   else \
     yes | docker-helper ruby_install_gem \
-      "<%= version %>" --no-document -- \
+      "jekyll@<%= @metadata['version'].fallback %>" --no-document -- \
         --use-system-libraries; \
   fi && \
 
   cd ~ && \
-  docker-helper install_default_gems && \
-  gem clean && gem install bundler --no-document && \
-  apk del build-base readline-dev libxml2-dev libxslt-dev zlib-dev \
-    ruby-dev yaml-dev libffi-dev && \
+  mkdir -p /usr/share/ruby && \
+  echo "<%= @metadata['gems'].as_string_set %>" > \
+    /usr/share/ruby/default-gems && \
 
-  <% if Gem::Version.new(version.gsub(/\.pre\.(beta|rc)\d+/, "").tr('^0-9.', '')) > Gem::Version.new('2.5.3') %>
-    apk del python && \
-  <% end %>
+  docker-helper install_default_gems && \
+  apk del <%= @metadata["remove_pkgs"].as_string_set %> && \
+  gem clean && gem install bundler --no-document && \
 
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \

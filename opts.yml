@@ -1,60 +1,108 @@
 ---
-build_type: tags
+repo_is_repo_dir: true
+pages_version: &pages_version "2.4"
+stable_version: &stable_version "3.0"
+old_version: &old_version "2.5"
 user: jekyll
 versions:
-  pages: jekyll@2.4.0
-  beta: jekyll@3.0.0.pre.rc1
-  master: jekyll,jekyll/jekyll@master
-  stable: jekyll@2.5.3
+  type:
+    git: jekyll,jekyll/jekyll@master
+    pages: *pages_version
+    stable: *stable_version
+    old: *old_version
 tags:
-  beta: beta
-  master: master
-  latest: stable
-  pages: pages
-  stable: stable
+  *pages_version: pages
+  *stable_version: stable
+  *old_version: old
   builder: stable
-pkgs:
-  all: []
-  builder:
-  - bash
-  - openssh-client
-  - lftp
-gems:
+  master: git
+aliases:
+  beta: master
+  latest: *stable_version
+  stable: *stable_version
+remove_pkgs:
   all:
-  - pygments.rb
-  - jekyll-sitemap
-  - jekyll-coffeescript
-  - jekyll-sass-converter
-  - jekyll-redirect-from
-  - jekyll-mentions
-  - jekyll-compose
-  - jekyll-feed
-  - rdiscount
-  - redcarpet
-  - kramdown
-  - jemoji
-  - RedCloth
-  - maruku
-  - html-proofer
-  pages:
-  - jekyll@2.4.0
-  - jekyll-coffeescript@1.0.1
-  - jekyll-sass-converter@1.3.0
-  - kramdown@1.5.0
-  - maruku@0.7.0
-  - rdiscount@2.1.7
-  - redcarpet@3.3.2
-  - RedCloth@4.2.9
-  - liquid@2.6.2
-  - pygments.rb@0.6.3
-  - jemoji@0.5.0
-  - jekyll-mentions@0.2.1
-  - jekyll-redirect-from@0.8.0
-  - jekyll-sitemap@0.8.1
-  - jekyll-feed@0.3.1
-  - github-pages@39
-  - html-pipeline@1.9.0
-  - sass@3.4.16
-  - safe_yaml@1.0.4
-  - jekyll-compose
-  - jekyll-github-metadata
+  - zlib-dev
+  - build-base
+  - libxml2-dev
+  - libxslt-dev
+  - readline-dev
+  - libffi-dev
+  - ruby-dev
+  - yaml-dev
+  tag:
+    builder:
+    - nginx
+pkgs:
+  all:
+  - zlib
+  - python
+  - libxml2
+  - zlib-dev
+  - build-base
+  - libxslt-dev
+  - readline-dev
+  - ruby-io-console
+  - libxml2-dev
+  - libffi-dev
+  - ruby-dev
+  - yaml-dev
+  - readline
+  - libxslt
+  - ruby
+  - yaml
+  - libffi
+  - nodejs
+  - ruby-irb
+  - ruby-json
+  - ruby-rake
+  - ruby-rdoc
+  - nginx
+  - git
+  tag:
+    builder:
+    - bash
+    - openssh-client
+    - lftp
+gems:
+  type:
+    stable: &gem_install
+    - pygments.rb
+    - jekyll-sitemap
+    - jekyll-coffeescript
+    - jekyll-sass-converter
+    - jekyll-redirect-from
+    - jekyll-mentions
+    - jekyll-compose
+    - jekyll-feed
+    - rdiscount
+    - redcarpet
+    - kramdown
+    - jemoji
+    - RedCloth
+    - maruku
+    - html-proofer
+    git: *gem_install
+    old: *gem_install
+    pages:
+    - jekyll@2.4.0
+    - jekyll-coffeescript@1.0.1
+    - jekyll-sass-converter@1.3.0
+    - kramdown@1.5.0
+    - maruku@0.7.0
+    - rdiscount@2.1.7
+    - redcarpet@3.3.2
+    - RedCloth@4.2.9
+    - liquid@2.6.2
+    - pygments.rb@0.6.3
+    - jemoji@0.5.0
+    - jekyll-mentions@0.2.1
+    - jekyll-redirect-from@0.8.0
+    - jekyll-sitemap@0.8.1
+    - jekyll-feed@0.3.1
+    - github-pages@39
+    - html-pipeline@1.9.0
+    - sass@3.4.16
+    - safe_yaml@1.0.4
+    - jekyll-compose
+    - jekyll-github-metadata
