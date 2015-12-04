@@ -2,14 +2,13 @@
 [ "$DEBUG" ] && set -x
 set -e
 
-. /usr/local/share/docker/helpers
 if [ -f "/image" ] && [ "$(cat /image)" = "pages" ]; then
   echo "Github does not allow user dependencies."
   exit 0
 fi
 
 strip_jekyll() {
-  if grep -qE "gem\s+(?:\"|')jekyll(?:\"|')" Gemfile; then
+  if grep -qE "gem\s*(\"|')jekyll(\"|')" Gemfile; then
     sed -ri "/^gem\s+(\"|')jekyll\1.*$/d" \
       Gemfile
   fi

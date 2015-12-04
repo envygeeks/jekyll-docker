@@ -13,6 +13,9 @@ development.
 * [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2.4] `2.4`
 
 [pages]: https://imagelayers.io?images=jekyll/jekyll:pages
 [latest]: https://imagelayers.io?images=jekyll/jekyll:latest
@@ -20,6 +23,9 @@ development.
 [stable]: https://imagelayers.io?images=jekyll/jekyll:stable
 [master]: https://imagelayers.io?images=jekyll/jekyll:master
 [beta]: https://imagelayers.io?images=jekyll/jekyll:beta
+[3.0]: https://imagelayers.io?images=jekyll/jekyll:3.0
+[2.5]: https://imagelayers.io?images=jekyll/jekyll:2.5
+[2.4]: https://imagelayers.io?images=jekyll/jekyll:2.4
 
 The `jekyll/jekyll:pages` tries to be as close to Github pages as possible,
 without changing much, there might be some differences and if there are please
@@ -27,21 +33,21 @@ do file a ticket and they will be corrected if possible.
 
 ## Current Default Gems
 
-* [pygments.rb][pygments.rb] - pygments syntax highlighting in ruby
-* [jekyll-sitemap][jekyll-sitemap] - silently generate a sitemaps.org compliant sitemap
-* [jekyll-coffeescript][jekyll-coffeescript] - a CoffeeScript converter
 * [jekyll-sass-converter][jekyll-sass-converter] - a SASS converter
-* [jekyll-redirect-from][jekyll-redirect-from] - seamlessly specify multiple redirections URLs for your pages and posts
-* [jekyll-mentions][jekyll-mentions] - @mention support
-* [jekyll-compose][jekyll-compose] - streamline your writing in Jekyll with these commands
-* [jekyll-feed][jekyll-feed] - generate an Atom (RSS-like) feed of your Jekyll posts
+* [jekyll-coffeescript][jekyll-coffeescript] - a CoffeeScript converter
+* [pygments.rb][pygments.rb] - pygments syntax highlighting in ruby
 * [rdiscount][rdiscount] - discount (For Ruby) Implementation of John Gruber's Markdown
-* [redcarpet][redcarpet] - the safe Markdown parser, reloaded
-* [kramdown][kramdown] - fast, pure-Ruby Markdown-superset converter
-* [jemoji][jemoji] - GitHub-flavored emoji plugin for Jekyll
-* [RedCloth][redcloth] - a Ruby library for converting Textile into HTML
-* [Maruku][maruku] - a Markdown interpreter written in Ruby
 * [html-proofer][html-proofer] - test your rendered HTML files to make sure they're accurate
+* [jekyll-redirect-from][jekyll-redirect-from] - seamlessly specify multiple redirections URLs for your pages and posts
+* [jekyll-compose][jekyll-compose] - streamline your writing in Jekyll with these commands
+* [jekyll-sitemap][jekyll-sitemap] - silently generate a sitemaps.org compliant sitemap
+* [jekyll-feed][jekyll-feed] - generate an Atom (RSS-like) feed of your Jekyll posts
+* [RedCloth][redcloth] - a Ruby library for converting Textile into HTML
+* [kramdown][kramdown] - fast, pure-Ruby Markdown-superset converter
+* [redcarpet][redcarpet] - the safe Markdown parser, reloaded
+* [jemoji][jemoji] - GitHub-flavored emoji plugin for Jekyll
+* [Maruku][maruku] - a Markdown interpreter written in Ruby
+* [jekyll-mentions][jekyll-mentions] - @mention support
 
 [pygments.rb]: https://github.com/tmm1/pygments.rb
 [jekyll-sitemap]: https://github.com/jekyll/jekyll-sitemap
@@ -118,6 +124,13 @@ If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can
 quickly detect with a Regexp we will default to installing with bundler so that
 we do not break anything that you are trying to accomplish.
 
+### Gem installation
+
+When we install gems we first try to install without any system depedencies
+assuming you have a few pure Ruby Jekyll gems and then if that fails we will
+install common dependencies for you and try again and if that all fails
+we will try one last time just to make sure there wasn't an IO error.
+
 ## Apk (Alpine) dependencies for Gems
 
 If you provide a `.apk` file inside of your root we will detect it and install
@@ -184,10 +197,10 @@ type` will build a specific image, where `type` is `beta` or another image name.
 
 ## Contributing
 
-* Fork the current repo jekyll/docker
+* Fork the current repo; `bundle install`
 * `opts.yml` holds the version, gems and most everything.
-* DO NOT EDIT `tags/*` directly, edit stuff in options, `Dockerfile`, and `copy`
-* After you are done, `script/sync`, `git commit` and request a patch.
+* Build all the tags with `bundle exec docker-template jekyll` or tag `docker-template jekyll:tag`
+* After you've confirmed your changes boot and can build a site, send a PR.
 
 ## Notes
   * We provide defaults for 0.0.0.0 and /srv/jekyll so mount to /srv/jekyll.
