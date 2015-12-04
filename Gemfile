@@ -1,3 +1,3 @@
 source "https://rubygems.org"
-gem "docker-template"
+gem "docker-template", :github => "envygeeks/docker-template"
 gem "pry"
