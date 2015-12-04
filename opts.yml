@@ -72,7 +72,7 @@ gems:
     - jekyll-coffeescript
     - jekyll-sass-converter
     - jekyll-redirect-from
-    - jekyll-mentions
+    - jekyll-mentions@0.2.1
     - jekyll-compose
     - jekyll-feed
     - rdiscount
