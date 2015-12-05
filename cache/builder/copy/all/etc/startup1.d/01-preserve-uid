@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+uid=$(docker-helper get_file_uid /srv/jekyll)
+if [ "$uid" != 1000 ] && [ "$uid" != 0 ]; then
+  docker-helper reset_user jekyll:$uid
+fi
