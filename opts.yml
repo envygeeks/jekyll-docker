@@ -1,5 +1,6 @@
 ---
-repo_is_repo_dir: true
+name: jekyll
+dockerhub_cache: true
 pages_version: &pages_version "2.4"
 stable_version: &stable_version "3.0"
 old_version: &old_version "2.5"
