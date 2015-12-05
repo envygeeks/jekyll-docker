@@ -1,30 +1,16 @@
 #!/usr/bin/env ruby
 
-# Because of a bug in Jekyll 2.4 that was resolved somewhere between 2.4 and 2.5
-# we work around problems with `s` and host by just changing s to serve for you
-# so that you get -H that works.
-
-if "s" == ARGV[0]
-  ARGV.shift and ARGV.unshift(
-    "serve"
-  )
-end
-
-# Give a default listener of everything for Jekyll inside of Docker so that you
-# can view your site if you are using the server provided by Jekyll.
-
-if %W(s serve server).include?(ARGV[0])
-  ARGV.unshift(ARGV.shift,
-    "-H", "0.0.0.0",
-  )
-end
+ARGV.push("--future", "--unpublished") if !ENV["JEKYLL_ENV"] || ENV["JEKYLL_ENV"] = "development"
+ARGV.push("--force_polling") if ENV["FORCE_POLLING"] || ENV["POLLING"] && %W(s serve server b build).include?(ARGV[0])
+ARGV.push("--verbose") if ENV["DEBUG"] || ENV["VERBOSE"]
+ARGV.shift and ARGV.unshift("serve") if "s" == ARGV[0]
+ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") \
+  if %W(s serve server).include?(ARGV[0])
 
 # Pass it onto chpst.
 if Process.uid == 0 || Process.euid == 0
   exec "chpst", "-u", "jekyll:jekyll", Gem.bin_path("jekyll", "jekyll"), \
     *ARGV
 else
-  load Gem.bin_path(
-    "jekyll", "jekyll"
-  )
+  load Gem.bin_path("jekyll", "jekyll")
 end

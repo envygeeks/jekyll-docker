@@ -1,6 +1,7 @@
 FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
+
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@2.4

@@ -1,6 +1,9 @@
 FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
+<% if (env = @metadata["env"].as_hash).any? %>
+ENV <%= @metadata["env"].as_hash.to_env_ary.join(" ") %>
+<% end %>
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=<%= @metadata.as_gem_version %>

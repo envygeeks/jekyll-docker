@@ -91,3 +91,7 @@ gems:
     - github-pages
     - jekyll-github-metadata
     - jekyll-compose
+env:
+  tag:
+    builder:
+      JEKYLL_ENV: production
