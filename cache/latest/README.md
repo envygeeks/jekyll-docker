@@ -65,6 +65,39 @@ do file a ticket and they will be corrected if possible.
 [maruku]: https://github.com/bhollis/maruku
 [html-proofer]: https://github.com/gjtorikian/html-proofer
 
+## Running
+
+***If you do not provide a command then it will default to `jekyll s`.***
+
+### On Native Docker
+
+```sh
+docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
+  -it -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
+```
+
+### On Docker-Machine, and possibly Boot2Docker
+```sh
+docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
+  -it -p $(docker-machine ip `docker-machine active`):4000:4000 \
+    jekyll/jekyll jekyll s
+```
+
+If all else fails remove the IP from the `-p` and just do `4000:4000` and
+file a ticket and we will help you figure out if this might be a bug in your
+networking setup or if this might be a bug with us or an upstream bug.  ***Do
+not file a bug if you need to purposefully enable 4000:4000 because you
+want access from a public IP***
+
+### Nginx
+
+This image includes Nginx and even adjusting and adding some location stuff or
+basic customizations via a `.nginx` folder in your Jekyll root.  These do not
+affect the entire server and only affect the server in Jekyll's context, so you
+will be able to add locations and other customizations into Jekyll's server
+directive.  Nginx exists to allow you to do advanced stuff but our recommended
+access is through the default port 4000 right now.
+
 ## Boot2Docker Caveats
 
 If you are on Windows or OS X using Boot2Docker you will need to `--force_polling`
@@ -81,14 +114,6 @@ will need to download and unpack Debian Ruby compiled with glibc and install
 glibc@envygeeks, and then reinstall the gems with that Ruby -- GLibC is
 available via https://pkgs.envygeeks.io/docker/alpine/x86_64 -- we hope this
 issue will resolved soon.
-
-## Nginx
-
-This image includes nginx and even adjusting and adding some location stuff or
-basic customizations via a `.nginx` folder in your Jekyll root.  These do not
-affect the entire server and only affect the server in Jekyll's context, so you
-will be able to add locations and other customizations into Jekyll's server
-directive.
 
 ## Environment Variables
 
@@ -149,32 +174,6 @@ both then we we will just use your apk over apt.
 Visit: http://pkgs.alpinelinux.org if you would like to search for your package.
 If it's only available in testing then you can do package@testing in your `.apk`
 file to trigger it from that repo.
-
-## Running
-
-***If you do not provide a command then it will default to `jekyll s`.***
-
-### On Native Docker
-
-```sh
-docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
-  -it -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
-```
-
-### On Docker-Machine, and possibly Boot2Docker
-```sh
-docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
-  -it -p $(docker-machine ip `docker-machine active`):4000:4000 \
-    jekyll/jekyll jekyll s
-```
-
-### If all else fails
-
-Remove the IP from the `-p` and just do `4000:4000` and file a ticket and we
-will help you figure out if this might be a bug in your networking setup or if
-this might be a bug with us or an upstream bug.  ***Do not file a bug if you
-need to purposefully enable 4000:4000 because you want access from a
-public IP***
 
 ## Building Only
 
