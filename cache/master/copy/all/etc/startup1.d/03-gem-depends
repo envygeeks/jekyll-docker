@@ -30,9 +30,6 @@ if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
       add_gemfile_dependency "$JEKYLL_VERSION"
   fi
 
-  chpst -u jekyll:jekyll docker-helper install_users_gems
-  if ! grep -qE "^\s*gem\s+(\"|')jekyll(\"|')" Gemfile; then
-    echo "Moving Gemfile to Gemfile.docker because jekyll is not included."
-    mv /srv/jekyll/Gemfile /srv/jekyll/Gemfile.docker
-  fi
+  chpst -u jekyll:jekyll docker-helper \
+    install_users_gems
 fi
