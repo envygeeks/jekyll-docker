@@ -72,12 +72,14 @@ do file a ticket and they will be corrected if possible.
 ### On Native Docker
 
 ```sh
+# Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll jekyll s
 ```
 
 ### On Docker-Machine, and possibly Boot2Docker
 ```sh
+# Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p $(docker-machine ip `docker-machine active`):4000:4000 \
     jekyll/jekyll jekyll s
