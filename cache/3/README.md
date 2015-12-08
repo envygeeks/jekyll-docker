@@ -5,36 +5,21 @@ isolated Jekyll instance with the latest version of Jekyll and a bunch of nice
 stuff to make your life easier when working with Jekyll in both production and
 development.
 
-## Current Tags
+## Tags
 
-* [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.1] `3.0.1`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3] `3`
-
-## Deprecated Tags
-
-The following tags will soon either be moved to their own repo (on Docker Hub
-not here) or will be deleted entirely.  `beta` and `stable` will be deleted the
-rest will be moved to their own repo's on Docker Hub.
-
-* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
-
-## Legacy Tags
-
-The following tags will no longer recieve updates and are considered
-legacy, they recieved an initial build and will no longer be built unless
-there is a security problem and only if that security problem relates
-to a version supported by Github Pages.
-
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.0] `3.0.0`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2.4] `2.4`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2] `2`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest` *current*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.1] `3.0.1` *current*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0` *current*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3] `3` *current*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.0] `3.0.0` *legacy*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5` *legacy*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2.4] `2.4` *legacy*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2] `2` *legacy*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta` *pending delete*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable` *pending delete*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages` *moving to jekyll/pages at 3.1*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder` *moving to jekyll/builder at 3.1*
+* [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master` *pending delete*
 
 [pages]: https://imagelayers.io?images=jekyll/jekyll:pages
 [latest]: https://imagelayers.io?images=jekyll/jekyll:latest
