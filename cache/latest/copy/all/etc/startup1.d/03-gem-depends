@@ -1,0 +1,35 @@
+#!/bin/sh
+[ "$DEBUG" ] && set -x
+set -e
+
+if [ -f "/image" ] && [ "$(cat /image)" = "pages" ]; then
+  echo "Github does not allow user dependencies."
+  exit 0
+fi
+
+strip_jekyll() {
+  if grep -qE "gem\s*(\"|')jekyll(\"|')" Gemfile; then
+    sed -ri "/^gem\s+(\"|')jekyll\1.*$/d" \
+      Gemfile
+  fi
+}
+
+cd /srv/jekyll
+if [ "$FORCE_APK_INSTALL" ]; then
+  install_user_pkgs_from_file
+fi
+
+if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
+  if [ "$UPDATE_GEMFILE" ]; then
+    chpst -u jekyll:jekyll docker-helper backup_gemfile
+    chpst -u jekyll:jekyll docker-helper copy_default_gems_to_gemfile
+    chpst -u jekyll:jekyll docker-helper make_gemfile_uniq
+
+    strip_jekyll
+    chpst -u jekyll:jekyll docker-helper \
+      add_gemfile_dependency "$JEKYLL_VERSION"
+  fi
+
+  chpst -u jekyll:jekyll docker-helper \
+    install_users_gems
+fi

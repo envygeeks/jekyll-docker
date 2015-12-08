@@ -4,7 +4,7 @@ COPY copy/ /
 
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
-  JEKYLL_VERSION=jekyll@2.4
+  JEKYLL_VERSION=jekyll@2.4.0
 RUN \
   apk --update add zlib python libxml2 zlib-dev build-base libxslt-dev readline-dev ruby-io-console libxml2-dev libffi-dev ruby-dev yaml-dev readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc nginx git && \
 
@@ -26,7 +26,7 @@ RUN \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
 
-  repo=$(docker-helper git_clone_ruby_repo "2.4") && \
+  repo=$(docker-helper git_clone_ruby_repo "2.4.0") && \
   if [ ! -z "$repo" ]; \
   then \
     cd $repo && \
@@ -35,14 +35,15 @@ RUN \
     rm -rf $repo; \
   else \
     yes | docker-helper ruby_install_gem \
-      "jekyll@2.4" --no-document -- \
+      "jekyll@2.4.0" --no-document -- \
         --use-system-libraries; \
   fi && \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \
-  echo "github-pages jekyll-github-metadata jekyll-compose" > \
-    /usr/share/ruby/default-gems && \
+  
+    echo "github-pages jekyll-github-metadata jekyll-compose" > /usr/share/ruby/default-gems && \
+  
 
   docker-helper install_default_gems && \
   apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev && \
