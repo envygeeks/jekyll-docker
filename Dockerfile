@@ -43,8 +43,9 @@ RUN \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \
-  echo "<%= @metadata['gems'].as_string_set %>" > \
-    /usr/share/ruby/default-gems && \
+  <% unless (gems = @metadata["gems"].as_string_set).empty? %>
+    echo "<%= gems %>" > /usr/share/ruby/default-gems && \
+  <% end %>
 
   docker-helper install_default_gems && \
   apk del <%= @metadata["remove_pkgs"].as_string_set %> && \

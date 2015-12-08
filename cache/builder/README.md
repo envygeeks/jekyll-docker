@@ -7,15 +7,34 @@ development.
 
 ## Current Tags
 
-* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.1] `3.0.1`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3] `3`
+
+## Deprecated Tags
+
+The following tags will soon either be moved to their own repo (on Docker Hub
+not here) or will be deleted entirely.  `beta` and `stable` will be deleted the
+rest will be moved to their own repo's on Docker Hub.
+
+* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
+
+## Legacy Tags
+
+The following tags will no longer recieve updates and are considered
+legacy, they recieved an initial build and will no longer be built unless
+there is a security problem and only if that security problem relates
+to a version supported by Github Pages.
+
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][3.0.0] `3.0.0`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2.4] `2.4`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2] `2`
 
 [pages]: https://imagelayers.io?images=jekyll/jekyll:pages
 [latest]: https://imagelayers.io?images=jekyll/jekyll:latest
@@ -23,9 +42,14 @@ development.
 [stable]: https://imagelayers.io?images=jekyll/jekyll:stable
 [master]: https://imagelayers.io?images=jekyll/jekyll:master
 [beta]: https://imagelayers.io?images=jekyll/jekyll:beta
+[3.0.1]: https://imagelayers.io?images=jekyll/jekyll:3.0.1
+[3.0.0]: https://imagelayers.io?images=jekyll/jekyll:3.0.0
+[2.5.3]: https://imagelayers.io?images=jekyll/jekyll:2.5.3
 [3.0]: https://imagelayers.io?images=jekyll/jekyll:3.0
 [2.5]: https://imagelayers.io?images=jekyll/jekyll:2.5
 [2.4]: https://imagelayers.io?images=jekyll/jekyll:2.4
+[3]:https://imagelayers.io?images=jekyll/jekyll:3
+[2]:https://imagelayers.io?images=jekyll/jekyll:2
 
 The `jekyll/jekyll:pages` tries to be as close to Github pages as possible,
 without changing much, there might be some differences and if there are please
