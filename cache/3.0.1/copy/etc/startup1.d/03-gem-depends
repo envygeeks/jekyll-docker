@@ -19,17 +19,16 @@ if [ "$FORCE_APK_INSTALL" ]; then
   install_user_pkgs_from_file
 fi
 
-if [ -f "Gemfile" ] || [ "$1" = "bundle" ]; then
-  if [ "$UPDATE_GEMFILE" ]; then
-    chpst -u jekyll:jekyll docker-helper backup_gemfile
-    chpst -u jekyll:jekyll docker-helper copy_default_gems_to_gemfile
-    chpst -u jekyll:jekyll docker-helper make_gemfile_uniq
+bundle_cmd() {
+  ruby -e '
+    comp = ARGV[1..-1]
+    comp.include?("bundle") && comp.include?(ARGV[0]) \
+      ? exit(0) : exit(1)
+  ' "$@"
+}
 
-    strip_jekyll
-    chpst -u jekyll:jekyll docker-helper \
-      add_gemfile_dependency "$JEKYLL_VERSION"
-  fi
-
+if ([ -f "Gemfile" ] || bundle_cmd "bundle", "$@") && ! bundle_cmd "update" "$@" \
+    && ! bundle_cmd "install" "$@" && ! bundle_cmd "clean" "$@"; then
   chpst -u jekyll:jekyll docker-helper \
     install_users_gems
 fi
