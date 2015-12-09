@@ -46,9 +46,7 @@ If you are on Windows or OS X using Boot2Docker you will need to `--force_pollin
 
 ## Gemfiles and Gem Installation
 
-This docker image supports `Gemfile`'s, updating your `Gemfile` and even changing the way it behaves based on what you tell it to do.  See `Environment Variables`. We also try to detect if if you are using things like Github or Git to pull dependencies with bundler so that we can transform and optimize for you, just a tiny bit though. If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can quickly detect with a Regexp we will default to installing with bundler so that we do not break anything that you are trying to accomplish.
-
-When we install gems we first try to install without any system depedencies assuming you have a few pure Ruby Jekyll gems and then if that fails we will go through and do an `apk` instal dependencies for you and try again and if that all fails we will try one last time just to make sure there wasn't an IO error.
+If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can quickly detect with a Regexp we will default to installing with bundler so that we do not break anything that you are trying to accomplish. Otherwise we will do a global installl on your behalf so all commands work as normal.  When we install gems we first try to install without any system depedencies assuming you have a few pure Ruby Jekyll gems and then if that fails we will go through and do an `apk` instal dependencies for you and try again and if that all fails we will try one last time just to make sure there wasn't an IO error.
 
 ## Apk (Alpine) dependencies for Gems
 
@@ -57,7 +55,6 @@ If you provide a `.apk` file inside of your root we will detect it and install t
 ## Environment Variables
 
 * `$FORCE_APK_INSTALL` - Force install `.apk` 100% of the time.
-* `$UPDATE_GEMFILE` - Add Jekyll and Jekyll's depends to your Gemfile.
 * `$BUNDLE_CACHE` - Cache and install to the vendor/bundle folder.
 * `$POLLING` - Force polling with `--force_polling`.
 * `$VERBOSE` - Enable `jekyll` `--verbose`.
