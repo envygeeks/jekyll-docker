@@ -8,17 +8,18 @@ pages_version: &pages_version 2.4.0
 user: jekyll
 versions:
   tag:
+    builder: *stable_version
     *stable_version: *stable_version
     pages: *pages_version
 
 tags:
+  builder: stable
   *stable_version: stable
   pages: old
 
 aliases:
   latest: *stable_version
   stable: *stable_version
-  builder: *stable_version
   *stable_minor_version: *stable_version
   *stable_major_version: *stable_version
 
@@ -70,7 +71,7 @@ pkgs:
 
 gems:
   tag:
-    *stable_version:
+    *stable_version: &stable_gems
     - pygments.rb
     - jekyll-sitemap
     - jekyll-mentions
@@ -86,6 +87,7 @@ gems:
     - RedCloth
     - maruku
     - html-proofer
+    builder: *stable_gems
     pages:
     - github-pages
     - jekyll-github-metadata
