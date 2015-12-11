@@ -99,9 +99,8 @@ that simple to build our images even if it looks complicated it's not.
 * `opts.yml` holds the version, gems and most everything.
 * If you are updating to the latest version of Jekyll, the version tables at the top.
 * Build all the tags with `bundle exec docker-template jekyll` or tag `docker-template jekyll:tag`
-* Ensure that your indented changes work as they're supposed to.
-* After you this is done do `bundle exec docker-template --sync`.
-* Ship a pull request!
+* Ensure that your indented changes work as they're supposed to and `docker-template --sync` 
+* Ship a pull request if you wish to have it reviewed for all users!
 
 ## Legacy Tags
 
