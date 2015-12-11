@@ -26,7 +26,7 @@ def s?
 end
 
 ARGV.shift and ARGV.unshift("serve") if "s" == ARGV[0]
-ARGV.push("--future", "--unpublished") if (!ENV["JEKYLL_ENV"] || ENV["JEKYLL_ENV"] = "development") && (b? || s?) && !_24?
+ARGV.push("--future", "--unpublished") if (!ENV["JEKYLL_ENV"] || ENV["JEKYLL_ENV"] == "development") && (b? || s?) && !_24?
 ARGV.push("--force_polling") if (ENV["FORCE_POLLING"] || ENV["POLLING"]) && (b? || s?)
 ARGV.push("--verbose") if ENV["DEBUG"] || ENV["VERBOSE"]
 ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") if s?
