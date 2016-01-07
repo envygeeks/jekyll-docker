@@ -65,7 +65,7 @@ This image includes Nginx and even adjusting and adding some location stuff or
 basic customizations via a `.nginx` folder in your Jekyll root.  These do not
 affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
 
-## Current Gems
+## Default Gems
 
 * [jekyll-sass-converter][jekyll-sass-converter] - a SASS converter
 * [jekyll-coffeescript][jekyll-coffeescript] - a CoffeeScript converter
