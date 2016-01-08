@@ -14,9 +14,7 @@ Jekyll Docker is a full featured Alpine based Docker image that provides an isol
 * [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
 
-The `jekyll/jekyll:pages` tag tries to be as close to Github pages as possible,
-without changing much, there might be some differences and if there are please
-do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
+The `jekyll/jekyll:pages` tag tries to be as close to Github pages as possible, without changing much, there might be some differences and if there are please do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
 
 ## Running
 
@@ -46,7 +44,7 @@ If you are on Windows or OS X using Boot2Docker you will need to `--force_pollin
 
 ## Gemfiles and Gem Installation
 
-If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can quickly detect with a Regexp we will default to installing with bundler so that we do not break anything that you are trying to accomplish. Otherwise we will do a global installl on your behalf so all commands work as normal.  When we install gems we first try to install without any system depedencies assuming you have a few pure Ruby Jekyll gems and then if that fails we will go through and do an `apk` instal dependencies for you and try again and if that all fails we will try one last time just to make sure there wasn't an IO error.
+If you provide a `Gemfile` and that `Gemfile` has a `Git(hub)` dependency we can quickly detect with a Regexp we will default to installing with bundler so that we do not break anything that you are trying to accomplish. Otherwise we will do a global install on your behalf (via `gem -g`) so all commands work as normal without `bundle`.  When we install gems we first try to install without any system depedencies assuming you have a few pure Ruby Jekyll gems and then if that fails we will go through and do an `apk` instal dependencies for you and try again and if that all fails we will try one last time just to make sure there wasn't an IO error.
 
 ## Apk (Alpine) dependencies for Gems
 
@@ -61,27 +59,27 @@ If you provide a `.apk` file inside of your root we will detect it and install t
 
 ### Nginx
 
-This image includes Nginx and even adjusting and adding some location stuff or
-basic customizations via a `.nginx` folder in your Jekyll root.  These do not
-affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
+This image includes Nginx and even adjusting and adding some location stuff or basic customizations via a `.nginx` folder in your Jekyll root.  These do not affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
 
 ## Current Gems
 
-* [jekyll-sass-converter][jekyll-sass-converter] - a SASS converter
-* [jekyll-coffeescript][jekyll-coffeescript] - a CoffeeScript converter
-* [pygments.rb][pygments.rb] - pygments syntax highlighting in ruby
-* [rdiscount][rdiscount] - discount (For Ruby) Implementation of John Gruber's Markdown
-* [html-proofer][html-proofer] - test your rendered HTML files to make sure they're accurate
-* [jekyll-redirect-from][jekyll-redirect-from] - seamlessly specify multiple redirections URLs for your pages and posts
-* [jekyll-compose][jekyll-compose] - streamline your writing in Jekyll with these commands
-* [jekyll-sitemap][jekyll-sitemap] - silently generate a sitemaps.org compliant sitemap
-* [jekyll-feed][jekyll-feed] - generate an Atom (RSS-like) feed of your Jekyll posts
-* [RedCloth][redcloth] - a Ruby library for converting Textile into HTML
-* [kramdown][kramdown] - fast, pure-Ruby Markdown-superset converter
-* [redcarpet][redcarpet] - the safe Markdown parser, reloaded
-* [jemoji][jemoji] - GitHub-flavored emoji plugin for Jekyll
-* [Maruku][maruku] - a Markdown interpreter written in Ruby
-* [jekyll-mentions][jekyll-mentions] - @mention support
+The Github (pages tag) may contain dependencies that we don't directly carry, you should also see https://pages.github.com/versions/ to see what extra dependencies that the pages tag might carry, and if you wish them to be included please file a ticket and we'll consider it.
+
+* [jekyll-sass-converter][jekyll-sass-converter]: SASS converter.
+* [jekyll-coffeescript][jekyll-coffeescript]: CoffeeScript converter.
+* [pygments.rb][pygments.rb]: Pygments syntax highlighting in Ruby.
+* [rdiscount][rdiscount]: Discount (For Ruby) Implementation of John Gruber's Markdown.
+* [html-proofer][html-proofer]: Test your rendered HTML files to make sure they're accurate.
+* [jekyll-redirect-from][jekyll-redirect-from]: Seamlessly specify multiple redirect URLs for your pages and posts.
+* [jekyll-compose][jekyll-compose]: Streamline your writing in Jekyll with these commands.
+* [jekyll-sitemap][jekyll-sitemap]: Silently generate a sitemaps.org compliant sitemap.
+* [jekyll-feed][jekyll-feed]: Generate an Atom (RSS-like) feed of your Jekyll posts.
+* [RedCloth][redcloth]: Ruby library for converting Textile into HTML.
+* [kramdown][kramdown]: Fast, pure-Ruby Markdown-superset converter.
+* [redcarpet][redcarpet]: The safe Markdown parser, reloaded.
+* [jemoji][jemoji]: GitHub-flavored emoji plugin for Jekyll.
+* [Maruku][maruku]: Markdown interpreter written in Ruby.
+* [jekyll-mentions][jekyll-mentions]: @mention support.
 
 ## Building Only
 
@@ -89,9 +87,7 @@ If you want to just build Jekyll sites, you can use `builder` tag. Additionaly t
 
 ## Building Our Images
 
-You can build our images or any specific tag of an image with `bundle exec
-docker-template jekyll` or `bundle exec docker-template jekyll:tag`, yes it's
-that simple to build our images even if it looks complicated it's not.
+You can build our images or any specific tag of an image with `bundle exec docker-template jekyll` or `bundle exec docker-template jekyll:tag`, yes it's that simple to build our images even if it looks complicated it's not.
 
 ## Contributing
 
@@ -99,7 +95,7 @@ that simple to build our images even if it looks complicated it's not.
 * `opts.yml` holds the version, gems and most everything.
 * If you are updating to the latest version of Jekyll, the version tables at the top.
 * Build all the tags with `bundle exec docker-template jekyll` or tag `docker-template jekyll:tag`
-* Ensure that your indented changes work as they're supposed to and `docker-template --sync` 
+* Ensure that your indented changes work as they're supposed to and `docker-template --sync`
 * Ship a pull request if you wish to have it reviewed for all users!
 
 ## Legacy Tags

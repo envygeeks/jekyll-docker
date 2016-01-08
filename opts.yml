@@ -91,6 +91,10 @@ gems:
     - jekyll-github-metadata
     - jekyll-compose
 env:
+  all:
+    LANGUAGE: en_US
+    LANG: en_US.UTF-8
+    LC_ALL: en_US
   tag:
     builder:
       JEKYLL_ENV: production
