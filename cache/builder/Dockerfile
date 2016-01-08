@@ -2,7 +2,7 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 
-ENV JEKYLL_ENV=production
+ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US JEKYLL_ENV=production
 
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \

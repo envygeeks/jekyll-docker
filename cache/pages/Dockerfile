@@ -2,6 +2,8 @@ FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 
+ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US
+
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=jekyll@2.4.0
