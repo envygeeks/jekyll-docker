@@ -61,7 +61,7 @@ If you provide a `.apk` file inside of your root we will detect it and install t
 
 This image includes Nginx and even adjusting and adding some location stuff or basic customizations via a `.nginx` folder in your Jekyll root.  These do not affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
 
-## Current Gems
+## Default Gems
 
 The Github (pages tag) may contain dependencies that we don't directly carry, you should also see https://pages.github.com/versions/ to see what extra dependencies that the pages tag might carry, and if you wish them to be included please file a ticket and we'll consider it.
 
