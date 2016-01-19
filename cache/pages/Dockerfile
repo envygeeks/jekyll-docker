@@ -44,7 +44,7 @@ RUN \
   cd ~ && \
   mkdir -p /usr/share/ruby && \
   
-    echo "github-pages jekyll-github-metadata jekyll-compose" > /usr/share/ruby/default-gems && \
+    echo "github-pages jekyll-github-metadata" > /usr/share/ruby/default-gems && \
   
 
   docker-helper install_default_gems && \
