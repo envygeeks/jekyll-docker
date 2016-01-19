@@ -89,7 +89,6 @@ gems:
     pages:
     - github-pages
     - jekyll-github-metadata
-    - jekyll-compose
 env:
   all:
     LANGUAGE: en_US
