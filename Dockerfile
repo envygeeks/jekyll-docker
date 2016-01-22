@@ -8,6 +8,7 @@ ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
   JEKYLL_VERSION=<%= @metadata.as_gem_version %>
 RUN \
+  echo "<%= @metadata["tag"] %>" > /image && \
   apk --update add <%= @metadata["pkgs"].as_string_set %> && \
 
   <% if @metadata["tag"] != "builder" %>
