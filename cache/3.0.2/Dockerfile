@@ -6,9 +6,9 @@ ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US
 
 ENV \
   JEKYLL_GIT_URL=https://github.com/jekyll/jekyll.git \
-  JEKYLL_VERSION=jekyll@3.0.1
+  JEKYLL_VERSION=jekyll@3.0.2
 RUN \
-  echo "3.0.1" > /image && \
+  echo "3.0.2" > /image && \
   apk --update add zlib python libxml2 zlib-dev build-base libxslt-dev readline-dev ruby-io-console libxml2-dev libffi-dev ruby-dev yaml-dev readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc nginx git && \
 
   
@@ -29,7 +29,7 @@ RUN \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
 
-  repo=$(docker-helper git_clone_ruby_repo "3.0.1") && \
+  repo=$(docker-helper git_clone_ruby_repo "3.0.2") && \
   if [ ! -z "$repo" ]; \
   then \
     cd $repo && \
@@ -38,7 +38,7 @@ RUN \
     rm -rf $repo; \
   else \
     yes | docker-helper ruby_install_gem \
-      "jekyll@3.0.1" --no-document -- \
+      "jekyll@3.0.2" --no-document -- \
         --use-system-libraries; \
   fi && \
 
