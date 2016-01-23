@@ -28,7 +28,7 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll
 ```
 
-### On Docker-Machine, and possibly Boot2Docker
+### On Docker-Machine
 ```sh
 # Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
@@ -38,9 +38,9 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
 
 If all else fails remove the IP from the `-p` and just do `4000:4000` and file a ticket and we will help you figure out if this might be a bug in your networking setup or if this might be a bug with us or an upstream bug.  ***Do not file a bug if you need to purposefully enable 4000:4000 because you want access from a public IP***
 
-## Boot2Docker Caveats
+## Docker-Machine Caveats
 
-If you are on Windows or OS X using Boot2Docker you will need to `--force_polling` or send the environment variable `POLLING=true` because there is no built-in support for NTFS/HFS notify events to inotify and the verse, you'll be on two different file systems so only the basic API's are implemented. ***This also applies to docker-machine which either uses boot2docker or is like-it.***
+If you are on Windows or OS X using Docker-Machine or Boot2Docker you will need to `--force_polling` or send the environment variable `POLLING=true` because there is no built-in support for NTFS/HFS notify events to inotify and the verse, you'll be on two different file systems so only the basic API's are implemented. ***This also applies to docker-machine which either uses boot2docker or is like-it.***
 
 ## Gemfiles and Gem Installation
 
