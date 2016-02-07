@@ -22,73 +22,73 @@ aliases:
   *stable_minor_version: *stable_version
   *stable_major_version: *stable_version
 
-remove_pkgs:
+dev_pkgs:
   all:
-  - zlib-dev
-  - build-base
-  - libxml2-dev
-  - libxslt-dev
-  - readline-dev
-  - libffi-dev
-  - ruby-dev
-  - yaml-dev
+    - zlib-dev
+    - build-base
+    - libxml2-dev
+    - libxslt-dev
+    - readline-dev
+    - libffi-dev
+    - ruby-dev
+    - yaml-dev
   tag:
     builder:
-    - nginx
+      - nginx
 
 pkgs:
   all:
-  - zlib
-  - python
-  - libxml2
-  - zlib-dev
-  - build-base
-  - libxslt-dev
-  - readline-dev
-  - ruby-io-console
-  - libxml2-dev
-  - libffi-dev
-  - ruby-dev
-  - yaml-dev
-  - readline
-  - libxslt
-  - ruby
-  - yaml
-  - libffi
-  - nodejs
-  - ruby-irb
-  - ruby-json
-  - ruby-rake
-  - ruby-rdoc
-  - nginx
-  - git
+    - zlib
+    - python
+    - libxml2
+    - zlib-dev
+    - build-base
+    - libxslt-dev
+    - readline-dev
+    - ruby-io-console
+    - libxml2-dev
+    - libffi-dev
+    - ruby-dev
+    - yaml-dev
+    - readline
+    - libxslt
+    - ruby
+    - yaml
+    - libffi
+    - nodejs
+    - ruby-irb
+    - ruby-json
+    - ruby-rake
+    - ruby-rdoc
+    - nginx
+    - git
   tag:
     builder:
-    - bash
-    - openssh-client
-    - lftp
+      - bash
+      - openssh-client
+      - lftp
 
 gems:
   tag:
     *stable_version:
-    - pygments.rb
-    - jekyll-sitemap
-    - jekyll-mentions
-    - jekyll-coffeescript
-    - jekyll-sass-converter
-    - jekyll-redirect-from
-    - jekyll-compose
-    - jekyll-feed
-    - rdiscount
-    - redcarpet
-    - kramdown
-    - jemoji
-    - RedCloth
-    - maruku
-    - html-proofer
+      - pygments.rb
+      - jekyll-sitemap
+      - jekyll-mentions
+      - jekyll-coffeescript
+      - jekyll-sass-converter
+      - jekyll-redirect-from
+      - jekyll-compose
+      - jekyll-feed
+      - rdiscount
+      - redcarpet
+      - kramdown
+      - jemoji
+      - RedCloth
+      - maruku
+      - html-proofer
     pages:
-    - github-pages
-    - jekyll-github-metadata
+      - github-pages
+      - jekyll-github-metadata
 env:
   all:
     LANGUAGE: en_US
