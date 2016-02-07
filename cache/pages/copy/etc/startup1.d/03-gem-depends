@@ -21,7 +21,7 @@ strip_jekyll() {
 
 cd /srv/jekyll
 if [ "$FORCE_APK_INSTALL" ]
-  then install_user_pkgs_from_file
+  then docker-helper install_user_pkgs_from_file
 fi
 
 #
