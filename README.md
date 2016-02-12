@@ -28,7 +28,7 @@ docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll
 ```
 
-### On Docker-Machine
+### On Docker-Machine / Docker-Toolbox
 ```sh
 # Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
