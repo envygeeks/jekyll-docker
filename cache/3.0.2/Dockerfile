@@ -58,4 +58,4 @@ RUN \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
 WORKDIR /srv/jekyll
-EXPOSE 4000 80
+EXPOSE 80
