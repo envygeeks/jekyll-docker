@@ -2,20 +2,6 @@
 
 Jekyll Docker is a full featured Alpine based Docker image that provides an isolated Jekyll instance with the latest version of Jekyll and a bunch of nice stuff to make your life easier when working with Jekyll in both production and development.
 
-## Supported Tags
-
-* [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.3.svg)][3.0.3] `3.0.3`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.2.svg)][3.1.2] `3.1.2`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.svg)][3.1] `3.1`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.svg)][3] `3`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:stable.svg)][stable] `stable`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:pages.svg)][pages] `pages`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:builder.svg)][builder] `builder`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:master.svg)][master] `master`
-
 The `jekyll/jekyll:pages` tag tries to be as close to Github pages as possible, without changing much, there might be some differences and if there are please do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
 
 ## Running
@@ -102,38 +88,6 @@ You can build our images or any specific tag of an image with `bundle exec docke
 * Ensure that your indented changes work as they're supposed to and `docker-template --sync`
 * Ship a pull request if you wish to have it reviewed for all users!
 
-## Legacy Tags
-
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.1.svg)][3.1.1] `3.1.1`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.0.svg)][3.1.0] `3.1.0`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.2.svg)][3.0.2] `3.0.2`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.1.svg)][3.0.1] `3.0.1`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.0.svg)][3.0.0] `3.0.0`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.4.svg)][2.4] `2.4`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:2.svg)][2] `2`
-
-
-[pages]: https://imagelayers.io?images=jekyll/jekyll:pages
-[latest]: https://imagelayers.io?images=jekyll/jekyll:latest
-[builder]: https://imagelayers.io?images=jekyll/jekyll:builder
-[stable]: https://imagelayers.io?images=jekyll/jekyll:stable
-[master]: https://imagelayers.io?images=jekyll/jekyll:master
-[beta]: https://imagelayers.io?images=jekyll/jekyll:beta
-[3.1.2]: https://imagelayers.io?images=jekyll/jekyll:3.1.2
-[3.1.1]: https://imagelayers.io?images=jekyll/jekyll:3.1.1
-[3.1.0]: https://imagelayers.io?images=jekyll/jekyll:3.1.0
-[3.0.3]: https://imagelayers.io?images=jekyll/jekyll:3.0.3
-[3.0.2]: https://imagelayers.io?images=jekyll/jekyll:3.0.2
-[3.0.1]: https://imagelayers.io?images=jekyll/jekyll:3.0.1
-[3.0.0]: https://imagelayers.io?images=jekyll/jekyll:3.0.0
-[3.1]: https://imagelayers.io?images=jekyll/jekyll:3.1
-[3.0]: https://imagelayers.io?images=jekyll/jekyll:3.0
-[3]:https://imagelayers.io?images=jekyll/jekyll:3
-[2.5.3]: https://imagelayers.io?images=jekyll/jekyll:2.5.3
-[2.5]: https://imagelayers.io?images=jekyll/jekyll:2.5
-[2.4]: https://imagelayers.io?images=jekyll/jekyll:2.4
-[2]:https://imagelayers.io?images=jekyll/jekyll:2
 [pygments.rb]: https://github.com/tmm1/pygments.rb
 [jekyll-sitemap]: https://github.com/jekyll/jekyll-sitemap
 [jekyll-coffeescript]: https://github.com/jekyll/jekyll-coffeescript
