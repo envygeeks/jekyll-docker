@@ -29,7 +29,7 @@ RUN \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \
-  echo "pygments.rb jekyll-sitemap jekyll-mentions jekyll-coffeescript jekyll-sass-converter jekyll-redirect-from jekyll-compose jekyll-feed rdiscount redcarpet kramdown jemoji RedCloth maruku html-proofer" > /usr/share/ruby/default-gems && \
+  echo "pygments.rb jekyll-sitemap jekyll-mentions jekyll-coffeescript jekyll-sass-converter jekyll-redirect-from jekyll-paginate jekyll-compose jekyll-feed rdiscount redcarpet kramdown jemoji RedCloth maruku html-proofer" > /usr/share/ruby/default-gems && \
   docker-helper install_default_gems && \
   gem clean && gem install bundler \
     --no-document && \

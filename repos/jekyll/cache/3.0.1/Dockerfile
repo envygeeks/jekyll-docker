@@ -3,7 +3,7 @@ MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US
 RUN \
-  echo "pages" > /image && \
+  echo "3.0.1" > /image && \
   apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev && \
   apk --update add zlib python libxml2 zlib-dev build-base libxslt-dev readline-dev ruby-io-console libxml2-dev libffi-dev ruby-dev yaml-dev readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc nginx git && \
 
@@ -24,12 +24,12 @@ RUN \
   cd ~ && \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
-  yes | docker-helper ruby_install_gem "jekyll@3.0.3" \
+  yes | docker-helper ruby_install_gem "jekyll@" \
     --no-document -- --use-system-libraries && \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \
-  echo "github-pages jekyll-github-metadata" > /usr/share/ruby/default-gems && \
+  echo "" > /usr/share/ruby/default-gems && \
   docker-helper install_default_gems && \
   gem clean && gem install bundler \
     --no-document && \

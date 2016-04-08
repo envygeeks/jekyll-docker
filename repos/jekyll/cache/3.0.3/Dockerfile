@@ -1,12 +1,19 @@
 FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
-ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US JEKYLL_ENV=production
+ENV LANGUAGE=en_US LANG=en_US.UTF-8 LC_ALL=en_US
 RUN \
-  echo "builder" > /image && \
-  apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev nginx && \
-  apk --update add zlib python libxml2 zlib-dev build-base libxslt-dev readline-dev ruby-io-console libxml2-dev libffi-dev ruby-dev yaml-dev readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc nginx git bash openssh-client rsync lftp && \
+  echo "3.0.3" > /image && \
+  apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev && \
+  apk --update add zlib python libxml2 zlib-dev build-base libxslt-dev readline-dev ruby-io-console libxml2-dev libffi-dev ruby-dev yaml-dev readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc nginx git && \
 
+  
+    mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
+    rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
+    cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
+    cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
+    mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
+    rm -rf /tmp/docker && cd ~/ && \
   
 
   mkdir -p /home/jekyll && \
@@ -30,7 +37,7 @@ RUN \
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
-  apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev nginx && \
+  apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
 WORKDIR /srv/jekyll
