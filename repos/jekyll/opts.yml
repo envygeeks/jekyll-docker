@@ -1,11 +1,13 @@
 ---
+cache: true
 name: jekyll
-dockerhub_cache: true
 stable_major_version: &stable_major_version "3"
 stable_minor_version: &stable_minor_version "3.0"
 stable_version: &stable_version "3.0.2"
 pages_version: &pages_version "2.4.0"
 user: jekyll
+sync: true
+
 versions:
   tag:
     *stable_version: *stable_version
@@ -22,7 +24,7 @@ aliases:
   *stable_minor_version: *stable_version
   *stable_major_version: *stable_version
 
-dev_pkgs:
+development_packages:
   all:
     - zlib-dev
     - build-base
@@ -36,7 +38,7 @@ dev_pkgs:
     builder:
       - nginx
 
-pkgs:
+packages:
   all:
     - zlib
     - python
