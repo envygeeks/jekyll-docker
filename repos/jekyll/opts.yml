@@ -79,6 +79,7 @@ gems:
       - jekyll-coffeescript
       - jekyll-sass-converter
       - jekyll-redirect-from
+      - jekyll-paginate
       - jekyll-compose
       - jekyll-feed
       - rdiscount
