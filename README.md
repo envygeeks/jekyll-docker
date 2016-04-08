@@ -5,7 +5,9 @@ Jekyll Docker is a full featured Alpine based Docker image that provides an isol
 ## Supported Tags
 
 * [![](https://badge.imagelayers.io/jekyll/jekyll:latest.svg)][latest] `latest`
-* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.2.svg)][3.0.2] `3.0.2`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.3.svg)][3.0.3] `3.0.3`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.2.svg)][3.1.2] `3.1.2`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.svg)][3.1] `3.1`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.svg)][3.0] `3.0`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:3.svg)][3] `3`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:beta.svg)][beta] `beta`
@@ -102,6 +104,9 @@ You can build our images or any specific tag of an image with `bundle exec docke
 
 ## Legacy Tags
 
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.1.svg)][3.1.1] `3.1.1`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.1.0.svg)][3.1.0] `3.1.0`
+* [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.2.svg)][3.0.2] `3.0.2`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.1.svg)][3.0.1] `3.0.1`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:3.0.0.svg)][3.0.0] `3.0.0`
 * [![](https://badge.imagelayers.io/jekyll/jekyll:2.5.svg)][2.5] `2.5`
@@ -115,9 +120,14 @@ You can build our images or any specific tag of an image with `bundle exec docke
 [stable]: https://imagelayers.io?images=jekyll/jekyll:stable
 [master]: https://imagelayers.io?images=jekyll/jekyll:master
 [beta]: https://imagelayers.io?images=jekyll/jekyll:beta
+[3.1.2]: https://imagelayers.io?images=jekyll/jekyll:3.1.2
+[3.1.1]: https://imagelayers.io?images=jekyll/jekyll:3.1.1
+[3.1.0]: https://imagelayers.io?images=jekyll/jekyll:3.1.0
+[3.0.3]: https://imagelayers.io?images=jekyll/jekyll:3.0.3
 [3.0.2]: https://imagelayers.io?images=jekyll/jekyll:3.0.2
 [3.0.1]: https://imagelayers.io?images=jekyll/jekyll:3.0.1
 [3.0.0]: https://imagelayers.io?images=jekyll/jekyll:3.0.0
+[3.1]: https://imagelayers.io?images=jekyll/jekyll:3.1
 [3.0]: https://imagelayers.io?images=jekyll/jekyll:3.0
 [3]:https://imagelayers.io?images=jekyll/jekyll:3
 [2.5.3]: https://imagelayers.io?images=jekyll/jekyll:2.5.3
