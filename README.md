@@ -57,6 +57,8 @@ If you provide a `.apk` file inside of your root we will detect it and install t
 * `$POLLING` - Force polling with `--force_polling`.
 * `$VERBOSE` - Enable `jekyll` `--verbose`.
 
+***Upstream support BUNDLE_ARGS and BUNDLE_WITHOUT so that you can add arguments to your bundler and/or exclude specific groups from being installed on your image.***
+
 ### Nginx
 
 This image includes Nginx and even adjusting and adding some location stuff or basic customizations via a `.nginx` folder in your Jekyll root.  These do not affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
