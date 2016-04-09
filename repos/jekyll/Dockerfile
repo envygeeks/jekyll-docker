@@ -10,8 +10,8 @@ RUN \
   <% if @metadata.tag != "builder" %>
     mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
     rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-    cp -R docker/dockerfiles/nginx/copy/etc/startup3.d/nginx /etc/startup3.d && \
-    cp -R docker/dockerfiles/nginx/copy/etc/nginx /etc && \
+    cp -R docker/repos/nginx/copy/all/etc/startup3.d/nginx /etc/startup3.d && \
+    cp -R docker/repos/nginx/copy/all/etc/nginx /etc && \
     mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
     rm -rf /tmp/docker && cd ~/ && \
   <% end %>

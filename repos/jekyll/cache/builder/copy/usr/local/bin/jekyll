@@ -17,7 +17,7 @@ end
 ARGV.shift and ARGV.unshift("serve") if "s" == ARGV[0]
 ARGV.push("--force_polling") if (ENV["FORCE_POLLING"] || ENV["POLLING"]) && (build? || serve?)
 ARGV.push("--verbose") if ENV["DEBUG"] || ENV["VERBOSE"]
-ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") if s?
+ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") if serve?
 
 if Process.uid == 0 || Process.euid == 0
   exec "chpst", "-u", "jekyll:jekyll", Gem.bin_path("jekyll", \
