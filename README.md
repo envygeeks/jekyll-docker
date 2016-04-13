@@ -4,6 +4,24 @@ Jekyll Docker is a full featured Alpine based Docker image that provides an isol
 
 The `jekyll/jekyll:pages` tag tries to be as close to Github pages as possible, without changing much, there might be some differences and if there are please do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
 
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Jekyll Docker Images](#jekyll-docker-images)
+	- [Running](#running)
+		- [On Native Docker](#on-native-docker)
+		- [On Docker-Machine / Docker-Toolbox](#on-docker-machine-docker-toolbox)
+	- [Docker-Machine Caveats](#docker-machine-caveats)
+	- [Gemfiles and Gem Installation](#gemfiles-and-gem-installation)
+	- [Apk (Alpine) dependencies for Gems](#apk-alpine-dependencies-for-gems)
+	- [Environment Variables](#environment-variables)
+	- [Nginx](#nginx)
+	- [Default Gems](#default-gems)
+	- [Building Only](#building-only)
+	- [Building Our Images](#building-our-images)
+	- [Contributing](#contributing)
+
+<!-- /TOC -->
+
 ## Running
 
 ***If you do not provide a command then it will default to `jekyll s`.***
@@ -11,14 +29,12 @@ The `jekyll/jekyll:pages` tag tries to be as close to Github pages as possible, 
 ### On Native Docker
 
 ```sh
-# Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p 127.0.0.1:4000:4000 jekyll/jekyll
 ```
 
 ### On Docker-Machine / Docker-Toolbox
 ```sh
-# Switch to 80:80 or 4000:80 if you wish to use only Nginx with `jekyll build`
 docker run --rm --label=jekyll --volume=$(pwd):/srv/jekyll \
   -it -p $(docker-machine ip `docker-machine active`):4000:4000 \
     jekyll/jekyll
@@ -47,7 +63,7 @@ If you provide a `.apk` file inside of your root we will detect it and install t
 
 ***Upstream support BUNDLE_ARGS and BUNDLE_WITHOUT so that you can add arguments to your bundler and/or exclude specific groups from being installed on your image.***
 
-### Nginx
+## Nginx
 
 This image includes Nginx and even adjusting and adding some location stuff or basic customizations via a `.nginx` folder in your Jekyll root.  These do not affect the entire server and only affect the server in Jekyll's context, so you will be able to add locations and other customizations into Jekyll's server directive.  Nginx exists to allow you to do advanced stuff but our recommended access is through the default port 4000 right now.
 
@@ -77,15 +93,15 @@ If you want to just build Jekyll sites, you can use `builder` tag. Additionaly t
 
 ## Building Our Images
 
-You can build our images or any specific tag of an image with `bundle exec docker-template jekyll` or `bundle exec docker-template jekyll:tag`, yes it's that simple to build our images even if it looks complicated it's not.
+You can build our images or any specific tag of an image with `bundle exec docker-template build jekyll` or `bundle exec docker-template build jekyll:tag`, yes it's that simple to build our images even if it looks complicated it's not.
 
 ## Contributing
 
 * Fork the current repo; `bundle install`
-* `opts.yml` holds the version, gems and most everything.
+* `opts.yml` and `repos/*/opts.yml` holds the version, gems and most everything.
 * If you are updating to the latest version of Jekyll, the version tables at the top.
-* Build all the tags with `bundle exec docker-template jekyll` or tag `docker-template jekyll:tag`
-* Ensure that your indented changes work as they're supposed to and `docker-template --sync`
+* Build all the tags with `bundle exec docker-template build jekyll` or tag `docker-template build jekyll:tag`
+* Ensure that your intended changes work as they're supposed to and `docker-template build jekyll --sync-only`
 * Ship a pull request if you wish to have it reviewed for all users!
 
 [pygments.rb]: https://github.com/tmm1/pygments.rb
