@@ -89,19 +89,19 @@ The Github (pages tag) may contain dependencies that we don't directly carry, yo
 
 ## Building Only
 
-If you want to just build Jekyll sites, you can use `builder` tag. Additionaly to other tags, it has: `ssh` (for sftp), `bash`, `rsync`, `lftp` [See the wiki page with examples how to configure CI solutions to use this image](https://github.com/jekyll/docker/wiki/Deploying-with-Jekyll-Docker)
+If you want to just build Jekyll sites, you can use `jekyll/builder`. Additionaly to other tags, it has: `ssh` (for sftp), `bash`, `rsync`, `lftp` [See the wiki page with examples how to configure CI solutions to use this image](https://github.com/jekyll/docker/wiki/Deploying-with-Jekyll-Docker)
 
 ## Building Our Images
 
-You can build our images or any specific tag of an image with `bundle exec docker-template build jekyll` or `bundle exec docker-template build jekyll:tag`, yes it's that simple to build our images even if it looks complicated it's not.
+You can build our images or any specific tag of an image with `bundle exec docker-template build` or `bundle exec docker-template build repo:tag`, yes it's that simple to build our images even if it looks complicated it's not.
 
 ## Contributing
 
 * Fork the current repo; `bundle install`
 * `opts.yml` and `repos/*/opts.yml` holds the version, gems and most everything.
 * If you are updating to the latest version of Jekyll, the version tables at the top.
-* Build all the tags with `bundle exec docker-template build jekyll` or tag `docker-template build jekyll:tag`
-* Ensure that your intended changes work as they're supposed to and `docker-template build jekyll --sync-only`
+* Build all the tags with `bundle exec docker-template build jekyll` or tag `docker-template build repo:tag`
+* Ensure that your intended changes work as they're supposed to and `docker-template build`
 * Ship a pull request if you wish to have it reviewed for all users!
 
 [pygments.rb]: https://github.com/tmm1/pygments.rb
