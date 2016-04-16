@@ -3,11 +3,10 @@ MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
 ENV <%= @metadata.env %>
 RUN \
-  echo "<%= @metadata.tag %>" > /image && \
   apk --update add <%= @metadata.development_packages %> && \
   apk --update add <%= @metadata.packages %> && \
 
-  <% if @metadata.tag != "builder" %>
+  <% if @metadata.name != "builder" %>
     mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
     rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
     cp -R docker/repos/nginx/copy/all/etc/startup3.d/nginx /etc/startup3.d && \
@@ -41,4 +40,5 @@ RUN \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
 WORKDIR /srv/jekyll
-EXPOSE 4000 80
+VOLUME  /srv/jekyll
+EXPOSE 35729 4000 80

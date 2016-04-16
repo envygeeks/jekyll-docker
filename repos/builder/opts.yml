@@ -1,0 +1,10 @@
+packages:
+  all:
+    - bash
+    - openssh-client
+    - rsync
+    - lftp
+
+env:
+  all:
+    JEKYLL_ENV: production

@@ -1,4 +1,106 @@
 maintainer: Jekyll Core Team <hello@jekyllrb.com>
 user: jekyll
-cache: true
 push: true
+
+#
+
+stable_major_version: &stable_major_version "3"
+stable_minor_version: &stable_minor_version "3.1"
+stable_version: &stable_version "3.1.2"
+pages_version: &pages_version "3.0.3"
+
+#
+
+versions:
+  tag:
+    *stable_version: *stable_version
+    pages: *pages_version
+
+#
+
+tags:
+  *stable_version: stable
+  pages: old
+
+#
+
+aliases:
+  latest: *stable_version
+  stable: *stable_version
+  *stable_minor_version: *stable_version
+  *stable_major_version: *stable_version
+
+#
+
+development_packages:
+  all:
+    - zlib-dev
+    - build-base
+    - libxml2-dev
+    - libxslt-dev
+    - readline-dev
+    - libffi-dev
+    - ruby-dev
+    - yaml-dev
+    - zlib-dev
+    - libxslt-dev
+    - readline-dev
+    - libxml2-dev
+    - libffi-dev
+    - ruby-dev
+    - yaml-dev
+
+#
+
+packages:
+  all:
+    - zlib
+    - python
+    - libxml2
+    - build-base
+    - ruby-io-console
+    - readline
+    - libxslt
+    - ruby
+    - yaml
+    - libffi
+    - nodejs
+    - ruby-irb
+    - ruby-json
+    - ruby-rake
+    - ruby-rdoc
+    - git
+
+#
+
+gems:
+  tag:
+    *stable_version:
+      - pygments.rb
+      - jekyll-sitemap
+      - jekyll-mentions
+      - jekyll-coffeescript
+      - jekyll-sass-converter
+      - jekyll-redirect-from
+      - jekyll-paginate
+      - jekyll-compose
+      - jekyll-feed
+      - rdiscount
+      - redcarpet
+      - kramdown
+      - jemoji
+      - RedCloth
+      - maruku
+      - html-proofer
+    pages:
+      - github-pages
+      - jekyll-github-metadata
+
+#
+
+env:
+  all:
+    LANGUAGE: en_US
+    LANG: en_US.UTF-8
+    JEKYLL_ENV: development
+    LC_ALL: en_US
