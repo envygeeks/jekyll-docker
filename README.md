@@ -2,7 +2,7 @@
 
 Jekyll Docker is a full featured Alpine based Docker image that provides an isolated Jekyll instance with the latest version of Jekyll and a bunch of nice stuff to make your life easier when working with Jekyll in both production and development.
 
-The `jekyll/jekyll:pages`, and `jekyll/builder:pagest` tags try to be as close to Github pages as possible, without changing much, there might be some differences and if there are please do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
+The `jekyll/jekyll:pages`, and `jekyll/builder:pages` tags try to be as close to Github pages as possible, without changing much, there might be some differences and if there are please do file a ticket and they will be corrected if possible... remember not all things can be corrected because sometimes it will just diverge way too much.
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
