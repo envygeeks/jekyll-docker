@@ -1,0 +1,23 @@
+dist: trusty
+sudo: required
+script: script/ci
+cache: bundler
+os: linux
+lang: ruby
+
+#
+
+env:
+  - DOCKER_EMAIL=jekyllbot@jekyllrb.com
+  - DOCKER_USERNAME=jekyllbot
+  - secure: "\
+      QpBpAXUUbUPKmZ2fKTe8Ld/huMwIy/dmGTqxrHAacvMBi6nMINqIJNcTxFikErNydt4R8xD/\
+      nTgkCGjIVJ5bCcoJEpILRyz9i/dLBNihWrgzoebUFrN9wcJ+EzC5h4cDD8Mt5oY0ig0kMju8\
+      NP/ns2u3CF/4jmlFdUFPpawznG8=\
+    "
+
+#
+
+deploy:
+  script: script/deploy
+  provider: script
