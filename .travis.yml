@@ -1,7 +1,6 @@
 dist: trusty
 sudo: required
 script: script/ci
-cache: bundler
 os: linux
 lang: ruby
 
