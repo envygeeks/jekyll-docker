@@ -21,7 +21,9 @@ env:
         nTgkCGjIVJ5bCcoJEpILRyz9i/dLBNihWrgzoebUFrN9wcJ+EzC5h4cDD8Mt5oY0ig0kMju8\
         NP/ns2u3CF/4jmlFdUFPpawznG8=\
       "
-
+  matrix:
+    - DOCKER_REPO=jekyll
+    - DOCKER_REPO=builder
 #
 
 deploy:

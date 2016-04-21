@@ -11,5 +11,5 @@ sudo service docker restart
 
 # ----------------------------------------------------------------------------
 
-bundle exec docker-template build --no-diff --no-push \
+bundle exec docker-template build $DOCKER_REPO --no-diff --no-push \
   --no-cache --no-clean
