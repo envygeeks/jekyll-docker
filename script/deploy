@@ -1,3 +1,4 @@
 #!/bin/sh
+bundle install --path vendor/bundle
 bundle exec docker-template build \
   --push-only
