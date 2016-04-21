@@ -5,7 +5,7 @@
 # ----------------------------------------------------------------------------
 
 sudo apt-get update
-sudo apt-get upgrade --assume-yes $(dpkg --get-selections |grep docker | awk '{ print $1 }')
+sudo apt-get install --assume-yes --only-upgrade docker docker-engine
 sudo service restart docker
 
 # ----------------------------------------------------------------------------
