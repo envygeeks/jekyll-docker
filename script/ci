@@ -5,7 +5,9 @@
 # ----------------------------------------------------------------------------
 
 sudo apt-get update
-sudo apt-get install --assume-yes --only-upgrade docker docker-engine
+sudo apt-get install \
+  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
+  --assume-yes --only-upgrade docker docker-engine
 sudo service restart docker
 
 # ----------------------------------------------------------------------------

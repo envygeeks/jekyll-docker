@@ -1,13 +1,23 @@
 #!/bin/sh
+
+if [ -n "$TRAVIS_PULL_REQUEST" ]
+  then exit 0
+fi
+
+# ----------------------------------------------------------------------------
+
 rvm use 2.3.0 --install --binary --fuzzy
-bundle install --path vendor/bundle
+bundle install --path \
+  vendor/bundle
 
 # ----------------------------------------------------------------------------
 # Make sure we have a recent version of Docker.
 # ----------------------------------------------------------------------------
 
 sudo apt-get update
-sudo apt-get install --assume-yes --only-upgrade docker docker-engine
+sudo apt-get install \
+  -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
+  --assume-yes --only-upgrade docker docker-engine
 sudo service restart docker
 
 # ----------------------------------------------------------------------------
