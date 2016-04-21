@@ -11,5 +11,6 @@ sudo service docker restart
 
 # ----------------------------------------------------------------------------
 
-bundle exec docker-template build $DOCKER_REPO --no-diff --no-push \
-  --no-cache --no-clean
+bundle exec docker-template build $DOCKER_REPO --no-diff --no-push --no-cache --no-clean
+[ -z "$TRAVIS_PULL_REQUEST" ] && bundle exec docker-template build \
+  $DOCKER_REPO --push-only --no-diff

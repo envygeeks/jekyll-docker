@@ -1,6 +1,6 @@
 dist: trusty
-sudo: required
 script: script/ci
+sudo: required
 os: linux
 lang: ruby
 
@@ -23,8 +23,3 @@ env:
   matrix:
     - DOCKER_REPO=jekyll
     - DOCKER_REPO=builder
-#
-
-deploy:
-  script: script/deploy
-  provider: script
