@@ -7,6 +7,11 @@ lang: ruby
 
 #
 
+rvm:
+  - 2.3.0
+
+#
+
 env:
   global:
     - DOCKER_EMAIL=jekyllbot@jekyllrb.com
