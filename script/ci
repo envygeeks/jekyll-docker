@@ -1,14 +1,14 @@
 #!/bin/sh
 
-echo "# ----------------------------------------------------------------------"
-echo "# DOCKER INFORMATION"
-echo "# ----------------------------------------------------------------------"
+# ----------------------------------------------------------------------------
+# Make sure we have a recent version of Docker.
+# ----------------------------------------------------------------------------
 
-docker version
-docker info
+sudo apt-get update
+sudo apt-get upgrade --assume-yes $(dpkg --get-selections |grep docker | awk '{ print $1 }')
+sudo service restart docker
 
-echo "# ----------------------------------------------------------------------"
-echo "# ----------------------------------------------------------------------"
+# ----------------------------------------------------------------------------
 
 bundle exec docker-template build --no-diff --no-push \
   --no-cache --no-clean

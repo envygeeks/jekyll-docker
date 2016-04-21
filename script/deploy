@@ -1,4 +1,16 @@
 #!/bin/sh
+rvm use 2.3.0 --install --binary --fuzzy
 bundle install --path vendor/bundle
+
+# ----------------------------------------------------------------------------
+# Make sure we have a recent version of Docker.
+# ----------------------------------------------------------------------------
+
+sudo apt-get update
+sudo apt-get upgrade --assume-yes $(dpkg --get-selections |grep docker | awk '{ print $1 }')
+sudo service restart docker
+
+# ----------------------------------------------------------------------------
+
 bundle exec docker-template build \
   --push-only
