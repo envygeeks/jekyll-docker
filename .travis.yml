@@ -16,9 +16,9 @@ env:
     - DOCKER_EMAIL=jekyllbot@jekyllrb.com
     - DOCKER_USERNAME=jekyllbot
     - secure: "\
-        QpBpAXUUbUPKmZ2fKTe8Ld/huMwIy/dmGTqxrHAacvMBi6nMINqIJNcTxFikErNydt4R8xD/\
-        nTgkCGjIVJ5bCcoJEpILRyz9i/dLBNihWrgzoebUFrN9wcJ+EzC5h4cDD8Mt5oY0ig0kMju8\
-        NP/ns2u3CF/4jmlFdUFPpawznG8=\
+        Ch58f9OmZoF7b6j2o7WKzw9EZ+Mah69sZnM6YFjWcPw3RDBzM7DFpu8zaB0n2MiXUc+fiCEQ\
+        MuW/bjWO8xhO2dp2HcDkTn4vOvO+gKBqhjTN2abLb2fq13LDQJ3DwxPpqDnV8K5Kgd2qj7W1\
+        D3o1rY4zdECw9Wi9LaiUeQu43lc=\
       "
   matrix:
     - DOCKER_REPO=jekyll
