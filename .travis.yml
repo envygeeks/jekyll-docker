@@ -20,6 +20,3 @@ env:
         JX/DKOQ3fGUFAgYe5TZJgLt+DYTc+i+JU+2twPOfh98OseFWgRk4SnrbpxtcBYt4I8Iv1o\
         tjdW4P0aAGAvA1YYopGE70+WTrqixeY=\
       "
-  matrix:
-    - DOCKER_REPO=jekyll
-    - DOCKER_REPO=builder
