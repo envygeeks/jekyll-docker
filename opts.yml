@@ -76,7 +76,7 @@ packages:
 
 gems:
   tag:
-    *stable_version:
+    *stable_version: &stable_gems
       - pygments.rb
       - jekyll-sitemap
       - jekyll-mentions
@@ -96,6 +96,7 @@ gems:
     pages:
       - github-pages
       - jekyll-github-metadata
+    *pages_version: *stable_gems
 
 #
 
