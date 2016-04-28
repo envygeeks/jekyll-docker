@@ -18,6 +18,7 @@ versions:
 #
 
 tags:
+  *pages_version: old
   *stable_version: stable
   pages: old
 
