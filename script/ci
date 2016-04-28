@@ -11,8 +11,12 @@ sudo service docker restart
 
 # ----------------------------------------------------------------------------
 
-bundle exec docker-template build $DOCKER_REPO
-if [ -n "$TRAVIS_PULL_REQUEST" ]
+status=0
+bundle exec docker-template build $DOCKER_REPO || status=$?
+if [ -n "$TRAVIS_PULL_REQUEST" ] && [ "$status" -eq 0 ]
   then bundle exec docker-template push \
     $DOCKER_REPO
+
+else
+  exit 1
 fi
