@@ -12,6 +12,7 @@ pages_version: &pages_version "3.0.5"
 
 versions:
   tag:
+    *pages_version: *pages_version
     *stable_version: *stable_version
     pages: *pages_version
 
