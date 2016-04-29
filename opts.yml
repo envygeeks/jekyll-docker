@@ -12,7 +12,6 @@ pages_version: &pages_version "3.0.5"
 
 versions:
   tag:
-    3.0.4: 3.0.4
     *pages_version: *pages_version
     *stable_version: *stable_version
     pages: *pages_version
@@ -20,7 +19,6 @@ versions:
 #
 
 tags:
-  3.0.4: old
   *pages_version: old
   *stable_version: stable
   pages: old
@@ -99,7 +97,7 @@ gems:
       - github-pages
       - jekyll-github-metadata
     *pages_version: *stable_gems
-    3.0.4: *stable_gems
+
 #
 
 env:
