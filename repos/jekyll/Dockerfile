@@ -6,15 +6,6 @@ RUN \
   apk --update add <%= @meta.development_packages %> && \
   apk --update add <%= @meta.packages %> && \
 
-  <% if @meta.name != "builder" %>
-    mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
-    rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
-    cp -R docker/repos/nginx/copy/all/etc/startup3.d/nginx /etc/startup3.d && \
-    cp -R docker/repos/nginx/copy/all/etc/nginx /etc && \
-    mv /tmp/nginx.conf.d /etc/nginx/conf.d && \
-    rm -rf /tmp/docker && cd ~/ && \
-  <% end %>
-
   mkdir -p /home/jekyll && \
   addgroup -Sg 1000 jekyll &&  \
   adduser  -SG jekyll -u 1000 -h /home/jekyll jekyll && \

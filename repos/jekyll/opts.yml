@@ -1,8 +1,2 @@
-packages:
-  all:
-    - nginx
-
-#
-
 aliases:
   builder: jekyll/builder:latest

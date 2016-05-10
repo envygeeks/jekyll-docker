@@ -56,7 +56,6 @@ development_packages:
 packages:
   all:
     - zlib
-    - python
     - libxml2
     - build-base
     - ruby-io-console
@@ -77,7 +76,7 @@ packages:
 gems:
   tag:
     *stable_version: &stable_gems
-      - pygments.rb
+      - html-proofer
       - jekyll-sitemap
       - jekyll-mentions
       - jekyll-coffeescript
@@ -86,13 +85,9 @@ gems:
       - jekyll-paginate
       - jekyll-compose
       - jekyll-feed
-      - rdiscount
-      - redcarpet
+      - RedCloth
       - kramdown
       - jemoji
-      - RedCloth
-      - maruku
-      - html-proofer
     pages:
       - github-pages
       - jekyll-github-metadata
