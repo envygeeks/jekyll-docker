@@ -1,12 +1,12 @@
 FROM envygeeks/alpine
 MAINTAINER Jekyll Core <hello@jekyllrb.com>
 COPY copy/ /
-ENV <%= @metadata.env %>
+ENV <%= @meta.env %>
 RUN \
-  apk --update add <%= @metadata.development_packages %> && \
-  apk --update add <%= @metadata.packages %> && \
+  apk --update add <%= @meta.development_packages %> && \
+  apk --update add <%= @meta.packages %> && \
 
-  <% if @metadata.name != "builder" %>
+  <% if @meta.name != "builder" %>
     mv /etc/nginx/conf.d /tmp/nginx.conf.d && \
     rm -rf /etc/nginx && cd /tmp && git clone https://github.com/envygeeks/docker.git && \
     cp -R docker/repos/nginx/copy/all/etc/startup3.d/nginx /etc/startup3.d && \
@@ -23,11 +23,11 @@ RUN \
   cd ~ && \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
-  yes | docker-helper ruby_install_gem "jekyll@<%= @metadata.version %>" && \
+  yes | docker-helper ruby_install_gem "jekyll@<%= @meta.version %>" && \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \
-  echo "<%= @metadata.gems %>" > /usr/share/ruby/default-gems && \
+  echo "<%= @meta.gems %>" > /usr/share/ruby/default-gems && \
   docker-helper install_default_gems && \
   gem clean && gem install bundler \
     --no-document && \
@@ -35,7 +35,7 @@ RUN \
   mkdir -p /srv/jekyll && \
   chown jekyll:jekyll /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
-  apk del <%= @metadata.development_packages %> && \
+  apk del <%= @meta.development_packages %> && \
   rm -rf /usr/lib/ruby/gems/*/cache/*.gem && \
   docker-helper cleanup
 WORKDIR /srv/jekyll
