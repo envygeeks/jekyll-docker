@@ -14,7 +14,7 @@ RUN \
   cd ~ && \
   yes | gem update --system --no-document -- --use-system-libraries && \
   yes | gem update --no-document -- --use-system-libraries && \
-  yes | docker-helper ruby_install_gem "jekyll@<%= @meta.version %>" && \
+  yes | docker-helper ruby_install_gem "jekyll@<%= @meta.release %>" && \
 
   cd ~ && \
   mkdir -p /usr/share/ruby && \

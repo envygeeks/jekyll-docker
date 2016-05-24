@@ -1,38 +1,17 @@
 maintainer: Jekyll Core Team <hello@jekyllrb.com>
 user: jekyll
-
-#
-
-stable_major_version: &stable_major_version "3"
-stable_minor_version: &stable_minor_version "3.1"
-stable_version: &stable_version "3.1.3"
-pages_version: &pages_version "3.0.5"
-
-#
-
-versions:
-  tag:
-    *pages_version: *pages_version
-    *stable_version: *stable_version
-    pages: *pages_version
-
-#
-
 tags:
-  *pages_version: old
-  *stable_version: stable
-  pages: old
-
-#
-
+  3.1.6: stable
+  pages: pages
 aliases:
-  latest: *stable_version
-  stable: *stable_version
-  *stable_minor_version: *stable_version
-  *stable_major_version: *stable_version
-
-#
-
+  latest: 3.1.6
+  stable: 3.1.6
+  3.1: 3.1.6
+  3: 3.1.6
+releases:
+  group:
+    stable: 3.1.6
+    pages:  3.1.6
 development_packages:
   all:
     - zlib-dev
@@ -50,9 +29,6 @@ development_packages:
     - libffi-dev
     - ruby-dev
     - yaml-dev
-
-#
-
 packages:
   all:
     - zlib
@@ -70,12 +46,9 @@ packages:
     - ruby-rake
     - ruby-rdoc
     - git
-
-#
-
 gems:
-  tag:
-    *stable_version: &stable_gems
+  group:
+    stable: &stable_gems
       - html-proofer
       - jekyll-sitemap
       - jekyll-mentions
@@ -89,12 +62,9 @@ gems:
       - kramdown
       - jemoji
     pages:
+      - *stable_gems
       - github-pages
       - jekyll-github-metadata
-    *pages_version: *stable_gems
-
-#
-
 env:
   all:
     LANGUAGE: en_US
