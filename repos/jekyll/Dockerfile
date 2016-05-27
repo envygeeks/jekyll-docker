@@ -6,12 +6,17 @@ ENV \
   LANG=en_US.UTF-8 \
   JEKYLL_ENV=development \
   LC_ALL=en_US
+<% if @meta.env? %>
+  ENV <%=
+    @meta.env
+  %>
+<% end %>
 RUN \
   apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
     libffi-dev ruby-dev yaml-dev zlib-dev libxslt-dev readline-dev libxml2-dev \
-    libffi-dev ruby-dev yaml-dev zlib libxml2 build-base ruby-io-console \
-    readline libxslt ruby yaml libffi nodejs ruby-irb ruby-json \
-    ruby-rake ruby-rdoc git && \
+    libffi-dev ruby-dev yaml-dev zlib libxml2 build-base ruby-io-console readline \
+    libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc \
+    git <% if @meta.packages? %><%= @meta.packages %><% end %> && \
 
   yes | gem update --no-document -- --use-system-libraries && \
   yes | gem update --system --no-document -- --use-system-libraries && \
