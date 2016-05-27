@@ -12,62 +12,22 @@ releases:
   group:
     stable: 3.1.6
     pages:  3.1.6
-development_packages:
-  all:
-    - zlib-dev
-    - build-base
-    - libxml2-dev
-    - libxslt-dev
-    - readline-dev
-    - libffi-dev
-    - ruby-dev
-    - yaml-dev
-    - zlib-dev
-    - libxslt-dev
-    - readline-dev
-    - libxml2-dev
-    - libffi-dev
-    - ruby-dev
-    - yaml-dev
-packages:
-  all:
-    - zlib
-    - libxml2
-    - build-base
-    - ruby-io-console
-    - readline
-    - libxslt
-    - ruby
-    - yaml
-    - libffi
-    - nodejs
-    - ruby-irb
-    - ruby-json
-    - ruby-rake
-    - ruby-rdoc
-    - git
 gems:
+  all: &gems
+    - html-proofer
+    - jekyll-sitemap
+    - jekyll-mentions
+    - jekyll-coffeescript
+    - jekyll-sass-converter
+    - jekyll-redirect-from
+    - jekyll-paginate
+    - jekyll-compose
+    - jekyll-feed
+    - RedCloth
+    - kramdown
+    - jemoji
   group:
-    stable: &stable_gems
-      - html-proofer
-      - jekyll-sitemap
-      - jekyll-mentions
-      - jekyll-coffeescript
-      - jekyll-sass-converter
-      - jekyll-redirect-from
-      - jekyll-paginate
-      - jekyll-compose
-      - jekyll-feed
-      - RedCloth
-      - kramdown
-      - jemoji
     pages:
-      - *stable_gems
+      - *gems
       - github-pages
       - jekyll-github-metadata
-env:
-  all:
-    LANGUAGE: en_US
-    LANG: en_US.UTF-8
-    JEKYLL_ENV: development
-    LC_ALL: en_US
