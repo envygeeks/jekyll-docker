@@ -9,7 +9,7 @@ end
 #
 
 def serve?
-  %W(s serve server).include?(
+  %W(s serve server liveserve).include?(
     ARGV[0]
   )
 end
