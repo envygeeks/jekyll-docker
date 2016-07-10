@@ -16,7 +16,7 @@ RUN \
     libffi-dev ruby-dev yaml-dev zlib-dev libxslt-dev readline-dev libxml2-dev \
     libffi-dev ruby-dev yaml-dev zlib libxml2 build-base ruby-io-console readline \
     libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc \
-    git <% if @meta.packages? %><%= @meta.packages %><% end %> && \
+    git tzdata <% if @meta.packages? %><%= @meta.packages %><% end %> && \
 
   yes | gem update --no-document -- --use-system-libraries && \
   yes | gem update --system --no-document -- --use-system-libraries && \
