@@ -1,15 +1,13 @@
 #!/bin/sh
 
-# ----------------------------------------------------------------------------
+# --
 # Make sure we have a recent version of Docker.
-# ----------------------------------------------------------------------------
-
 sudo apt-get update sudo apt-get update >/dev/null
 sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
   --assume-yes --only-upgrade docker docker-engine
 sudo service docker restart
 
-# ----------------------------------------------------------------------------
+# --
 
 status=0
 bundle exec docker-template build $DOCKER_REPO || status=$?
