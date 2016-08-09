@@ -15,7 +15,8 @@ RUN gem install \
   jekyll-paginate \
   kramdown \
   rdiscount \
-  rouge
+  rouge \
+  pygments.rb
 
 VOLUME /src
 EXPOSE 4000
