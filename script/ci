@@ -11,7 +11,7 @@ sudo service docker restart
 
 status=0
 bundle exec docker-template build $DOCKER_REPO || status=$?
-if [ -n "$TRAVIS_PULL_REQUEST" ] && [ "$status" -eq 0 ]
+if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$status" -eq 0 ]
   then bundle exec docker-template push \
     $DOCKER_REPO
 
