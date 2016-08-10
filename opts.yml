@@ -23,6 +23,7 @@ gems:
     - jekyll-paginate
     - jekyll-compose
     - jekyll-feed
+    - jekyll-docs
     - RedCloth
     - kramdown
     - jemoji
