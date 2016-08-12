@@ -27,6 +27,7 @@ gems:
     - RedCloth
     - kramdown
     - jemoji
+    - minima
   group:
     pages:
       - *gems
