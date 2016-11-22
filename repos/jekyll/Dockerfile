@@ -1,42 +1,25 @@
-FROM envygeeks/alpine
-MAINTAINER Jekyll Core <hello@jekyllrb.com>
-COPY copy/ /
-ENV \
-  LANGUAGE=en_US \
-  LANG=en_US.UTF-8 \
-  JEKYLL_ENV=development \
-  LC_ALL=en_US
-<% if @meta.env? %>
-  ENV <%=
-    @meta.env
-  %>
-<% end %>
-RUN \
-  apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
-    libffi-dev ruby-dev yaml-dev zlib-dev libxslt-dev readline-dev libxml2-dev \
-    libffi-dev ruby-dev yaml-dev zlib libxml2 build-base ruby-io-console readline \
-    libxslt ruby yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc \
-    git <% if @meta.packages? %><%= @meta.packages %><% end %> && \
+FROM ruby:2.3.1
+MAINTAINER Steven Wade "steven@stevenwade.co.uk"
 
-  yes | gem update --no-document -- --use-system-libraries && \
-  yes | gem update --system --no-document -- --use-system-libraries && \
-  yes | docker-helper ruby-install-gem "jekyll@<%= @meta.release %>" && \
-  docker-helper add-user-1000 jekyll && \
+RUN apt-get update \
+  && apt-get install -y \
+    node \
+    python-pygments \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
 
-  cd ~ && \
-  mkdir -p /usr/share/ruby && \
-  echo "<%= @meta.gems %>" > /usr/share/ruby/default-gems && \
-  docker-helper install-default-gems && \
-  docker-helper install_default_gems && \
-  gem clean && gem install bundler \
-    --no-document && \
+RUN gem install \
+  github-pages \
+  jekyll \
+  jekyll-redirect-from \
+  jekyll-paginate \
+  kramdown \
+  rdiscount \
+  rouge \
+  pygments.rb
 
-  docker-helper create-dir jekyll:jekyll /srv/jekyll && \
-  echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
-  apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev \
-    ruby-dev yaml-dev zlib-dev libxslt-dev readline-dev libxml2-dev \
-    libffi-dev ruby-dev yaml-dev zlib libxml2 build-base && \
-  docker-helper cleanup
-WORKDIR /srv/jekyll
-VOLUME  /srv/jekyll
-EXPOSE 35729 4000
+VOLUME /src
+EXPOSE 4000
+
+WORKDIR /src
+CMD jekyll serve -d /_site --watch --force_polling -H 0.0.0.0 -P 4000
