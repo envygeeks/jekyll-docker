@@ -1,30 +1,46 @@
-#!/usr/bin/env ruby
+#!/bin/bash
+set -e
 
-def build?
-  %W(b build).include?(
-    ARGV[0]
-  )
-end
+finish() {
+  cd /srv/jekyll
+  rm -rf .bundle
+  rm  -f Gemfile.lock
+  rm -rf Gemfile
 
-#
+  cp -pR /tmp/.bundle . 1>/dev/null 2>&1 || true
+  cp -p  /tmp/Gemfile.lock . 1>/dev/null 2>&1 || true
+  cp -p  /tmp/Gemfile . 1>/dev/null 2>&1 || true
+  cd -> /dev/null
+  return 0
+}
 
-def serve?
-  %W(s serve server).include?(
-    ARGV[0]
-  )
-end
+: ${JEKYLL_UID:=$UID}
+if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
+  reset-user jekyll:"$JEKYLL_UID" \
+    > /dev/null 2>&1
+fi
 
-ARGV.shift and ARGV.unshift("serve") if "s" == ARGV[0]
-ARGV.push("--force_polling") if (ENV["FORCE_POLLING"] || ENV["POLLING"]) && (build? || serve?)
-ARGV.push("--verbose") if ENV["DEBUG"] || ENV["VERBOSE"]
-ARGV.push("--drafts") if ENV["DRAFTS"]
-ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") if serve?
+chown -R jekyll:jekyll /srv/jekyll/vendor/bundle > /dev/null 2>&1 || true
+chown -R jekyll:jekyll /srv/jekyll/_site > /dev/null 2>&1 || true
+trap finish EXIT ERR
 
-if Process.uid == 0 || Process.euid == 0
-  exec "chpst", "-u", "jekyll:jekyll", Gem.bin_path("jekyll", \
-    "jekyll"), *ARGV
+cd /srv/jekyll
+[ -f ".apk" ] && apk --update add $(cat .apk)
+cp -pR .bundle /tmp 1>/dev/null 2>&1 || true
+cp -p Gemfile.lock /tmp 1>/dev/null 2>&1 || true
+cp -p Gemfile /tmp 1>/dev/null 2>&1 || true
 
+status=0
+rm -rf .bundle
+if [ -f Gemfile ]; then
+  apk --update add build-base ruby-dev
+  bundle update -j 12
+
+  sudo -Hu jekyll bundle exec ruby \
+    /usr/local/bin/args "$@" || status=$?
 else
-  exec Gem.bin_path("jekyll", \
-    "jekyll"), *ARGV
-end
+  sudo -Hu jekyll /usr/local/bin/args "$@" || \
+    status=$?
+fi
+
+exit $status
