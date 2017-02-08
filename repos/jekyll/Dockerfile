@@ -30,6 +30,7 @@ RUN \
   mkdir -p /srv/jekyll && chown -R jekyll:jekyll /srv/jekyll && \
   echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers && \
   cleanup
+CMD ["/usr/local/bin/jekyll", "--help"]
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729 4000
