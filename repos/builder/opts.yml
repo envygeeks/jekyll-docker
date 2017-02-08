@@ -6,3 +6,6 @@ packages:
 env:
   all:
     JEKYLL_ENV: production
+gems:
+  all:
+    - s3_website
