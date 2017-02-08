@@ -6,8 +6,8 @@ sudo apt-get update sudo apt-get update >/dev/null
 sudo apt-get install -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" \
   --assume-yes --only-upgrade docker docker-engine
 
-mkdir -p /etc/docker
-printf "{\n  \"experimental\": true\n}" > /etc/docker/daemon.json
+sudo mkdir -p /etc/docker
+sudo printf "{\n  \"experimental\": true\n}" > /etc/docker/daemon.json
 sudo service docker restart
 
 # --
