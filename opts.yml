@@ -1,6 +1,8 @@
 maintainer: Jekyll Core Team <hello@jekyllrb.com>
 user: jekyll
 tags:
+  3.3.0: stable
+  3.3.1: stable
   3.4.0: stable
   pages: pages
 aliases:
