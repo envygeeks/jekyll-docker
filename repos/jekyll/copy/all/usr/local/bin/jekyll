@@ -36,10 +36,10 @@ if [ -f Gemfile ]; then
   apk --update add build-base ruby-dev
   bundle update -j 12
 
-  sudo -Hu jekyll bundle exec ruby \
+  sudo -EHu jekyll bundle exec ruby \
     /usr/local/bin/args "$@" || status=$?
 else
-  sudo -Hu jekyll /usr/local/bin/args "$@" || \
+  sudo -EHu jekyll /usr/local/bin/args "$@" || \
     status=$?
 fi
 
