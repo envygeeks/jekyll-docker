@@ -44,6 +44,15 @@ if [ -f Gemfile ]; then
   if [ "$connected" = "true" ]; then
     apk --update add build-base ruby-dev
     bundle update -j 12
+
+    cp -a Gemfile /tmp/Gemfile.offline
+    cp -a Gemfile.lock /tmp/Gemfile.lock.offline
+  else
+    if [ -f "/tmp/Gemfile.offline" ]; then
+        echo "Restoring the last updated Gemfiles"
+        cp -a /tmp/Gemfile.offline Gemfile
+        cp -a /tmp/Gemfile.lock.offline Gemfile.lock
+    fi
   fi
 
   sudo -EHu jekyll bundle exec ruby \
