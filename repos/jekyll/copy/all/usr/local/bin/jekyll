@@ -2,7 +2,7 @@
 set -e
 
 connected=true
-ping -c1 google.com 1>/dev/null 2>/dev/null || \
+wget -s www.google.com 1>/dev/null 2>/dev/null || \
   connected=false
 
 if [ "$connected" = "false" ]
