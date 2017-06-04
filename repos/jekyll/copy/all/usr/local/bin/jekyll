@@ -1,11 +1,13 @@
 #!/bin/bash
 set -e
 
-connected=true
-ping -c1 google.com 1>/dev/null 2>/dev/null || \
-  connected=false
+if [ -z "$CONNECTED" ]; then
+  CONNECTED=true
+  nc -z google.com 443 >/dev/null || \
+    CONNECTED=false
+fi
 
-if [ "$connected" = "false" ]
+if [ "$CONNECTED" = "false" ]
   then echo "Not connected, skipping most internet stuff."
 fi
 
@@ -33,7 +35,7 @@ chown -R jekyll:jekyll /srv/jekyll/_site > /dev/null 2>&1 || true
 trap finish EXIT ERR
 
 cd /srv/jekyll
-[ -f ".apk" ] && [ "$connected" = "true" ] && apk --update add $(cat .apk)
+[ -f ".apk" ] && [ "$CONNECTED" = "true" ] && apk --update add $(cat .apk)
 cp -pR .bundle /tmp 1>/dev/null 2>&1 || true
 cp -p Gemfile.lock /tmp 1>/dev/null 2>&1 || true
 cp -p Gemfile /tmp 1>/dev/null 2>&1 || true
@@ -41,7 +43,7 @@ cp -p Gemfile /tmp 1>/dev/null 2>&1 || true
 status=0
 rm -rf .bundle
 if [ -f Gemfile ]; then
-  if [ "$connected" = "true" ]; then
+  if [ "$CONNECTED" = "true" ]; then
     apk --update add build-base ruby-dev
     bundle update -j 12
 
