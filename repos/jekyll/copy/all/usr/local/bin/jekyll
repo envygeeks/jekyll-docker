@@ -1,4 +1,5 @@
 #!/bin/bash
+[ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
 if [ -z "$CONNECTED" ]; then
