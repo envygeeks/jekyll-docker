@@ -24,6 +24,6 @@ if [ -f Gemfile ]; then
       $BUNDLE_ARGS
   else
     sudo -EHu jekyll bundle \
-      "$@"
+      "$@" $BUNDLE_ARGS
   fi
 fi
