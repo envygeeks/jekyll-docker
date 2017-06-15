@@ -2,7 +2,6 @@
 [ "$DEBUG" = "true" ] && set -x
 set -e
 
-script/install
 echo "Skipping tests."
 echo "There are currently not tests."
 exit 0

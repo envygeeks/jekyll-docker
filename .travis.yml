@@ -12,35 +12,26 @@ env:
         JX/DKOQ3fGUFAgYe5TZJgLt+DYTc+i+JU+2twPOfh98OseFWgRk4SnrbpxtcBYt4I8Iv1o\
         tjdW4P0aAGAvA1YYopGE70+WTrqixeY=\
       "
-jobs:
-  include:
-    - stage: Test
-      script: script/test
-    - script: script/build
-      stage: Build
-      env:
-        - DOCKER_REPO=jekyll:pages
-        - DOCKER_REPO=jekyll:3.3.0
-        - DOCKER_REPO=jekyll:3.3.1
-        - DOCKER_REPO=jekyll:3.4.0
-        - DOCKER_REPO=jekyll:3.4.2
-        - DOCKER_REPO=jekyll:3.4.3
-        - DOCKER_REPO=jekyll:latest
-        - DOCKER_REPO=jekyll:stable
-        - DOCKER_REPO=jekyll:3.4
-        - DOCKER_REPO=jekyll:3
-        - DOCKER_REPO=builder:pages
-        - DOCKER_REPO=builder:3.3.0
-        - DOCKER_REPO=builder:3.3.1
-        - DOCKER_REPO=builder:3.4.0
-        - DOCKER_REPO=builder:3.4.2
-        - DOCKER_REPO=builder:3.4.3
-        - DOCKER_REPO=builder:latest
-        - DOCKER_REPO=builder:stable
-        - DOCKER_REPO=builder:3.4
-        - DOCKER_REPO=builder:3
-    - script: script/deploy
-      stage: Deploy
-      env:
-        - DOCKER_REPO=jekyll
-        - DOCKER_REPO=builder
+  matrix:
+    - DOCKER_REPO=jekyll:pages
+    - DOCKER_REPO=builder:pages
+    - DOCKER_REPO=jekyll:3.3.0
+    - DOCKER_REPO=builder:3.3.0
+    - DOCKER_REPO=jekyll:3.3.1
+    - DOCKER_REPO=builder:3.3.1
+    - DOCKER_REPO=jekyll:3.4.0
+    - DOCKER_REPO=builder:3.4.0
+    - DOCKER_REPO=jekyll:3.4.1
+    - DOCKER_REPO=builder:3.4.1
+    - DOCKER_REPO=jekyll:3.4.2
+    - DOCKER_REPO=builder:3.4.2
+    - DOCKER_REPO=jekyll:3.4.3
+    - DOCKER_REPO=builder:3.4.3
+    - DOCKER_REPO=jekyll:latest
+    - DOCKER_REPO=builder:latest
+    - DOCKER_REPO=jekyll:stable
+    - DOCKER_REPO=builder:stable
+    - DOCKER_REPO=jekyll:3.4
+    - DOCKER_REPO=builder:3.4
+    - DOCKER_REPO=jekyll:3
+    - DOCKER_REPO=builder:3
