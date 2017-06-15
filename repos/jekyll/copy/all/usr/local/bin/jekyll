@@ -4,7 +4,7 @@ set -e
 
 if [ -z "$CONNECTED" ]; then
   CONNECTED=true
-  nc -z google.com 443 >/dev/null || \
+  wget -qs https://google.com >/dev/null || \
     CONNECTED=false
 fi
 
