@@ -1,3 +1,4 @@
+script: script/ci
 services: ["docker"]
 sudo: required
 os: linux
@@ -13,6 +14,9 @@ env:
         tjdW4P0aAGAvA1YYopGE70+WTrqixeY=\
       "
   matrix:
+    - DOCKER_REPO=" jekyll:3.4.3 3.4 3 stable latest"
+    - DOCKER_REPO="builder:3.4.3 3.4 3 stable latest"
+
     - DOCKER_REPO=jekyll:pages
     - DOCKER_REPO=builder:pages
     - DOCKER_REPO=jekyll:3.3.0
@@ -25,13 +29,3 @@ env:
     - DOCKER_REPO=builder:3.4.1
     - DOCKER_REPO=jekyll:3.4.2
     - DOCKER_REPO=builder:3.4.2
-    - DOCKER_REPO=jekyll:3.4.3
-    - DOCKER_REPO=builder:3.4.3
-    - DOCKER_REPO=jekyll:latest
-    - DOCKER_REPO=builder:latest
-    - DOCKER_REPO=jekyll:stable
-    - DOCKER_REPO=builder:stable
-    - DOCKER_REPO=jekyll:3.4
-    - DOCKER_REPO=builder:3.4
-    - DOCKER_REPO=jekyll:3
-    - DOCKER_REPO=builder:3
