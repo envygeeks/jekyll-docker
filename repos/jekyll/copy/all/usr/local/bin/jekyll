@@ -39,7 +39,9 @@ rm -rf .bundle
 status=0
 
 if [ "$CONNECTED" = "true" ]; then
-  /usr/local/bin/install-depends
+  /usr/local/bin/depends install
+  cp -a Gemfile.lock /tmp/Gemfile.lock.offline
+  cp -a Gemfile /tmp/Gemfile.offline
 else
   if [ -f "/tmp/Gemfile.offline" ]; then
       cp -a /tmp/Gemfile.offline Gemfile
