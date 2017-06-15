@@ -40,8 +40,8 @@ status=0
 
 if [ "$CONNECTED" = "true" ]; then
   /usr/local/bin/depends install
-  cp -a Gemfile.lock /tmp/Gemfile.lock.offline
-  cp -a Gemfile /tmp/Gemfile.offline
+  cp -a Gemfile.lock /tmp/Gemfile.lock.offline 1>/dev/null 2>&1 || true
+  cp -a Gemfile /tmp/Gemfile.offline 1>/dev/null 2>&1 || true
 else
   if [ -f "/tmp/Gemfile.offline" ]; then
       cp -a /tmp/Gemfile.offline Gemfile
