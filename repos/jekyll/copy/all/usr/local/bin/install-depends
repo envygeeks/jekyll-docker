@@ -1,0 +1,23 @@
+#!/bin/bash
+[ "$JEKYLL_DEBUG" = "true" ] && set -x
+set -e
+
+if [ ! -f /updated ]; then
+  apk update
+  apk add build-base ruby-dev
+  touch /updated
+
+  if [ -f ".apk" ] && [ "$CONNECTED" = "true" ]
+    then apk --update add $(
+      cat .apk
+    )
+  fi
+fi
+
+BUNDLE_ARGS="--jobs=1"
+if [ -f Gemfile ]; then
+  [ "$BUNDLE_CACHE" = "true" ] && BUNDLE_ARGS="--jobs=1 --path=vendor/bundle"
+  bundle check > /dev/null 2>&1 || sudo -EHu jekyll bundle install $BUNDLE_ARGS
+  cp -a Gemfile.lock /tmp/Gemfile.lock.offline
+  cp -a Gemfile /tmp/Gemfile.offline
+fi

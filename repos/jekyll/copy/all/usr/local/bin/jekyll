@@ -3,9 +3,9 @@
 set -e
 
 if [ -z "$CONNECTED" ]; then
-  CONNECTED=true
+  export CONNECTED=true
   wget -qs https://google.com >/dev/null || \
-    CONNECTED=false
+    export CONNECTED=false
 fi
 
 finish() {
@@ -39,25 +39,7 @@ rm -rf .bundle
 status=0
 
 if [ "$CONNECTED" = "true" ]; then
-  if [ ! -f /updated ]; then
-    apk update
-    apk add build-base ruby-dev
-    touch /updated
-
-    if [ -f ".apk" ] && [ "$CONNECTED" = "true" ]
-      then apk --update add $(
-        cat .apk
-      )
-    fi
-  fi
-
-  BUNDLE_ARGS="--jobs=1"
-  if [ -f Gemfile ]; then
-    [ "$BUNDLE_CACHE" = "true" ] && BUNDLE_ARGS="--jobs=1 --path=vendor/bundle"
-    bundle check > /dev/null 2>&1 || sudo -EHu jekyll bundle install $BUNDLE_ARGS
-    cp -a Gemfile.lock /tmp/Gemfile.lock.offline
-    cp -a Gemfile /tmp/Gemfile.offline
-  fi
+  /usr/local/bin/install-depends
 else
   if [ -f "/tmp/Gemfile.offline" ]; then
       cp -a /tmp/Gemfile.offline Gemfile
