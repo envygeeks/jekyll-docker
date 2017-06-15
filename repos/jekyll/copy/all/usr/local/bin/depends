@@ -23,7 +23,7 @@ if [ -f Gemfile ]; then
       sudo -EHu jekyll bundle install \
       $BUNDLE_ARGS
   else
-    sudo -EHu bundle \
+    sudo -EHu jekyll bundle \
       "$@"
   fi
 fi
