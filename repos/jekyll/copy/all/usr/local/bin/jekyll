@@ -8,10 +8,6 @@ if [ -z "$CONNECTED" ]; then
     CONNECTED=false
 fi
 
-if [ "$CONNECTED" = "false" ]
-  then echo "Not connected, skipping most internet stuff."
-fi
-
 finish() {
   cd /srv/jekyll
   rm -rf .bundle
@@ -36,33 +32,40 @@ chown -R jekyll:jekyll /srv/jekyll/_site > /dev/null 2>&1 || true
 trap finish EXIT ERR
 
 cd /srv/jekyll
-[ -f ".apk" ] && [ "$CONNECTED" = "true" ] && apk --update add $(cat .apk)
 cp -pR .bundle /tmp 1>/dev/null 2>&1 || true
 cp -p Gemfile.lock /tmp 1>/dev/null 2>&1 || true
 cp -p Gemfile /tmp 1>/dev/null 2>&1 || true
-
-status=0
 rm -rf .bundle
-if [ -f Gemfile ]; then
-  if [ "$CONNECTED" = "true" ]; then
-    apk --update add build-base ruby-dev
-    bundle update -j 12
+status=0
 
-    cp -a Gemfile /tmp/Gemfile.offline
-    cp -a Gemfile.lock /tmp/Gemfile.lock.offline
-  else
-    if [ -f "/tmp/Gemfile.offline" ]; then
-        echo "Restoring the last updated Gemfiles"
-        cp -a /tmp/Gemfile.offline Gemfile
-        cp -a /tmp/Gemfile.lock.offline Gemfile.lock
+if [ "$CONNECTED" = "true" ]; then
+  if [ ! -f /updated ]; then
+    apk update
+    apk add build-base ruby-dev
+    touch /updated
+
+    if [ -f ".apk" ] && [ "$CONNECTED" = "true" ]
+      then apk --update add $(
+        cat .apk
+      )
     fi
   fi
 
-  sudo -EHu jekyll bundle exec ruby \
-    /usr/local/bin/args "$@" || status=$?
+  BUNDLE_ARGS="--jobs=1"
+  if [ -f Gemfile ]; then
+    [ "$BUNDLE_CACHE" = "true" ] && BUNDLE_ARGS="--jobs=1 --path=vendor/bundle"
+    bundle check > /dev/null 2>&1 || bundle install "$BUNDLE_ARGS"
+    cp -a Gemfile.lock /tmp/Gemfile.lock.offline
+    cp -a Gemfile /tmp/Gemfile.offline
+  fi
 else
-  sudo -EHu jekyll /usr/local/bin/args "$@" || \
-    status=$?
+  if [ -f "/tmp/Gemfile.offline" ]; then
+      cp -a /tmp/Gemfile.offline Gemfile
+      cp -a /tmp/Gemfile.lock.offline Gemfile.lock
+  fi
 fi
 
-exit $status
+CMD="/usr/bin/jekyll"
+[ -f Gemfile ] && CMD="bundle exec ruby $CMD"
+$CMD "$(/usr/local/bin/default-args "$@")" || \
+  exit $?
