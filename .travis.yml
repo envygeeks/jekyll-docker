@@ -14,6 +14,8 @@ env:
       "
 jobs:
   include:
+    - stage: Test
+      script: script/test
     - script: script/build
       stage: Build
       env:

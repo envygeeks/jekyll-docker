@@ -2,7 +2,6 @@
 [ "$DEBUG" = "true" ] && set -x
 set -e
 
-script/install
 bundle exec docker-template build $DOCKER_REPO \
   --no-push --force --squash || \
       exit $?
