@@ -1,4 +1,4 @@
-script: script/ci
+cache: bundler
 services: ["docker"]
 sudo: required
 os: linux
@@ -13,19 +13,23 @@ env:
         JX/DKOQ3fGUFAgYe5TZJgLt+DYTc+i+JU+2twPOfh98OseFWgRk4SnrbpxtcBYt4I8Iv1o\
         tjdW4P0aAGAvA1YYopGE70+WTrqixeY=\
       "
-  matrix:
-    - DOCKER_REPO="jekyll:3.4.3 jekyll:3.4 jekyll:3 jekyll:stable jekyll:latest"
-    - DOCKER_REPO="builder:3.4.3 builder:3.4 builder:3 builder:stable builder:latest jekyll:builder"
-
-    - DOCKER_REPO=jekyll:pages
-    - DOCKER_REPO=builder:pages
-    - DOCKER_REPO=jekyll:3.3.0
-    - DOCKER_REPO=builder:3.3.0
-    - DOCKER_REPO=jekyll:3.3.1
-    - DOCKER_REPO=builder:3.3.1
-    - DOCKER_REPO=jekyll:3.4.0
-    - DOCKER_REPO=builder:3.4.0
-    - DOCKER_REPO=jekyll:3.4.1
-    - DOCKER_REPO=builder:3.4.1
-    - DOCKER_REPO=jekyll:3.4.2
-    - DOCKER_REPO=builder:3.4.2
+jobs:
+  include:
+    - stage: prepare cache
+      script: script/install
+    - script: script/ci
+      stage: build
+      env: DOCKER_REPO="jekyll:3.4.3 jekyll:3.4 jekyll:3 jekyll:stable jekyll:latest"
+    - env: DOCKER_REPO="builder:3.4.3 builder:3.4 builder:3 builder:stable builder:latest jekyll:builder"
+    - env: DOCKER_REPO=jekyll:pages
+    - env: DOCKER_REPO=builder:pages
+    - env: DOCKER_REPO=jekyll:3.3.0
+    - env: DOCKER_REPO=builder:3.3.0
+    - env: DOCKER_REPO=jekyll:3.3.1
+    - env: DOCKER_REPO=builder:3.3.1
+    - env: DOCKER_REPO=jekyll:3.4.0
+    - env: DOCKER_REPO=builder:3.4.0
+    - env: DOCKER_REPO=jekyll:3.4.1
+    - env: DOCKER_REPO=builder:3.4.1
+    - env: DOCKER_REPO=jekyll:3.4.2
+    - env: DOCKER_REPO=builder:3.4.2
