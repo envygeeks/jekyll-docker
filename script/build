@@ -1,0 +1,8 @@
+#!/bin/bash -l
+[ "$DEBUG" = "true" ] && set -x
+set -e
+
+# Simply just build it.
+bundle exec docker-template build $DOCKER_REPO \
+  --no-push --force --squash || \
+      exit $?

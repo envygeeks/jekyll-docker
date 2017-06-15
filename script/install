@@ -1,0 +1,15 @@
+#!/bin/bash -l
+[ "$DEBUG" = "true" ] && set -x
+set -e
+
+if [ "$CI" = "true" ]; then
+  sudo apt-get update >/dev/null
+  sudo apt-get install -o Dpkg::Options::="--force-confdef" \
+    -o Dpkg::Options::="--force-confold" --assume-yes --only-upgrade \
+    docker docker-engine
+
+  sudo mkdir -p /etc/docker
+  # We need experimental so we can squash our images.
+  printf "{\n  \"experimental\": true\n}\n" | sudo tee /etc/docker/daemon.json
+  sudo service docker restart
+fi

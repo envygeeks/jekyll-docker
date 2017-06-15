@@ -1,0 +1,7 @@
+#!/bin/bash -l
+[ "$DEBUG" = "true" ] && set -x
+set -e
+
+echo "Skipping tests."
+echo "There are currently not tests."
+exit 0

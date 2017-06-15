@@ -2,7 +2,6 @@ script: script/ci
 services: ["docker"]
 sudo: required
 os: linux
-lang: ruby
 rvm:
   - 2.3.0
 env:
@@ -17,3 +16,9 @@ env:
   matrix:
     - DOCKER_REPO=jekyll
     - DOCKER_REPO=builder
+jobs:
+  include:
+    - { stage: Install, script: script/install }
+    - { stage: Test, script: script/test }
+    - { stage: Build, script: script/build }
+    - { stage: Deploy, script: script/deploy }
