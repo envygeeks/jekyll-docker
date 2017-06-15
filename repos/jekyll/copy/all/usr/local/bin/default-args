@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+require "shellwords"
 
 def build?
   %W(b build).include?(
@@ -19,4 +20,4 @@ ARGV.push("--force_polling") if (ENV["FORCE_POLLING"] || ENV["POLLING"]) && (bui
 ARGV.push("--verbose") if ENV["DEBUG"] || ENV["VERBOSE"]
 ARGV.push("--drafts") if ENV["DRAFTS"]
 ARGV.unshift(ARGV.shift, "-H", "0.0.0.0") if serve?
-$stdout.puts ARGV.join("\s")
+$stdout.puts Shellwords.shelljoin(ARGV)

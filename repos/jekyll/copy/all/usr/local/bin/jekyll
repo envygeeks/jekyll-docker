@@ -67,5 +67,5 @@ fi
 
 CMD="/usr/bin/jekyll"
 [ -f Gemfile ] && CMD="bundle exec ruby $CMD"
-$CMD "$(/usr/local/bin/default-args "$@")" || \
+$CMD $(/usr/local/bin/default-args $@) || \
   exit $?
