@@ -14,7 +14,7 @@ env:
       "
 jobs:
   include:
-      script: true
+    - script: true
       stage: precache
     - script: "ls -la /etc/sources.list.d"
     - stage: build
