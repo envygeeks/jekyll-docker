@@ -19,7 +19,6 @@ jobs:
   include:
     - script: true
       stage: precache
-    - script: "ls -la /etc/apt/sources.list.d"
     - stage: build
       env: DOCKER_REPO="jekyll:3.4.3 jekyll:3.4 jekyll:3 jekyll:stable jekyll:latest"
     - env: DOCKER_REPO="builder:3.4.3 builder:3.4 builder:3 builder:stable builder:latest jekyll:builder"
