@@ -1,5 +1,5 @@
 FROM envygeeks/alpine
-MAINTAINER Jekyll Core <hello@jekyllrb.com>
+LABEL maintainer "Jekyll Core <hello@jekyllrb.com>"
 COPY copy/ /
 ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
