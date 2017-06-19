@@ -4,12 +4,12 @@ set -e
 
 if [ ! -f /updated ]; then
   if [ "$CONNECTED" = "true" ]; then
-    apk update
-    apk add build-base ruby-dev
+    apk update -q
+    apk add build-base ruby-dev -q --no-progress
     touch /updated
 
     if [ -f ".apk" ]
-      then apk --update add $(
+      then apk add --no-progress $(
         cat .apk
       )
     fi
