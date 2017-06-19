@@ -20,17 +20,105 @@ jobs:
     - script: true
       stage: precache
     - stage: build
-      env: DOCKER_REPO="jekyll:3.4.3 jekyll:3.4 jekyll:3 jekyll:stable jekyll:latest"
-    - env: DOCKER_REPO="builder:3.4.3 builder:3.4 builder:3 builder:stable builder:latest jekyll:builder"
-    - env: DOCKER_REPO=jekyll:pages
-    - env: DOCKER_REPO=builder:pages
-    - env: DOCKER_REPO=jekyll:3.3.0
-    - env: DOCKER_REPO=builder:3.3.0
-    - env: DOCKER_REPO=jekyll:3.3.1
-    - env: DOCKER_REPO=builder:3.3.1
-    - env: DOCKER_REPO=jekyll:3.4.0
-    - env: DOCKER_REPO=builder:3.4.0
-    - env: DOCKER_REPO=jekyll:3.4.1
-    - env: DOCKER_REPO=builder:3.4.1
+      env: "\
+        DOCKER_REPO='jekyll:3.5.0 \
+          jekyll:3.5 \
+          jekyll:stable \
+          jekyll:latest \
+          jekyll:3\
+        '\
+      "
+    - env: "\
+        DOCKER_REPO='jekyll:3.4.4 \
+          jekyll:3.4\
+        '\
+      "
+    - env: DOCKER_REPO=jekyll:3.4.3
     - env: DOCKER_REPO=jekyll:3.4.2
+    - env: DOCKER_REPO=jekyll:3.4.1
+    - env: DOCKER_REPO=jekyll:3.4.0
+    - env: "\
+        DOCKER_REPO='jekyll:3.3.1 \
+          jekyll:3.3\
+        '\
+      "
+    - env: DOCKER_REPO=jekyll:3.3.0
+    - env: "\
+        DOCKER_REPO='jekyll:3.2.1 \
+          jekyll:3.2\
+        '\
+      "
+    - env: DOCKER_REPO=jekyll:3.2.0
+    - env: "\
+        DOCKER_REPO='jekyll:3.1.6 \
+          jekyll:3.1\
+        '\
+      "
+    - env: DOCKER_REPO=jekyll:3.1.5
+    - env: DOCKER_REPO=jekyll:3.1.4
+    - env: DOCKER_REPO=jekyll:3.1.3
+    - env: DOCKER_REPO=jekyll:3.1.2
+    - env: DOCKER_REPO=jekyll:3.1.1
+    - env: DOCKER_REPO=jekyll:3.1.0
+    - env: "\
+      DOCKER_REPO='jekyll:3.0.5 \
+        jekyll:3.0\
+      '\
+    "
+    - env: DOCKER_REPO=jekyll:3.0.4
+    - env: DOCKER_REPO=jekyll:3.0.3
+    - env: DOCKER_REPO=jekyll:3.0.2
+    - env: DOCKER_REPO=jekyll:3.0.1
+    - env: DOCKER_REPO=jekyll:3.0.0
+    - env: DOCKER_REPO=jekyll:pages
+    - env: "\
+        DOCKER_REPO='builder:3.5.0 \
+          builder:3.5 \
+          builder:stable \
+          builder:latest \
+          builder:3\
+        '\
+      "
+    - env: "\
+        DOCKER_REPO='builder:3.4.4 \
+          builder:3.4\
+        '\
+      "
+    - env: DOCKER_REPO=builder:3.4.3
     - env: DOCKER_REPO=builder:3.4.2
+    - env: DOCKER_REPO=builder:3.4.1
+    - env: DOCKER_REPO=builder:3.4.0
+    - env: "\
+        DOCKER_REPO='builder:3.3.1 \
+          builder:3.3\
+        '\
+      "
+    - env: DOCKER_REPO=builder:3.3.0
+    - env: "\
+        DOCKER_REPO='builder:3.2.1 \
+          builder:3.2\
+        '\
+      "
+    - env: DOCKER_REPO=builder:3.2.0
+    - env: "\
+        DOCKER_REPO='builder:3.1.6 \
+          builder:3.1\
+        '\
+      "
+    - env: DOCKER_REPO=builder:3.1.5
+    - env: DOCKER_REPO=builder:3.1.4
+    - env: DOCKER_REPO=builder:3.1.3
+    - env: DOCKER_REPO=builder:3.1.2
+    - env: DOCKER_REPO=builder:3.1.1
+    - env: DOCKER_REPO=builder:3.1.0
+    - env: "\
+      DOCKER_REPO='builder:3.0.5 \
+        builder:3.0\
+      '\
+    "
+    - env: DOCKER_REPO=builder:3.0.4
+    - env: DOCKER_REPO=builder:3.0.3
+    - env: DOCKER_REPO=builder:3.0.2
+    - env: DOCKER_REPO=builder:3.0.1
+    - env: DOCKER_REPO=builder:3.0.0
+    - env: DOCKER_REPO=builder:pages

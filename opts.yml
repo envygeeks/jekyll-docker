@@ -1,27 +1,42 @@
 maintainer: Jordon Bedwell <jordon@envygeeks.io>
 user: jekyll
 tags:
-  3.3.0: stable
-  3.3.1: stable
-  3.4.0: stable
-  3.4.1: stable
-  3.4.2: stable
+  3.5.0: stable
+  3.4.4: stable
   3.4.3: stable
+  3.4.2: stable
+  3.4.1: stable
+  3.4.0: stable
+  3.3.1: stable
+  3.3.0: stable
+  3.2.1: stable
+  3.2.0: stable
+  3.1.6: stable
+  3.1.5: stable
+  3.1.4: stable
+  3.1.3: stable
+  3.1.2: stable
+  3.1.0: stable
+  3.0.5: stable
+  3.0.4: stable
+  3.0.3: stable
+  3.0.2: stable
+  3.0.1: stable
+  3.0.0: stable
   pages: pages
 aliases:
-  latest: 3.4.3
-  stable: 3.4.3
-  3.4: 3.4.3
-  3: 3.4.3
+  latest: 3.5.0
+  stable: 3.5.0
+  3.5: 3.5.0
+  3.4: 3.4.4
+  3.3: 3.3.1
+  3.2: 3.2.1
+  3.1: 3.1.6
+  3.0: 3.0.5
+  3: 3.5.0
 releases:
   tag:
-    pages: 3.3.1
-    3.3.0: 3.3.0
-    3.3.1: 3.3.1
-    3.4.0: 3.4.0
-    3.4.1: 3.4.1
-    3.4.2: 3.4.2
-    3.4.3: 3.4.3
+    pages: 3.4.3
 gems:
   all: &gems
     - html-proofer
