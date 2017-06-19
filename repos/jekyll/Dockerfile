@@ -2,12 +2,14 @@ FROM envygeeks/alpine
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 LABEL jekyll.version "<%= @meta.release?? @meta.release : @meta.tag %>"
 LABEL jekyll.tag "<%= @meta.tag %>"
-COPY copy/ /
+
 ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_ENV=development
 ENV LC_ALL=en_US
+COPY copy /
+
 <% if @meta.env? %>
   ENV <%=
     @meta.env
@@ -24,7 +26,9 @@ RUN apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
 <% end %>
 
 RUN gem install --no-ri --no-rdoc jekyll -v<%= @meta.release?? @meta.release : @meta.tag %>
-RUN addgroup -Sg 1000 jekyll && adduser -Su 1000 -g 1000 jekyll
+RUN addgroup -Sg 1000 jekyll
+RUN adduser  -Su 1000 -G \
+  jekyll jekyll
 
 <% if @meta.gems? %>
   RUN gem install --no-ri --no-rdoc <%=
