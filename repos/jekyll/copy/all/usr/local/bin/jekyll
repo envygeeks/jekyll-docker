@@ -8,48 +8,23 @@ if [ -z "$CONNECTED" ]; then
     export CONNECTED=false
 fi
 
-finish() {
-  cd /srv/jekyll
-  rm -rf .bundle
-  rm  -f Gemfile.lock
-  rm -rf Gemfile
-
-  cp -pR /tmp/.bundle . 1>/dev/null 2>&1 || true
-  cp -p  /tmp/Gemfile.lock . 1>/dev/null 2>&1 || true
-  cp -p  /tmp/Gemfile . 1>/dev/null 2>&1 || true
-  cd -> /dev/null
-  return 0
-}
-
 : ${JEKYLL_UID:=$UID}
 if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   reset-user jekyll:"$JEKYLL_UID" \
     > /dev/null 2>&1
 fi
 
-chown -R jekyll:jekyll /srv/jekyll/vendor/bundle > /dev/null 2>&1 || true
 chown -R jekyll:jekyll /srv/jekyll/_site > /dev/null 2>&1 || true
-trap finish EXIT ERR
-
+chown -R jekyll:jekyll /srv/jekyll/vendor/bundle > /dev/null 2>&1 || true
 cd /srv/jekyll
-cp -pR .bundle /tmp 1>/dev/null 2>&1 || true
-cp -p Gemfile.lock /tmp 1>/dev/null 2>&1 || true
-cp -p Gemfile /tmp 1>/dev/null 2>&1 || true
-rm -rf .bundle
-status=0
 
-if [ "$CONNECTED" = "true" ]; then
-  /usr/local/bin/depends install
-  cp -a Gemfile.lock /tmp/Gemfile.lock.offline 1>/dev/null 2>&1 || true
-  cp -a Gemfile /tmp/Gemfile.offline 1>/dev/null 2>&1 || true
-else
-  if [ -f "/tmp/Gemfile.offline" ]; then
-      cp -a /tmp/Gemfile.offline Gemfile
-      cp -a /tmp/Gemfile.lock.offline Gemfile.lock
-  fi
+if [ "$CONNECTED" = "true" ]
+  then /usr/local/bin/depends \
+    install
 fi
 
+status=0
 CMD="/usr/bin/jekyll"
 [ -f Gemfile ] && CMD="bundle exec ruby $CMD"
-$CMD $(/usr/local/bin/default-args $@) || \
+sudo -EHu jekyll $CMD $(/usr/local/bin/default-args $@) || \
   exit $?
