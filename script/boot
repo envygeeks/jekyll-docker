@@ -4,8 +4,8 @@ set -e
 
 docker system prune -f
 latest=$(ruby -e 'require "yaml"; $stdout.puts YAML.load_file("opts.yml")["tags"].keys.sort.keep_if { |v| v =~ /[0-9]\./ }.last')
-docker rmi "jekyll/jekyll:$latest" || true
-docker-template build "jekyll/jekyll:$latest" --no-push
+docker rmi "jekyll/jekyll:$latest" jekyll:latest || true
+docker-template build "jekyll/jekyll:$latest" jekyll:latest --no-push
 docker run --rm -it \
   "jekyll/jekyll:$latest" \
   bash
