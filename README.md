@@ -1,5 +1,3 @@
-***In the next few weeks (or when Native Docker is released for everyone but Linux -- whichever is later) we will be dropping all instructions for Docker Machine and Docker Toolbox in favor of promoting Native Docker on Linux, OS X and Windows. See: https://beta.docker.com/ for more information on Native Docker.***
-
 [![Build Status](https://travis-ci.org/jekyll/docker.svg?branch=master)](https://travis-ci.org/jekyll/docker)
 
 # Jekyll Docker Images
