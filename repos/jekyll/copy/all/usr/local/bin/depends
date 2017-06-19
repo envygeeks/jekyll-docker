@@ -3,14 +3,16 @@
 set -e
 
 if [ ! -f /updated ]; then
-  apk update
-  apk add build-base ruby-dev
-  touch /updated
+  if [ "$CONNECTED" = "true" ]; then
+    apk update
+    apk add build-base ruby-dev
+    touch /updated
 
-  if [ -f ".apk" ] && [ "$CONNECTED" = "true" ]
-    then apk --update add $(
-      cat .apk
-    )
+    if [ -f ".apk" ]
+      then apk --update add $(
+        cat .apk
+      )
+    fi
   fi
 fi
 
