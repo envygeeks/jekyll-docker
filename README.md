@@ -11,8 +11,7 @@ You can build our images or any specific tag of an image with `bundle exec docke
 ## Contributing
 
 * Fork the current repo; `bundle install`
-* `opts.yml` and `repos/*/opts.yml` hold the versions, and gems.
-* If you are updating to the latest version of Jekyll use the variables.
-* Build all the tags with `bundle exec docker-template build`
+* `opts.yml` holds most of the versions, and gems.
+* Test your image manually `script/boot` will help you with that.
 * Ensure that your intended changes work as they're supposed to.
 * Ship a pull request if you wish to have it reviewed!
