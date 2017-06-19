@@ -2,20 +2,24 @@
 [ "$DEBUG" = "true" ] && set -x
 set -e
 
-if [ "$CI" = "true" ]; then
-  sudo apt-get update \
-    -o Dir::Etc::sourceparts="-" \
+update-docker() {
+  # Only update our Docker sources, that's it.
+  sudo apt-get update -o Dir::Etc::sourceparts="-" \
     -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/docker.list" \
     -o APT::Get::List-Cleanup="0"
+}
 
-  sudo apt-get install \
-    --assume-yes --only-upgrade \
+upgrade-docker() {
+  # Only upgrade Docker, nothing else, if we update.
+  sudo apt-get install --assume-yes --only-upgrade \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold" \
     docker docker-engine
+}
 
+if [ "$CI" = "true" ]; then
   sudo mkdir -p /etc/docker
-  # We need experimental so we can squash our images.
+  update-docker && upgrade-docker
   printf "{\n  \"experimental\": true\n}\n" | sudo tee /etc/docker/daemon.json
   sudo service docker restart
 fi
