@@ -1,0 +1,11 @@
+gems:
+  all: &gems
+    - kramdown
+    - jekyll-sass-converter
+    - jekyll-coffeescript
+    - minima
+  group:
+    pages:
+      - *gems
+      - github-pages
+      - jekyll-github-metadata

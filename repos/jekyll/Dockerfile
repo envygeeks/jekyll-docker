@@ -16,10 +16,10 @@ COPY copy /
   %>
 <% end %>
 
-RUN apk --update add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
-  libffi-dev ruby-dev yaml-dev zlib-dev libxslt-dev readline-dev libxml2-dev libffi-dev \
-  ruby-dev yaml-dev zlib libxml2 build-base ruby-io-console readline libxslt ruby \
-  yaml libffi nodejs ruby-irb ruby-json ruby-rake ruby-rdoc git openssl
+RUN apk update
+RUN apk add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev zlib-dev libffi-dev
+RUN apk add zlib libxml2 ruby-io-console readline libxslt ruby yaml libffi ruby-irb ruby-json ruby-rake ruby-rdoc \
+  git openssl nodejs
 
 <% if @meta.packages? %>
   RUN apk --update add <%= @meta.packages %>
@@ -39,11 +39,21 @@ RUN adduser  -Su 1000 -G \
 RUN mkdir -p /usr/share/ruby
 RUN echo "<%= @meta.gems %>" > /usr/share/ruby/default-gems
 RUN gem install bundler --no-ri --no-rdoc
+RUN gem clean
+
+<% if @meta.name == "minimal" %>
+  RUN apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
+    libffi-dev ruby-dev yaml-dev zlib-dev libffi-dev git
+<% end %>
 
 RUN mkdir -p /srv/jekyll && chown -R jekyll:jekyll /srv/jekyll
 RUN echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
 RUN cleanup
-CMD ["/usr/local/bin/jekyll", "--help"]
+
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729 4000
+CMD [ \
+  "/usr/local/bin/jekyll", \
+  "--help" \
+]

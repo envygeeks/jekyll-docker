@@ -14,8 +14,7 @@ if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
     > /dev/null 2>&1
 fi
 
-chown -R jekyll:jekyll /srv/jekyll/_site > /dev/null 2>&1 || true
-chown -R jekyll:jekyll /srv/jekyll/vendor/bundle > /dev/null 2>&1 || true
+chown -R jekyll:jekyll /srv/jekyll/_site  > /dev/null 2>&1 || true
 cd /srv/jekyll
 
 if [ "$CONNECTED" = "true" ]

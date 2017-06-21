@@ -2,12 +2,9 @@
 [ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
+cd /srv/jekyll
 if [ ! -f /updated ]; then
   if [ "$CONNECTED" = "true" ]; then
-    apk update -q
-    apk add build-base ruby-dev -q --no-progress
-    touch /updated
-
     if [ -f ".apk" ]
       then apk add --no-progress $(
         cat .apk
@@ -16,13 +13,17 @@ if [ ! -f /updated ]; then
   fi
 fi
 
+chown -R jekyll:jekyll /srv/jekyll/vendor \
+  > /dev/null 2>&1 || true
+
 BUNDLE_ARGS="--jobs=1"
 if [ -f Gemfile ]; then
   [ "$BUNDLE_CACHE" = "true" ] && BUNDLE_ARGS="--jobs=1 --path=vendor/bundle"
 
   if [ "$1" = "install" ]
     then bundle check > /dev/null 2>&1 || \
-      sudo -EHu jekyll bundle install $BUNDLE_ARGS
+      sudo -EHu jekyll bundle install --system \
+        $BUNDLE_ARGS
   else
     sudo -EHu jekyll bundle "$@"
   fi
