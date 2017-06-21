@@ -22,7 +22,7 @@ if [ -f Gemfile ]; then
 
   if [ "$1" = "install" ]
     then bundle check > /dev/null 2>&1 || \
-      sudo -EHu jekyll bundle install --system \
+      sudo -EHu jekyll bundle install \
         $BUNDLE_ARGS
   else
     sudo -EHu jekyll bundle "$@"
