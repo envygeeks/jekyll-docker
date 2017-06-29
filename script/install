@@ -14,12 +14,13 @@ upgrade-docker() {
   sudo apt-get install --assume-yes --only-upgrade \
     -o Dpkg::Options::="--force-confdef" \
     -o Dpkg::Options::="--force-confold" \
-    docker docker-engine
+    docker docker-ce
 }
 
 if [ "$CI" = "true" ]; then
   sudo mkdir -p /etc/docker
   update-docker && upgrade-docker
-  printf "{\n  \"experimental\": true\n}\n" | sudo tee /etc/docker/daemon.json
+  json="{\n  \"experimental\": true\n}\n"
+  printf "$json" | sudo tee /etc/docker/daemon.json
   sudo service docker restart
 fi
