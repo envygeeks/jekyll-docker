@@ -7,6 +7,7 @@ ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_ENV=development
+ENV TZ=America/Chicago
 ENV LC_ALL=en_US
 COPY copy /
 
@@ -17,9 +18,14 @@ COPY copy /
 <% end %>
 
 RUN apk update
-RUN apk add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev ruby-dev yaml-dev zlib-dev libffi-dev
-RUN apk add zlib libxml2 ruby-io-console readline libxslt ruby yaml libffi ruby-irb ruby-json ruby-rake ruby-rdoc \
-  git openssl nodejs
+RUN apk add zlib-dev build-base libxml2-dev \
+  libxslt-dev readline-dev libffi-dev ruby-dev \
+  yaml-dev zlib-dev libffi-dev
+
+RUN apk add zlib libxml2 ruby-io-console \
+  readline libxslt ruby yaml libffi ruby-irb \
+  ruby-json ruby-rake ruby-rdoc git openssl \
+  nodejs tzdata
 
 <% if @meta.packages? %>
   RUN apk --update add <%= @meta.packages %>
