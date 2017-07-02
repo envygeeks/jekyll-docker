@@ -2,29 +2,52 @@
 [ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
-cd /srv/jekyll
-if [ ! -f /updated ]; then
+if [ ! -f "/updated" ]; then
   if [ "$CONNECTED" = "true" ]; then
-    if [ -f ".apk" ]
-      then apk add --no-progress $(
-        cat .apk
-      )
+    if [ -f ".apk" ]; then
+      apk add --no-progress $(cat .apk)
     fi
   fi
 fi
 
-chown -R jekyll:jekyll /srv/jekyll/vendor \
-  > /dev/null 2>&1 || true
-
+chown -R jekyll:jekyll $PWD
 BUNDLE_ARGS="--jobs=1"
-if [ -f Gemfile ]; then
-  [ "$BUNDLE_CACHE" = "true" ] && BUNDLE_ARGS="--jobs=1 --path=vendor/bundle"
+if [ -f "Gemfile" ]; then
 
-  if [ "$1" = "install" ]
-    then bundle check > /dev/null 2>&1 || \
-      sudo -EHu jekyll bundle install \
-        $BUNDLE_ARGS
+  # --
+  # Caching allows you to speed up the build process even
+  # faster. This should probably default to true, in the future.
+  # When you don't have this caching enabled, we will do a
+  # "global install"
+  # --
+
+  if [ "$BUNDLE_CACHE" = "true" ]; then
+    BUNDLE_ARGS="$BUNDLE_ARGS --path=vendor/bundle"
+  fi
+
+  # --
+
+  if [ "$1" = "install" ]; then
+
+    # --
+    # We run `bundle check` so that we don't always have to
+    # install. This should cut down on unecessary junk, and speed
+    # up your build process by a lot, considering you don't have
+    # to connect to RubyGems.org.
+    # --
+
+    bundle check > /dev/null 2>&1
+    if [ "$?" != "0" ]; then
+      sudo -EHu jekyll bundle install $BUNDLE_ARGS
+    fi
   else
+
+    # --
+    # This is so that you can wrap around our depends stuff
+    # which does a little bit of presetup for you, and perform
+    # other actions like `bundle update`, and others.
+    # --
+
     sudo -EHu jekyll bundle "$@"
   fi
 fi

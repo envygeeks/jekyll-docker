@@ -4,26 +4,29 @@ set -e
 
 if [ -z "$CONNECTED" ]; then
   export CONNECTED=true
-  wget -qs https://google.com >/dev/null || \
-    export CONNECTED=false
+  wget -qs https://google.com >/dev/null || export CONNECTED=false
+  # This way we can disable some stuff.
 fi
 
 : ${JEKYLL_UID:=$UID}
 if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
-  reset-user jekyll:"$JEKYLL_UID" \
-    > /dev/null 2>&1
+
+  # --
+  # On the CI you should do `JEKYLL_UID=$(id -u $USER)`
+  # This will prevent most permission errors even when there
+  # is a lot of caching going on.
+  # --
+
+  reset-user jekyll:"$JEKYLL_UID" > /dev/null 2>&1
 fi
 
-chown -R jekyll:jekyll /srv/jekyll/_site  > /dev/null 2>&1 || true
-cd /srv/jekyll
-
+chown -R jekyll:jekyll $PWD
 if [ "$CONNECTED" = "true" ]
-  then /usr/local/bin/depends \
-    install
+  then /usr/local/bin/depends install
 fi
 
 status=0
 CMD="/usr/bin/jekyll"
 [ -f Gemfile ] && CMD="bundle exec ruby $CMD"
-sudo -EHu jekyll $CMD $(/usr/local/bin/default-args $@) || \
-  exit $?
+sudo -EHu jekyll $CMD $(/usr/local/bin/default-args $@) || exit $?
+# ^ I don't know if the exit is necessary with `set -e`?
