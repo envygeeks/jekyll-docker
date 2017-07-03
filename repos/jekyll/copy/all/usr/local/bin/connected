@@ -1,5 +1,6 @@
 #!/bin/bash -l
-[ "$JEKYLL_DEBUG" ] && set -x
+set -e
+
 [ "$CONNECTED" =  "true" ] && exit 0
 [ "$CONNECTED" = "false" ] && exit 1
 [ -f "/connected" ] && [ -f "/not-connected" ] && rm -rf /{,not-}connected

@@ -1,5 +1,4 @@
 #!/bin/bash
-[ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
 : ${JEKYLL_UID:=$UID}
