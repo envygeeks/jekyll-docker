@@ -1,0 +1,7 @@
+#!/bin/bash -l
+set -e
+
+# What we want to run on the CI.
+for v in install test build deploy; do
+  script/$v
+done

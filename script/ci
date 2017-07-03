@@ -1,8 +1,0 @@
-#!/bin/bash -l
-[ "$DEBUG" = "true" ] && set -x
-set -e
-
-script/install
-script/test
-script/build
-script/deploy

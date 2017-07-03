@@ -1,5 +1,5 @@
 services: ["docker"]
-script: script/ci
+script: script/travis
 sudo: required
 os: linux
 cache:
