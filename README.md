@@ -61,6 +61,6 @@ You can build our images or any specific tag of an image with `bundle exec docke
 
 * Fork the current repo; `bundle install`
 * `opts.yml` holds most of the versions, and gems.
-* Test your image manually `script/boot` will help you with that.
+* Test your image manually `script/debug` will help you with that.
 * Ensure that your intended changes work as they're supposed to.
 * Ship a pull request if you wish to have it reviewed!

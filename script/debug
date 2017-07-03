@@ -1,5 +1,4 @@
 #!/bin/bash -l
-[ "$DEBUG" ] && set -x
 set -e
 
 IMAGE=${IMAGE:-"jekyll/jekyll"}
