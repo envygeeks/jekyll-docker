@@ -2,38 +2,24 @@
 [ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
-
-if [ -z "$CONNECTED" ]; then
-  export CONNECTED=true
-
-  # --
-  # Use WGet to work out if we are connected to the
-  # internet, this way we can disable things like bundle
-  # if the user wishes to not use the internet.
-  # --
-
-  wget -qs https://google.com >/dev/null || export CONNECTED=false
-fi
-
 : ${JEKYLL_UID:=$UID}
-if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
+ARGS=$(default-args $@)
+export JEKYLL_UID
 
-  # --
-  # On the CI you should do `JEKYLL_UID=$(id -u $USER)`
-  # This will prevent most permission errors even when there
-  # is a lot of caching going on.
-  # --
-
-  reset-user jekyll:"$JEKYLL_UID"
+if [ "$JEKYLL_UID" != "0" ]; then
+  if [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
+    reset-user jekyll:"$JEKYLL_UID"
+  fi
 fi
 
 chown -R jekyll:jekyll $PWD
-if [ "$CONNECTED" = "true" ]
-  then /usr/local/bin/depends install
+if connected
+  then depends install
 fi
 
-status=0
-CMD="/usr/bin/jekyll"
-[ -f Gemfile ] && CMD="bundle exec ruby $CMD"
-sudo -EHu jekyll $CMD $(/usr/local/bin/default-args $@) || exit $?
-# ^ I don't know if the exit is necessary with `set -e`?
+if [ -f Gemfile ]; then
+  sudo -EHu jekyll bundle exec ruby \
+    /usr/bin/jekyll $ARGS
+else
+  sudo -EHu jekyll /usr/bin/jekyll $ARGS
+fi

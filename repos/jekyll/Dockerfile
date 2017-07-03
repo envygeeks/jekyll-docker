@@ -57,9 +57,6 @@ RUN echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
 RUN cleanup
 
 WORKDIR /srv/jekyll
+CMD ["jekyll", "--help"]
 VOLUME  /srv/jekyll
 EXPOSE 35729 4000
-CMD [ \
-  "/usr/local/bin/jekyll", \
-  "--help" \
-]

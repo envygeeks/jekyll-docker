@@ -1,0 +1,24 @@
+#!/bin/bash -l
+[ "$JEKYLL_DEBUG" ] && set -x
+[ "$CONNECTED" =  "true" ] && exit 0
+[ "$CONNECTED" = "false" ] && exit 1
+[ -f "/connected" ] && [ -f "/not-connected" ] && rm -rf /{,not-}connected
+[ -f "/not-connected" ] && exit 1
+[ -f "/connected" ] && exit 0
+
+# --
+# If we aren't connected, or forced as connected, or not
+# connected then we should check with WGet (because of Proxies)
+# whether we are connected to the internet.
+# --
+
+if wget -qs https://google.com >/dev/null; then
+  touch /connected
+  echo $(date) > /connected
+  exit 0
+
+else
+  touch /not-connected
+  echo $(date) > /not-connected
+  exit 1
+fi

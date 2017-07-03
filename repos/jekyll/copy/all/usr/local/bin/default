@@ -1,8 +1,0 @@
-#!/bin/sh
-[ "$JEKYLL_DEBUG" = "true" ] && set -x
-set -e
-
-cd /srv/jekyll
-sudo -EHu jekyll jekyll s --watch &
-wait $!
-exit $?
