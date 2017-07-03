@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-BUNDLE_ARGS="--jobs=1"
-
 if [ ! -f "/updated" ]; then
   if connected; then
     if [ -f ".apk" ]; then
@@ -14,14 +12,17 @@ fi
 chown -R jekyll:jekyll $PWD
 if [ -f "Gemfile" ]; then
   if [ "$BUNDLE_CACHE" = "true" ]; then
-    BUNDLE_ARGS="$BUNDLE_ARGS --path=vendor/bundle"
+    sudo -EHu jekyll bundle config --local path vendor/bundle
+    sudo -EHu jekyll bundle config --local disable_shared_gems true
+    sudo -EHu jekyll bundle config --local jobs 2
   fi
 
   # --
 
   if [ "$1" = "install" ]; then
-    if ! bundle check; then
-      sudo -EHu jekyll bundle install $BUNDLE_ARGS
+    if ! sudo -EHu jekyll bundle check; then
+      sudo -EHu jekyll bundle \
+        install
     fi
 
   else
