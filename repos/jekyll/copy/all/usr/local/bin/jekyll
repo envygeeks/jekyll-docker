@@ -2,10 +2,17 @@
 [ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
+
 if [ -z "$CONNECTED" ]; then
   export CONNECTED=true
+
+  # --
+  # Use WGet to work out if we are connected to the
+  # internet, this way we can disable things like bundle
+  # if the user wishes to not use the internet.
+  # --
+
   wget -qs https://google.com >/dev/null || export CONNECTED=false
-  # This way we can disable some stuff.
 fi
 
 : ${JEKYLL_UID:=$UID}
@@ -17,7 +24,7 @@ if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   # is a lot of caching going on.
   # --
 
-  reset-user jekyll:"$JEKYLL_UID" > /dev/null 2>&1
+  reset-user jekyll:"$JEKYLL_UID"
 fi
 
 chown -R jekyll:jekyll $PWD
