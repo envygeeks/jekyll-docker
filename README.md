@@ -1,16 +1,20 @@
-[![Build Status](https://travis-ci.org/jekyll/docker.svg?branch=master)](https://travis-ci.org/jekyll/docker)
+# Jekyll Docker
 
-# Jekyll Docker Images
+[![Build Status](https://travis-ci.org/jekyll/docker.svg?branch=master)][1]
 
-Jekyll Docker is a full featured Alpine based Docker image that provides an isolated Jekyll instance with the latest version of Jekyll and a bunch of nice stuff to make your life easier when working with Jekyll in both production and development.  For documentation please visit our wiki at https://github.com/jekyll/docker/wiki where you will find docs and sometimes examples.
+Jekyll Docker is a software image that has Jekyll and many of it's dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com and if you would like to know more about Jekyll you can visit https://github.com/jekyll/jekyll
 
 ## Image Types
 
-There are three image types for Jekyll: `jekyll/jekyll` (standard), `jekyll/builder` (for building on a CI), and last but not least `jekyll/minimal` which is smaller and for people who don't want or need a large image with a huge amount of gems (and size to come with it.)
+* `jekyll/jekyll`: Default image.
+* `jekyll/minimal`: Very minimal image.
+* `jekyll/build`: Includes tools.
 
 ### Standard
 
-The standard images (`jekyll/jekyll`) include a default set of "dev" packages, along with NodeJS, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
+The standard images (`jekyll/jekyll`) include a default set of "dev" packages, along with Node.js, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
+
+#### Usage
 
 ```sh
 export JEKYLL_VERSION=3.5
@@ -24,6 +28,8 @@ docker run --rm \
 
 The builer image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
 
+#### Usage
+
 ```sh
 export JEKYLL_VERSION=3.5
 docker run --rm \
@@ -36,6 +42,8 @@ docker run --rm \
 
 The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
 
+#### Usage
+
 ```sh
 export JEKYLL_VERSION=3.5
 docker run --rm \
@@ -44,10 +52,15 @@ docker run --rm \
   jekyll build
 ```
 
-## Config and Env
+## Config
 
-* `FORCE_POLLING` = `true` | `""`
-* `BUNDLE_CACHE`  = `true` | `""`
+You can configure some pieces of Jekyll using environment variables, what you cannot with environment variables you can configure using the Jekyll CLI.  Even with a wrapper, we pass all arguments onto Jekyll when we finally call it.
+
+* `FORCE_POLLING`: `true`, `false`, `""`
+* `JEKYLL_DEBUG`, `VERBOSE`: `true`, `false`, `""`
+* `BUNDLE_CACHE`:`true`, `false`, `""`
+
+If you would like to know the CLI options for Jekyll, you can visit [Jekyll's Help Site][2]
 
 ## Packages
 
@@ -55,7 +68,7 @@ You can install system packages by providing a file named `.apk` with one packag
 
 ## Building Our Images
 
-You can build our images or any specific tag of an image with `bundle exec docker-template build` or `bundle exec docker-template build repo:tag`, yes it's that simple to build our images even if it looks complicated it's not.
+You can build our images or any specific tag of an image with `bundle exec docker-template build` or `bundle exec docker-template build repo:tag`, yes it's that simple to build our images; even if it looks complicated it's not.
 
 ## Contributing
 
@@ -64,3 +77,6 @@ You can build our images or any specific tag of an image with `bundle exec docke
 * Test your image manually `script/debug` will help you with that.
 * Ensure that your intended changes work as they're supposed to.
 * Ship a pull request if you wish to have it reviewed!
+
+[1]: https://travis-ci.org/jekyll/docker
+[2]: http://jekyllrb.com/docs/configuration/#build-command-options
