@@ -8,7 +8,7 @@ Jekyll Docker is a software image that has Jekyll and many of it's dependencies 
 
 * `jekyll/jekyll`: Default image.
 * `jekyll/minimal`: Very minimal image.
-* `jekyll/build`: Includes tools.
+* `jekyll/builder`: Includes tools.
 
 ### Standard
 
