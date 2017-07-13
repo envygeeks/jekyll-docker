@@ -31,7 +31,7 @@ RUN apk add zlib libxml2 ruby-io-console \
   RUN apk --update add <%= @meta.packages %>
 <% end %>
 
-RUN gem install --no-ri --no-rdoc jekyll -v<%= @meta.release?? @meta.release : @meta.tag %>
+RUN yes | gem install --force --no-ri --no-rdoc jekyll -v<%= @meta.release?? @meta.release : @meta.tag %>
 RUN addgroup -Sg 1000 jekyll
 RUN adduser  -Su 1000 -G \
   jekyll jekyll
