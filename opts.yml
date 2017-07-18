@@ -1,6 +1,7 @@
 maintainer: Jordon Bedwell <jordon@envygeeks.io>
 user: jekyll
 tags:
+  3.5.1: stable
   3.5.0: stable
   3.4.4: stable
   3.4.3: stable
