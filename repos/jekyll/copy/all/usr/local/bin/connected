@@ -15,11 +15,8 @@ set -e
 
 if wget -qs https://google.com >/dev/null; then
   touch /connected
-  echo $(date) > /connected
   exit 0
-
 else
   touch /not-connected
-  echo $(date) > /not-connected
   exit 1
 fi
