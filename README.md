@@ -44,6 +44,8 @@ The minimal image skips all the extra gems, all the extra dev dependencies and l
 
 #### Usage
 
+***You will need to provide a `.apk` file if you intend to use anything like Nokogiri or otherwise, we do not install any development headers or dependencies so C based gems will fail to install.***
+
 ```sh
 export JEKYLL_VERSION=3.5
 docker run --rm \
