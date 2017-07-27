@@ -11,7 +11,7 @@ latest=$(ruby -e '
   }.last
 ')
 
-VERSION=${VERSION:-$version}
-docker rmi "$IMAGE:$latest" $IMAGE:latest || true
+VERSION=${VERSION:-$latest}
+docker rmi "$IMAGE:$VERSION" $IMAGE:latest || true
 bundle exec docker-template build "$IMAGE:$VERSION" $IMAGE:latest --no-push
 docker run --rm -it "$IMAGE:$latest" bash
