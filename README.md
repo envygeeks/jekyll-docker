@@ -38,6 +38,26 @@ docker run --rm \
   jekyll build
 ```
 
+### Docker Compose
+```
+version: '3'
+services:
+  site:
+    image: jekyll/jekyll
+    command: bash -c  'jekyll serve'
+    working_dir: /srv/jekyll/site
+    volumes:
+      - .:/srv/jekyll
+    ports:
+      - "80:4000"
+```
+
+To setup:
+`docker-compose run site jekyll new site`
+
+To turn on:
+`docker-compose up -d`
+
 ### Minimal
 
 The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
