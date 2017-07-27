@@ -20,7 +20,7 @@ COPY copy /
 RUN apk update
 RUN apk add zlib-dev build-base libxml2-dev \
   libxslt-dev readline-dev libffi-dev ruby-dev \
-  yaml-dev zlib-dev libffi-dev
+  yaml-dev zlib-dev libffi-dev less
 
 RUN apk add zlib libxml2 ruby-io-console \
   readline libxslt ruby yaml libffi ruby-irb \
