@@ -52,11 +52,14 @@ services:
       - "80:4000"
 ```
 
-To setup:
+### setup/turn on:
+
+It's good that docker-compose.yml and the site folder be in the same folder. 
+
 `mkdir site`
+
 `docker-compose run --workdir="/srv/jekyll" site jekyll new site`
 
-To turn on:
 `docker-compose up -d`
 
 ### Minimal
