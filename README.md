@@ -53,7 +53,8 @@ services:
 ```
 
 To setup:
-`docker-compose run site jekyll new site`
+`mkdir site`
+`docker-compose run --workdir="/srv/jekyll" site jekyll new site`
 
 To turn on:
 `docker-compose up -d`
