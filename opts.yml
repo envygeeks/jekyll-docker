@@ -3,27 +3,27 @@ user: jekyll
 tags:
   3.5.1: stable
   3.5.0: stable
-  3.4.4: stable
-  3.4.3: stable
-  3.4.2: stable
-  3.4.1: stable
-  3.4.0: stable
-  3.3.1: stable
-  3.3.0: stable
-  3.2.1: stable
-  3.2.0: stable
-  3.1.6: stable
-  3.1.5: stable
-  3.1.4: stable
-  3.1.3: stable
-  3.1.2: stable
-  3.1.0: stable
-  3.0.5: stable
-  3.0.4: stable
-  3.0.3: stable
-  3.0.2: stable
-  3.0.1: stable
-  3.0.0: stable
+  3.4.4: relative
+  3.4.3: relative
+  3.4.2: relative
+  3.4.1: relative
+  3.4.0: relative
+  3.3.1: relative
+  3.3.0: relative
+  3.2.1: old
+  3.2.0: old
+  3.1.6: old
+  3.1.5: old
+  3.1.4: old
+  3.1.3: old
+  3.1.2: old
+  3.1.0: old
+  3.0.5: old
+  3.0.4: old
+  3.0.3: old
+  3.0.2: old
+  3.0.1: old
+  3.0.0: old
   pages: pages
 aliases:
   latest: 3.5.1
