@@ -38,30 +38,6 @@ docker run --rm \
   jekyll build
 ```
 
-### Docker Compose
-```
-version: '3'
-services:
-  site:
-    image: jekyll/jekyll
-    command: bash -c  'jekyll serve'
-    working_dir: /srv/jekyll/site
-    volumes:
-      - .:/srv/jekyll
-    ports:
-      - "80:4000"
-```
-
-### setup/turn on:
-
-It's good that docker-compose.yml and the site folder be in the same folder. 
-
-`mkdir site`
-
-`docker-compose run --workdir="/srv/jekyll" site jekyll new site`
-
-`docker-compose up -d`
-
 ### Minimal
 
 The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
@@ -91,6 +67,54 @@ If you would like to know the CLI options for Jekyll, you can visit [Jekyll's He
 ## Packages
 
 You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit https://pkgs.alpinelinux.org. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
+
+### Tools
+
+You will find directions for using our image with various tools.
+
+### Docker-Compose
+```yml
+services:
+  site:
+    command: jekyll serve
+    image: jekyll/jekyll:latest
+    volumes:
+      - $PWD:/srv/jekyll
+    ports:
+      - 4000:4000
+      - 35729:35729
+      - 3000:3000
+      -   80:4000
+```
+
+#### Usage
+
+```sh
+docker-compose run site jekyll new site
+docker-compose run site --service-ports jekyll s
+docker-compose run site jekyll b
+```
+
+### LiveReload
+
+This image supports LiveReload, all you need do is add LiveReload to your Jekyll Pluins, and then map the port, and your browser should be able to communicate with your LiveReload listener.
+
+```rb
+group :plugins do
+  gem "jekyll-livereload"
+end
+```
+
+#### Usage
+
+```sh
+export JEKYLL_VERSION=3.5
+docker run --rm \
+  --volume=$PWD:/srv/jekyll \
+  -p 35729:35729 -p 4000:4000 \
+  -it jekyll/builder:$JEKYLL_VERSION \
+  jekyll build
+```
 
 ## Building Our Images
 
