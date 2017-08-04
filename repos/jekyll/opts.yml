@@ -1,7 +1,7 @@
 aliases:
   builder: jekyll/builder:latest
 gems:
-  all: &gems
+  all:
     - html-proofer
     - jekyll-mentions
     - jekyll-coffeescript
@@ -12,16 +12,14 @@ gems:
     - kramdown
     - jemoji
   group:
-    relative:
-      - *gems
+    relative: &relative
       - jekyll-redirect-from
       - jekyll-sitemap
       - jekyll-feed
       - minima
     stable:
-      - *gems
+      - *relative
 
     pages:
-      - *gems
-      - github-pages
       - jekyll-github-metadata
+      - github-pages
