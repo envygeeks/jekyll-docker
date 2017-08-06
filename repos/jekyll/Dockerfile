@@ -18,7 +18,7 @@ COPY copy /
 <% end %>
 
 RUN apk update
-RUN apk add zlib-dev build-base libxml2-dev \
+RUN apk add zlib-dev build-base libxml2-dev libxml2 \
   libxslt-dev readline-dev libffi-dev ruby-dev \
   yaml-dev zlib-dev libffi-dev less
 
