@@ -21,13 +21,14 @@ jobs:
       stage: precache
     - stage: build
       env: "\
-        DOCKER_REPO='jekyll:3.5.1 \
+        DOCKER_REPO='jekyll:3.5.2 \
           jekyll:3.5 \
           jekyll:stable \
           jekyll:latest \
           jekyll:3\
         '\
       "
+    - env: DOCKER_REPO=jekyll:3.5.1
     - env: DOCKER_REPO=jekyll:3.5.0
     - env: "\
         DOCKER_REPO='jekyll:3.4.4 \
