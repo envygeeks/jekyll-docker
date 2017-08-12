@@ -1,6 +1,14 @@
-# Jekyll Docker
+<p align=center>
+  <a href=https://goo.gl/BhrgjW>
+    <img src=https://envygeeks.io/badges/paypal-large_1.png alt=Donate>
+  </a>
+  <br>
+  <a href=https://travis-ci.org/jekyll/docker>
+    <img src="https://travis-ci.org/jekyll/docker.svg?branch=master">
+  </a>
+</div>
 
-[![Build Status](https://travis-ci.org/jekyll/docker.svg?branch=master)][1]
+# Jekyll Docker
 
 Jekyll Docker is a software image that has Jekyll and many of it's dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com and if you would like to know more about Jekyll you can visit https://github.com/jekyll/jekyll
 
