@@ -27,9 +27,9 @@ tags:
   3.0.0: old
   pages: pages
 aliases:
-  latest: 3.5.1
-  stable: 3.5.1
-  3.5: 3.5.1
+  latest: 3.5.2
+  stable: 3.5.2
+  3.5: 3.5.2
   3.4: 3.4.4
   3.3: 3.3.1
   3.2: 3.2.1
@@ -38,4 +38,4 @@ aliases:
   3: 3.5.1
 releases:
   tag:
-    pages: 3.4.5
+    pages: 3.5.1
