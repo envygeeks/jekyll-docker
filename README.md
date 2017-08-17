@@ -99,7 +99,7 @@ services:
 
 ```sh
 docker-compose run site jekyll new site
-docker-compose run site --service-ports jekyll s
+docker-compose run --service-ports site jekyll s
 docker-compose run site jekyll b
 ```
 
