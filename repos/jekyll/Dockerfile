@@ -21,32 +21,20 @@ ENV LANG=en_US.UTF-8
 COPY copy /
 
 RUN apk update
-RUN apk add zlib-dev build-base libxml2-dev \
-  libxslt-dev readline-dev libffi-dev ruby-dev \
-  yaml-dev zlib-dev libffi-dev less
+<% if @meta.packages? %>RUN apk --update add <%= @meta.packages %><% end %>
+RUN apk add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev \
+  yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
+    libffi git nodejs tzdata shadow bash
 
-RUN apk add zlib libxml2 ruby-io-console \
-  readline libxslt ruby yaml libffi ruby-irb \
-  ruby-json ruby-rake ruby-rdoc git openssl \
-  nodejs tzdata
-
-<% if @meta.packages? %>
-  RUN apk --update add <%= @meta.packages %>
-<% end %>
-
-RUN yes | gem update --system --no-ri --no-rdoc
-RUN yes | gem install --force --no-ri --no-rdoc jekyll \
-  -v<%= @meta.release?? @meta.release : @meta.tag %>
+RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+RUN yes | gem update --system
+<% if @meta.gems? %>RUN gem install <%=@meta.gems %> -- --use-system-libraries<% end %>
+RUN yes | gem install --force jekyll -v<%= @meta.release?? @meta.release : \
+  @meta.tag %> -- --use-system-libraries
 
 RUN addgroup -Sg 1000 jekyll
 RUN adduser  -Su 1000 -G \
   jekyll jekyll
-
-<% if @meta.gems? %>
-  RUN gem install --no-ri --no-rdoc <%=
-    @meta.gems
-  %>
-<% end %>
 
 RUN mkdir -p /usr/share/ruby
 RUN echo "<%= @meta.gems %>" > /usr/share/ruby/default-gems
@@ -54,15 +42,17 @@ RUN gem install bundler --no-ri --no-rdoc
 RUN gem clean
 
 <% if @meta.name == "minimal" %>
-  RUN apk del zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
-    libffi-dev ruby-dev yaml-dev zlib-dev libffi-dev git
+  RUN apk del zlib-dev build-base libxml2-dev \
+    libxslt-dev readline-dev libffi-dev ruby-dev \
+      yaml-dev zlib-dev libffi-dev git
 <% end %>
 
-RUN mkdir -p /srv/jekyll && chown -R jekyll:jekyll /srv/jekyll
+RUN mkdir -p /srv/jekyll
 RUN echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
-RUN cleanup
+RUN chown -R jekyll:jekyll /srv/jekyll
 
 WORKDIR /srv/jekyll
-CMD ["jekyll", "--help"]
 VOLUME  /srv/jekyll
 EXPOSE 35729 4000
+
+CMD "jekyll --help"
