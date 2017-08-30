@@ -1,9 +1,12 @@
-#!/bin/bash -l
+#!/bin/sh
 set -e
+
+if [ -f "/connected" ] && [ -f "/not-connected" ]; then
+  rm -rf /connected /not-connected
+fi
 
 [ "$CONNECTED" =  "true" ] && exit 0
 [ "$CONNECTED" = "false" ] && exit 1
-[ -f "/connected" ] && [ -f "/not-connected" ] && rm -rf /{,not-}connected
 [ -f "/not-connected" ] && exit 1
 [ -f "/connected" ] && exit 0
 

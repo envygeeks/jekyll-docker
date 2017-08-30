@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-: ${JEKYLL_UID:=$UID}
-ARGS=$(default-args $@)
+: ${JEKYLL_UID:=$(id -u)}
+args=$(default-args $@)
 export JEKYLL_UID
 
 if [ "$JEKYLL_UID" != "0" ]; then
