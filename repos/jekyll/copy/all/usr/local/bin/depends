@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ "$JEKYLL_DOCKER_NAME" = "minimal" ] || [ "$JEKYLL_DOCKER_TAG" = "pages"]
+if [ "$JEKYLL_DOCKER_NAME" = "minimal" ] || [ "$JEKYLL_DOCKER_TAG" = "pages" ]
 then
   echo "Installing dependencies unsupported."
   echo "Skipping because this image is Minimal or Github Pages"

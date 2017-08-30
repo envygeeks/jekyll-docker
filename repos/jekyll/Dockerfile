@@ -1,4 +1,4 @@
-FROM envygeeks/alpine
+FROM ruby:alpine3.6
 LABEL jekyll.docker.name "<%= @meta.name %>"
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 LABEL jekyll.version "<%= @meta.release?? @meta.release : @meta.tag %>"
@@ -20,11 +20,10 @@ ENV LANGUAGE=en_US:en
 ENV LANG=en_US.UTF-8
 COPY copy /
 
-RUN apk update
-<% if @meta.packages? %>RUN apk --update add <%= @meta.packages %><% end %>
-RUN apk add zlib-dev build-base libxml2-dev libxslt-dev readline-dev libffi-dev \
-  yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
-    libffi git nodejs tzdata shadow bash
+<% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>
+RUN apk --no-cache add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
+  libffi-dev yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
+    libffi git nodejs tzdata shadow bash sudo wget
 
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN yes | gem update --system
@@ -50,6 +49,7 @@ RUN gem clean
 RUN mkdir -p /srv/jekyll
 RUN echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
 RUN chown -R jekyll:jekyll /srv/jekyll
+ENV PATH=/usr/local/bin:$PATH
 
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
