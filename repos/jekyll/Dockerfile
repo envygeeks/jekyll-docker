@@ -1,23 +1,24 @@
 FROM envygeeks/alpine
+LABEL jekyll.docker.name "<%= @meta.name %>"
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 LABEL jekyll.version "<%= @meta.release?? @meta.release : @meta.tag %>"
 LABEL jekyll.docker.commit "<%= `git rev-parse --verify HEAD`.strip %>"
+LABEL jekyll.docker.tag "<%= @meta.tag %>"
 LABEL jekyll.tag "<%= @meta.tag %>"
 
 ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
+ENV JEKYLL_DOCKER_TAG=<%= @meta.tag %>
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
+<% if @meta.env? %>ENV <%= @meta.env %><% end %>
+ENV JEKYLL_DOCKER_NAME=<%= @meta.name %>
 ENV JEKYLL_ENV=development
 ENV TZ=America/Chicago
-ENV LC_ALL=en_US
+ENV LC_ALL=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LANG=en_US.UTF-8
 COPY copy /
-
-<% if @meta.env? %>
-  ENV <%=
-    @meta.env
-  %>
-<% end %>
 
 RUN apk update
 RUN apk add zlib-dev build-base libxml2-dev \
