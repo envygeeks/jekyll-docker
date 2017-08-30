@@ -41,7 +41,7 @@ RUN gem install bundler --no-ri --no-rdoc
 RUN gem clean
 
 <% if @meta.name == "minimal" %>
-  RUN apk del zlib-dev build-base libxml2-dev \
+  RUN apk --no-cache del zlib-dev build-base libxml2-dev \
     libxslt-dev readline-dev libffi-dev ruby-dev \
       yaml-dev zlib-dev libffi-dev git
 <% end %>
