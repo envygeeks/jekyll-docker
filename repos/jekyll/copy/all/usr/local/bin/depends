@@ -22,7 +22,6 @@ if [ -f "Gemfile" ]; then
   if [ "$1" = "install" ]; then
     if ! sudo -EHu jekyll bundle check; then
       sudo -EHu jekyll bundle config ignore_messages true
-      # Prevent some weird Nokogiri errors that happen lately.
       sudo -EHu jekyll bundle config build.nokogiri --use-system-libraries
       sudo -EHu jekyll bundle config disable_version_check true
       sudo -EHu jekyll bundle install
