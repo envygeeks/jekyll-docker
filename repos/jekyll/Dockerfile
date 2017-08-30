@@ -1,11 +1,13 @@
 FROM envygeeks/alpine
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 LABEL jekyll.version "<%= @meta.release?? @meta.release : @meta.tag %>"
+LABEL jekyll.docker.commit "<%= `git rev-parse --verify HEAD`.strip %>"
 LABEL jekyll.tag "<%= @meta.tag %>"
 
 ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
+ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
 ENV JEKYLL_ENV=development
 ENV TZ=America/Chicago
 ENV LC_ALL=en_US
