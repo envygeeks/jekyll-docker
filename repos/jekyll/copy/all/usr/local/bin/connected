@@ -1,15 +1,10 @@
 #!/bin/sh
 set -e
 
-if [ -f "/connected" ] && [ -f "/not-connected" ]; then
-  rm -f /not-connected
-  rm -f /connected
-fi
-
-[ "$CONNECTED" =  "true" ] && exit 0
-[ "$CONNECTED" = "false" ] && exit 1
-[ -f "/not-connected" ] && exit 1
-[ -f "/connected" ] && exit 0
+[ -f "/connected" ] && [ -f "/not-connected" ] &&  rm -f /not-connected /connected
+([ "$CONNECTED" =  "true" ] || [ -f "/connected" ]) && exit 0
+([ "$CONNECTED" = "false" ] || [ -f "/not-connected" ]) \
+  && exit 1
 
 # --
 # If we aren't connected, or forced as connected, or not
