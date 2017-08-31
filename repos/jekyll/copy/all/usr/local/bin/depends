@@ -6,7 +6,7 @@ then
   exit 0
 else
   if [ ! -f "/updated" ] && connected && [ -f ".apk" ]; then
-    sudo apk add --no-cache --no-progress $(cat .apk)
+    apk add --no-cache --no-progress $(cat .apk)
   fi
 fi
 
