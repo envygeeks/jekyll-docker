@@ -20,6 +20,16 @@ ENV LANGUAGE=en_US:en
 ENV LANG=en_US.UTF-8
 COPY copy /
 
+# --
+# User configurable variables.
+# @see readme.md
+# --
+
+env BUNDLE_CACHE=false
+env FORCE_POLLING=false
+env JEKYLL_DEBUG=false
+env VERBOSE=false
+
 <% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>
 RUN apk --no-cache add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
   libffi-dev yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
