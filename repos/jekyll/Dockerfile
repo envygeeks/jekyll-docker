@@ -23,7 +23,7 @@ COPY copy /
 <% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>
 RUN apk --no-cache add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
   libffi-dev yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
-    libffi git nodejs tzdata shadow bash sudo wget
+    libffi git nodejs tzdata shadow bash sudo wget nodejs-npm
 
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN yes | gem update --system
