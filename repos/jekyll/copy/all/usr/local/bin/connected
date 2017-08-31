@@ -2,7 +2,8 @@
 set -e
 
 if [ -f "/connected" ] && [ -f "/not-connected" ]; then
-  rm -rf /connected /not-connected
+  rm -f /not-connected
+  rm -f /connected
 fi
 
 [ "$CONNECTED" =  "true" ] && exit 0
