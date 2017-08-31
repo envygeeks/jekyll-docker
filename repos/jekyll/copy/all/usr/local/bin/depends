@@ -3,13 +3,10 @@ set -e
 
 if [ "$JEKYLL_DOCKER_NAME" = "minimal" ] || [ "$JEKYLL_DOCKER_TAG" = "pages" ]
 then
-  echo "Installing dependencies unsupported."
-  echo "Skipping because this image is Minimal or Github Pages"
-  echo "If this is unexpected use our full images"
   exit 0
 else
   if [ ! -f "/updated" ] && connected && [ -f ".apk" ]; then
-    apk add --no-progress $(cat .apk)
+    sudo apk add --no-cache --no-progress $(cat .apk)
   fi
 fi
 
