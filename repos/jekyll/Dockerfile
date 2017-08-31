@@ -9,10 +9,12 @@ LABEL jekyll.tag "<%= @meta.tag %>"
 ENV LANGUAGE=en_US
 ENV LANG=en_US.UTF-8
 ENV JEKYLL_DOCKER_TAG=<%= @meta.tag %>
+ENV JEKYLL_VAR_DIR=/usr/local/var/jekyll
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
 <% if @meta.env? %>ENV <%= @meta.env %><% end %>
 ENV JEKYLL_DOCKER_NAME=<%= @meta.name %>
+ENV JEKYLL_DATA_DIR=/srv/jekyll
 ENV JEKYLL_ENV=development
 ENV TZ=America/Chicago
 ENV LC_ALL=en_US.UTF-8
@@ -57,7 +59,10 @@ RUN gem clean
 <% end %>
 
 RUN mkdir -p /srv/jekyll
+RUN mkdir -p /usr/local/var/jekyll
 RUN chown -R jekyll:jekyll /srv/jekyll
+RUN chown -R jekyll:jekyll /usr/local/var/jekyll
+RUN chown -R jekyll:jekyll $GEM_HOME
 ENV PATH=/usr/local/bin:$PATH
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll

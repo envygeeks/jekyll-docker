@@ -1,9 +1,12 @@
 #!/bin/sh
 set -e
 
-[ -f "/connected" ] && [ -f "/not-connected" ] &&  rm -f /not-connected /connected
-([ "$CONNECTED" =  "true" ] || [ -f "/connected" ]) && exit 0
-([ "$CONNECTED" = "false" ] || [ -f "/not-connected" ]) \
+$dfile=$JEKYLL_VAR_DIR/disconnected
+$cfile=$JEKYLL_VAR_DIR/connected
+
+[ -f $dfile ] && [ -f $cfile ] &&  rm -f $dfile $cfile
+([ "$CONNECTED" =  "true" ] || [ -f $cfile ]) && exit 0
+([ "$CONNECTED" = "false" ] || [ -f $dfile ]) \
   && exit 1
 
 # --
@@ -13,9 +16,9 @@ set -e
 # --
 
 if wget -qS https://google.com -O /dev/null 2>/dev/null; then
-  touch /connected
+  su-exec jekyll touch $cfile
   exit 0
 else
-  touch /not-connected
+  su-exec jekyll touch $dfile
   exit 1
 fi
