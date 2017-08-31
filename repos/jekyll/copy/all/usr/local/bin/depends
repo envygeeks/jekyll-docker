@@ -13,22 +13,24 @@ fi
 chown -R jekyll:jekyll $PWD
 if [ -f "Gemfile" ]; then
   if [ "$BUNDLE_CACHE" = "true" ]; then
-    sudo -EHu jekyll bundle config --local path vendor/bundle
-    sudo -EHu jekyll bundle config --local disable_shared_gems true
-    sudo -EHu jekyll bundle config --local jobs 2
+    unset BUNDLE_PATH
+
+    su-exec jekyll bundle config path vendor/bundle
+    su-exec jekyll bundle config disable_shared_gems true
+    su-exec jekyll bundle config jobs 2
   fi
 
   # --
 
   if [ "$1" = "install" ]; then
-    if ! sudo -EHu jekyll bundle check; then
-      sudo -EHu jekyll bundle config ignore_messages true
-      sudo -EHu jekyll bundle config build.nokogiri --use-system-libraries
-      sudo -EHu jekyll bundle config disable_version_check true
-      sudo -EHu jekyll bundle install
+    if ! su-exec jekyll bundle check; then
+      su-exec jekyll bundle config ignore_messages true
+      su-exec jekyll bundle config build.nokogiri --use-system-libraries
+      su-exec jekyll bundle config disable_version_check true
+      su-exec jekyll bundle install
     fi
 
   else
-    sudo -EHu jekyll bundle "$@"
+    su-exec jekyll bundle "$@"
   fi
 fi

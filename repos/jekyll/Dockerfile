@@ -23,7 +23,7 @@ COPY copy /
 <% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>
 RUN apk --no-cache add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
   libffi-dev yaml-dev zlib-dev libffi-dev less zlib libxml2 readline libxslt \
-    libffi git nodejs tzdata shadow bash sudo wget nodejs-npm
+    libffi git nodejs tzdata shadow bash su-exec wget nodejs-npm
 
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN yes | gem update --system
@@ -47,12 +47,9 @@ RUN gem clean
 <% end %>
 
 RUN mkdir -p /srv/jekyll
-RUN echo 'jekyll ALL=NOPASSWD:ALL' >> /etc/sudoers
 RUN chown -R jekyll:jekyll /srv/jekyll
 ENV PATH=/usr/local/bin:$PATH
-
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729 4000
-
 CMD "jekyll --help"

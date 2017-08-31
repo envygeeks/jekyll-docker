@@ -19,7 +19,7 @@ fi
 exe=$(which -a jekyll | grep -v /usr/local/bin | head -n1)
 if [ -f Gemfile ] && [ "$JEKYLL_DOCKER_NAME" != "minimal" ] && \
 [ "$JEKYLL_DOCKER_TAG" != "pages" ]; then
-  exec sudo -EHu jekyll bundle exec ruby $exe $args
+  su-exec jekyll bundle exec ruby $exe $args
 fi
 
-exec sudo -EHu jekyll $exe $args
+su-exec jekyll $exe $args
