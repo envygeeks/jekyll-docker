@@ -16,7 +16,7 @@ fi
 # whether we are connected to the internet.
 # --
 
-if wget -qS https://google.com >/dev/null 2>&1; then
+if wget -qS https://google.com -O /dev/null 2>/dev/null; then
   touch /connected
   exit 0
 else
