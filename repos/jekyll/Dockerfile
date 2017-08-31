@@ -25,10 +25,10 @@ COPY copy /
 # @see readme.md
 # --
 
-env BUNDLE_CACHE=false
-env FORCE_POLLING=false
-env JEKYLL_DEBUG=false
 env VERBOSE=false
+env FORCE_POLLING=false
+env BUNDLE_CACHE=false
+env DRAFTS=false
 
 <% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>
 RUN apk --no-cache add zlib-dev build-base libxml2-dev libxslt-dev readline-dev \
