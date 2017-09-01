@@ -80,14 +80,16 @@ jobs:
   # --
   # jekyll/builder
   # --
-  - env: "\
-      DOCKER_REPO='builder:3.5.0 \
+    env: "\
+      DOCKER_REPO='builder:3.5.2 \
         builder:3.5 \
         builder:stable \
         builder:latest \
         builder:3\
       '\
     "
+  - env: DOCKER_REPO=builder:3.5.1
+  - env: DOCKER_REPO=builder:3.5.0
   - env: "\
       DOCKER_REPO='builder:3.4.4 \
         builder:3.4\
@@ -134,14 +136,16 @@ jobs:
   # --
   # jekyll/minimal
   # --
-  - env: "\
-      DOCKER_REPO='minimal:3.5.0 \
+    env: "\
+      DOCKER_REPO='minimal:3.5.2 \
         minimal:3.5 \
         minimal:stable \
         minimal:latest \
         minimal:3\
       '\
     "
+  - env: DOCKER_REPO=minimal:3.5.1
+  - env: DOCKER_REPO=minimal:3.5.0
   - env: "\
       DOCKER_REPO='minimal:3.4.4 \
         minimal:3.4\
