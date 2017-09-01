@@ -7,6 +7,9 @@ cache:
   bundler: true
   directories:
   - vendor/bundle
+branches:
+  only:
+  - master
 env:
   global:
   - DOCKER_EMAIL=jekyllbot@jekyllrb.com
