@@ -29,7 +29,6 @@ COPY copy /
 
 env VERBOSE=false
 env FORCE_POLLING=false
-env BUNDLE_CACHE=false
 env DRAFTS=false
 
 <% if @meta.packages? %>RUN apk --no-cache add <%= @meta.packages %><% end %>

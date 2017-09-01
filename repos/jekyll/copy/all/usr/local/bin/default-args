@@ -2,7 +2,7 @@
 require "shellwords"
 
 def to_bool(val)
-  val == "true" || val == "1" ? true : false
+  val == "true" || val == "1" ? "true" : nil
 end
 
 # --

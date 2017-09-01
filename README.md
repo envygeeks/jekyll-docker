@@ -10,7 +10,7 @@
 
 # Jekyll Docker
 
-Jekyll Docker is a software image that has Jekyll and many of it's dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com and if you would like to know more about Jekyll you can visit https://github.com/jekyll/jekyll
+Jekyll Docker is a software image that has Jekyll and many of it's dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about Jekyll, you can visit https://github.com/jekyll/jekyll
 
 ## Image Types
 
@@ -62,13 +62,27 @@ docker run --rm \
   jekyll build
 ```
 
-## Config
+## Caching
+
+You can enable caching in Jekyll Docker by using a `docker --volume` that points to `/usr/local/bundle` inside of the image.  This is ideal for users who run builds on CI's and wish them to be fast.
+
+### Usage
+
+```sh
+export JEKYLL_VERSION=3.5
+docker run --rm \
+  --volume=$PWD:/srv/jekyll \
+  --volume=$PWD/vendor/bundle:/usr/local/bundle \
+  -it jekyll/jekyll:$JEKYLL_VERSION \
+  jekyll build
+```
+
+## Configuration
 
 You can configure some pieces of Jekyll using environment variables, what you cannot with environment variables you can configure using the Jekyll CLI.  Even with a wrapper, we pass all arguments onto Jekyll when we finally call it.
 
-* `FORCE_POLLING`: `true`, `false`, `""`
 * `JEKYLL_DEBUG`, `VERBOSE`: `true`, `false`, `""`
-* `BUNDLE_CACHE`:`true`, `false`, `""`
+* `FORCE_POLLING`: `true`, `false`, `""`
 
 If you would like to know the CLI options for Jekyll, you can visit [Jekyll's Help Site][2]
 
@@ -81,6 +95,7 @@ You can install system packages by providing a file named `.apk` with one packag
 You will find directions for using our image with various tools.
 
 ### Docker-Compose
+
 ```yml
 services:
   site:
@@ -88,6 +103,7 @@ services:
     image: jekyll/jekyll:latest
     volumes:
       - $PWD:/srv/jekyll
+      - $PWD/vendor/bundle:/usr/local/bundle
     ports:
       - 4000:4000
       - 35729:35729
