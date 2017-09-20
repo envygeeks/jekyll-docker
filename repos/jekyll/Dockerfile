@@ -88,7 +88,8 @@ RUN apk --no-cache add \
   shadow \
   bash \
   su-exec \
-  nodejs-npm
+  nodejs-npm \
+  libressl
 
 # --
 # Gems
