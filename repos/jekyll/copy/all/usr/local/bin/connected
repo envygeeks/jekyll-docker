@@ -6,8 +6,7 @@ cfile=$JEKYLL_VAR_DIR/connected
 
 [ -f $dfile ] && [ -f $cfile ] &&  rm -f $dfile $cfile
 ([ "$CONNECTED" =  "true" ] || [ -f $cfile ]) && exit 0
-([ "$CONNECTED" = "false" ] || [ -f $dfile ]) \
-  && exit 1
+([ "$CONNECTED" = "false" ] || [ -f $dfile ]) && exit 1
 
 # --
 # If we aren't connected, or forced as connected, or not
