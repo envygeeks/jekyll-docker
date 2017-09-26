@@ -101,6 +101,16 @@ RUN yes | gem update --system
 
 # --
 # Gems
+# Main
+# --
+
+RUN gem install bundler
+RUN gem install jekyll \
+  -v<%= @meta.release?? @meta.release : @meta.tag %> -- \
+  --use-system-libraries
+
+# --
+# Gems
 # User
 # --
 
@@ -109,16 +119,6 @@ RUN yes | gem update --system
   RUN gem install <%=@meta.gems %> -- \
     --use-system-libraries
 <% end %>
-
-# --
-# Gems
-# Main
-# --
-
-RUN gem install bundler
-RUN gem install jekyll \
-  -v<%= @meta.release?? @meta.release : @meta.tag %> -- \
-  --use-system-libraries
 
 # --
 
