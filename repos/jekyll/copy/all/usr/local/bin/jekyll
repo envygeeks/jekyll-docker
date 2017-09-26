@@ -17,9 +17,5 @@ fi
 
 # Exec so they get everything proper through Docker.
 exe=$(which -a jekyll | grep -v /usr/local/bin | head -n1)
-if [ -f Gemfile ] && [ "$JEKYLL_DOCKER_NAME" != "minimal" ] && \
-[ "$JEKYLL_DOCKER_TAG" != "pages" ]; then
-  su-exec jekyll bundle exec ruby $exe $args
-fi
-
-su-exec jekyll $exe $args
+[ -f Gemfile ] && exec su-exec jekyll bundle exec ruby $exe $args
+exec su-exec jekyll $exe $args

@@ -15,6 +15,7 @@ end
 
 def build?; %W(b build).include?(ARGV[0]); end
 def serve?; %W(s serve server).include?(ARGV[0]); end
+def safe?; ENV["JEKYLL_DOCKER_TAG"] == "pages" || ENV["JEKYLL_DOCKER_NAME"] == "minimal"; end
 def debug?; ENV["VERBOSE"]; end
 
 # --
