@@ -2,15 +2,16 @@
 set -e
 
 : ${JEKYLL_UID:=$(id -u)}
+: ${JEKYLL_GID:=$(id -g)}
 args=$(default-args $@)
 export JEKYLL_UID
 
 if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   usermod  -u $JEKYLL_UID jekyll
-  groupmod -g $JEKYLL_UID jekyll
+  groupmod -g $JEKYLL_GID jekyll
 fi
 
-chown -R jekyll:jekyll $PWD
+chown -R $JEKYLL_UID:$JEKYLL_GID $PWD
 if connected; then
   depends install
 fi
