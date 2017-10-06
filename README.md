@@ -62,7 +62,25 @@ docker run --rm \
   jekyll build
 ```
 
-## Caching
+## Dependencies
+
+Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 3.6"` so that minor versions are installed if you use say image tag "3.5".
+
+### Updating
+
+If you provide a `Gemfile` and would like to update your `Gemfile.lock` you can run
+
+```sh
+export JEKYLL_VERSION=3.5
+docker run --rm \
+  --volume=$PWD:/srv/jekyll \
+  -it jekyll/jekyll:$JEKYLL_VERSION \
+  depends update
+```
+
+***You can also use the `bundle` command directly but the `depends` command provides a wrapper for `bundle` that ensures all permissions are kept, the same way that `jekyll` command does on this image.```
+
+### Caching
 
 You can enable caching in Jekyll Docker by using a `docker --volume` that points to `/usr/local/bundle` inside of the image.  This is ideal for users who run builds on CI's and wish them to be fast.
 
@@ -116,6 +134,7 @@ services:
 ```sh
 docker-compose run site jekyll new site
 docker-compose run --service-ports site jekyll s
+docker-compose run site depends update
 docker-compose run site jekyll b
 ```
 
@@ -124,9 +143,7 @@ docker-compose run site jekyll b
 This image supports LiveReload, all you need do is add LiveReload to your Jekyll Plugins, and then map the port, and your browser should be able to communicate with your LiveReload listener.
 
 ```rb
-group :plugins do
-  gem "jekyll-livereload"
-end
+gem "jekyll-livereload", group: :jekyll_plugins
 ```
 
 #### Usage
