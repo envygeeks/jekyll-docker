@@ -103,6 +103,7 @@ docker run --rm \
 
 You can configure some pieces of Jekyll using environment variables, what you cannot with environment variables you can configure using the Jekyll CLI.  Even with a wrapper, we pass all arguments onto Jekyll when we finally call it.
 
+* `JEKYLL_UID`, `JEKYLL_GID`
 * `JEKYLL_DEBUG`, `VERBOSE`: `true`, `false`, `""`
 * `FORCE_POLLING`: `true`, `false`, `""`
 
