@@ -6,8 +6,10 @@ gems:
     - jekyll-mentions
     - jekyll-coffeescript
     - jekyll-sass-converter
+    - jekyll-commonmark
     - jekyll-paginate
     - jekyll-compose
+    - jekyll-assets
     - RedCloth
     - kramdown
     - jemoji

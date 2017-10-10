@@ -68,7 +68,8 @@ RUN apk --no-cache add \
   libffi-dev \
   yaml-dev \
   zlib-dev \
-  libffi-dev
+  libffi-dev \
+  cmake
 
 # --
 # Packages
@@ -143,6 +144,7 @@ RUN adduser  -Su 1000 -G \
     yaml-dev \
     zlib-dev \
     libffi-dev \
+    cmake \
     git
 <% end %>
 
