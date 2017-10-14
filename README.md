@@ -10,11 +10,7 @@
 
 # Jekyll Docker
 
-Jekyll Docker is a software image that has Jekyll and many of it'sgroup :plugins do
-148
-  gem "jekyll-livereload"
-149
-end dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about Jekyll, you can visit https://github.com/jekyll/jekyll
+Jekyll Docker is a software image that has Jekyll and many of it dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about Jekyll, you can visit https://github.com/jekyll/jekyll
 
 ## Image Types
 
@@ -103,9 +99,13 @@ docker run --rm \
 
 You can configure some pieces of Jekyll using environment variables, what you cannot with environment variables you can configure using the Jekyll CLI.  Even with a wrapper, we pass all arguments onto Jekyll when we finally call it.
 
-* `JEKYLL_UID`, `JEKYLL_GID`
-* `JEKYLL_DEBUG`, `VERBOSE`: `true`, `false`, `""`
-* `FORCE_POLLING`: `true`, `false`, `""`
+| ENV Var | Default |
+|---|---|
+| `JEKYLL_UID` | `1000` |
+| `JEKYLL_GID` | `1000` |
+| `JEKYLL_DEBUG`, | `""` |
+| `VERBOSE` | `""` |
+| `FORCE_POLLING` | `""` |
 
 If you would like to know the CLI options for Jekyll, you can visit [Jekyll's Help Site][2]
 
@@ -148,7 +148,9 @@ docker-compose run site jekyll b
 This image supports LiveReload, all you need do is add LiveReload to your Jekyll Plugins, and then map the port, and your browser should be able to communicate with your LiveReload listener.
 
 ```rb
-gem "jekyll-livereload", group: :jekyll_plugins
+gem "jekyll-livereload", {
+  group: :jekyll_plugins
+}
 ```
 
 #### Usage
