@@ -1,6 +1,11 @@
 #!/bin/bash -l
 set -e
 
+# --
+# Update Docker
+# This is for the CI only.
+# @private
+# --
 update-docker() {
   # Only update our Docker sources, that's it.
   sudo apt-get update -o Dir::Etc::sourceparts="-" \
@@ -8,6 +13,11 @@ update-docker() {
     -o APT::Get::List-Cleanup="0"
 }
 
+# --
+# Install Docker
+# This is for the CI only.
+# @private
+# --
 upgrade-docker() {
   # Only upgrade Docker, nothing else, if we update.
   sudo apt-get install --assume-yes --only-upgrade \
@@ -16,6 +26,7 @@ upgrade-docker() {
     docker docker-ce
 }
 
+# --
 if [ "$CI" = "true" ]; then
   sudo mkdir -p /etc/docker
   update-docker && upgrade-docker

@@ -1,4 +1,5 @@
 #!/bin/sh
+[ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
 if [ "$BUNDLE_CACHE" ]; then

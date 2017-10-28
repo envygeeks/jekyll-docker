@@ -1,4 +1,5 @@
 #!/bin/sh
+[ "$JEKYLL_DEBUG" = "true" ] && set -x
 set -e
 
 dfile=$JEKYLL_VAR_DIR/disconnected
