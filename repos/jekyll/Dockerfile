@@ -159,7 +159,7 @@ ENV PATH=/usr/local/bin:$PATH
 
 # --
 
-CMD "jekyll --help"
+CMD [ "jekyll", "--help" ]
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729
