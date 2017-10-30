@@ -4,12 +4,23 @@ COPY copy /
 
 # --
 # EnvVars
-# System
+# Ruby
 # --
 
+ENV BUNDLE_HOME=/usr/local/bundle
+ENV BUNDLE_APP_CONFIG=/usr/local/bundle
+ENV BUNDLE_BIN=/usr/local/bundle/bin
+ENV GEM_BIN=/usr/gem/bin
+ENV GEM_HOME=/usr/gem
+
+# --
+# EnvVars
+# System
+# --
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US:en
 ENV TZ=America/Chicago
+ENV PATH="/usr/jekyll/bin:$PATH"
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US
@@ -18,9 +29,8 @@ ENV LANGUAGE=en_US
 # EnvVars
 # Image
 # --
-
+ENV JEKYLL_VAR_DIR=/var/jekyll
 ENV JEKYLL_DOCKER_TAG=<%= @meta.tag %>
-ENV JEKYLL_VAR_DIR=/usr/local/var/jekyll
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
 ENV JEKYLL_DOCKER_NAME=<%= @meta.name %>
@@ -31,7 +41,6 @@ ENV JEKYLL_ENV=development
 # EnvVars
 # User
 # --
-
 <% if @meta.env? %>
   ENV <%= @meta.env %>
 <% end %>
@@ -40,7 +49,6 @@ ENV JEKYLL_ENV=development
 # EnvVars
 # Main
 # --
-
 env VERBOSE=false
 env FORCE_POLLING=false
 env DRAFTS=false
@@ -49,7 +57,6 @@ env DRAFTS=false
 # Packages
 # User
 # --
-
 <% if @meta.packages? %>
   RUN apk --no-cache add <%= @meta.packages %>
 <% end %>
@@ -58,7 +65,6 @@ env DRAFTS=false
 # Packages
 # Dev
 # --
-
 RUN apk --no-cache add \
   zlib-dev \
   build-base \
@@ -75,7 +81,6 @@ RUN apk --no-cache add \
 # Packages
 # Main
 # --
-
 RUN apk --no-cache add \
   less \
   zlib \
@@ -96,7 +101,6 @@ RUN apk --no-cache add \
 # Gems
 # Update
 # --
-
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN yes | gem update --system
 
@@ -104,25 +108,22 @@ RUN yes | gem update --system
 # Gems
 # Main
 # --
-
 RUN gem install bundler
-RUN gem install jekyll \
-  -v<%= @meta.release?? @meta.release : @meta.tag %> -- \
-  --use-system-libraries
+RUN gem install jekyll -v<%= @meta.release?? \
+  @meta.release : @meta.tag %> -- \
+    --use-system-libraries
 
 # --
 # Gems
 # User
 # --
-
 <% if @meta.gems? %>
-  # So that Nokogiri doesn't take forever...
+  # Stops slow Nokogiri!
   RUN gem install <%=@meta.gems %> -- \
     --use-system-libraries
 <% end %>
 
 # --
-
 RUN addgroup -Sg 1000 jekyll
 RUN adduser  -Su 1000 -G \
   jekyll jekyll
@@ -131,7 +132,6 @@ RUN adduser  -Su 1000 -G \
 # Remove development packages on minimal.
 # And on pages.  Gems are unsupported.
 # --
-
 <% if @meta.name == "minimal" || @meta.name == "pages" || @meta.tag == "pages" %>
   RUN apk --no-cache del \
     zlib-dev \
@@ -149,17 +149,24 @@ RUN adduser  -Su 1000 -G \
 <% end %>
 
 # --
-
-RUN mkdir -p /srv/jekyll
-RUN mkdir -p /usr/local/var/jekyll
-RUN chown -R jekyll:jekyll /srv/jekyll
-RUN chown -R jekyll:jekyll /usr/local/var/jekyll
-RUN chown -R jekyll:jekyll $GEM_HOME
-ENV PATH=/usr/local/bin:$PATH
+RUN mkdir -p $JEKYLL_VAR_DIR
+RUN mkdir -p $JEKYLL_DATA_DIR
+RUN chown -R jekyll:jekyll $JEKYLL_DATA_DIR
+RUN chown -R jekyll:jekyll $JEKYLL_VAR_DIR
+RUN chown -R jekyll:jekyll $BUNDLE_HOME
 
 # --
+RUN rm -rf /root/.gem
+RUN rm -rf /home/jekyll/.gem
+RUN rm -rf $BUNDLE_HOME/cache
+RUN rm -rf $GEM_HOME/cache
 
+<<<<<<< a767f3e22459dab8e2180ba97f4c784a0cb53dca
 CMD [ "jekyll", "--help" ]
+=======
+# --
+CMD ["jekyll", "--help"]
+>>>>>>> Cleanup the image a bit.
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729

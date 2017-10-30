@@ -75,10 +75,8 @@ export JEKYLL_VERSION=3.5
 docker run --rm \
   --volume="$PWD:/srv/jekyll" \
   -it jekyll/jekyll:$JEKYLL_VERSION \
-  depends update
+  bundle update
 ```
-
-***You can also use the `bundle` command directly but the `depends` command provides a wrapper for `bundle` that ensures all permissions are kept, the same way that `jekyll` command does on this image.***
 
 ### Caching
 
@@ -139,7 +137,7 @@ services:
 ```sh
 docker-compose run site jekyll new site
 docker-compose run --service-ports site jekyll s
-docker-compose run site depends update
+docker-compose run site bundle update
 docker-compose run site jekyll b
 ```
 

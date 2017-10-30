@@ -1,0 +1,49 @@
+#!/bin/sh
+[ "$DEBUG" = "true" ] && set -x
+set -e
+
+: ${JEKYLL_UID:=$(id -u)}
+: ${JEKYLL_GID:=$JEKYLL_UID}
+args=$(default-args $@)
+export JEKYLL_UID
+
+# --
+# The assumption here is that if we aren't ID 0 then
+#   something we wrapped, recalled us, so we need to ship
+#   them to the right spot.  This can happen in one
+#   scenario (when you do `jekyll new`.)
+# --
+if [ "$(id -u)" != "0" ]; then
+  exec $BUNDLE_BIN/jekyll "$@"
+fi
+
+# --
+# Users can customize our UID's to fit their own so that
+#   we don't have to chown constantly.  Well it's not like
+#   we do so much of it (anymore) it's slow, but we do
+#   change permissions which can result in some bad
+#   behavior on OS X.
+# --
+if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
+  usermod  -u $JEKYLL_UID jekyll
+  groupmod -g $JEKYLL_GID jekyll
+fi
+
+# --
+[ -d ".cache" ] && chown -R jekyll:jekyll .cache
+[ -d ".jekyll-cache" ] && chown -R jekyll:jekyll .jekyll-cache
+[ -d ".sass-cache" ] && chown -R jekyll:jekyll .sass-cache
+[ -d "_site" ] && chown -R jekyll:jekyll _site
+
+# --
+# Install if the user has a Gemfile.
+# Install if we are also connecteds.
+# --
+if [ -f "Gemfile" ] && connected; then
+  bundle install
+fi
+
+# --
+exe=$BUNDLE_BIN/jekyll
+[ -x "$exe" ] && exec su-exec jekyll bundle exec ruby $exe $args
+su-exec jekyll $GEM_BIN/jekyll $args
