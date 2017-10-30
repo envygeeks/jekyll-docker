@@ -95,7 +95,8 @@ RUN apk --no-cache add \
   bash \
   su-exec \
   nodejs-npm \
-  libressl
+  libressl \
+  yarn
 
 # --
 # Gems
