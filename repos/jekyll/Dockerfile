@@ -161,12 +161,8 @@ RUN rm -rf /home/jekyll/.gem
 RUN rm -rf $BUNDLE_HOME/cache
 RUN rm -rf $GEM_HOME/cache
 
-<<<<<<< a767f3e22459dab8e2180ba97f4c784a0cb53dca
-CMD [ "jekyll", "--help" ]
-=======
 # --
 CMD ["jekyll", "--help"]
->>>>>>> Cleanup the image a bit.
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729
