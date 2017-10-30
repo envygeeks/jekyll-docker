@@ -44,9 +44,8 @@ if [ "$1" = "install" ]; then
     su-exec jekyll $exe config ignore_messages true
     su-exec jekyll $exe config build.nokogiri --use-system-libraries
     su-exec jekyll $exe config disable_version_check true
-    DEBUG= su-exec jekyll $exe "$@"
-    DEBUG= su-exec jekyll $exe \
-      clean
+    unset DEBUG; su-exec jekyll $exe "$@"
+    su-exec jekyll $exe clean
   fi
 else
   su-exec jekyll $exe "$@"
