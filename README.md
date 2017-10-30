@@ -82,6 +82,10 @@ docker run --rm \
 
 You can enable caching in Jekyll Docker by using a `docker --volume` that points to `/usr/local/bundle` inside of the image.  This is ideal for users who run builds on CI's and wish them to be fast.
 
+#### My Gems Aren't Caching
+
+***If you do not diverge from the default set of gems we provide (read: add Gems to your Gemfile that aren't already on the image), then bundler by default will not create duplicates, and cache.  It will simply rely on what is already installed in `$GEM_HOME`.  This is the default (observed... but unconfirmed) behavior of `bundle` when using `$GEM_HOME` w/ `$BUNDLE_HOME`***
+
 ### Usage
 
 ```sh
