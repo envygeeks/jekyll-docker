@@ -109,7 +109,8 @@ RUN yes | gem update --system
 # Gems
 # Main
 # --
-RUN gem install bundler
+# We do this to work around: https://github.com/rubygems/rubygems/issues/2062
+RUN gem list --no-verbose -i bundler 1>/dev/null 2>&1 || gem install bundler
 RUN gem install jekyll -v<%= @meta.release?? \
   @meta.release : @meta.tag %> -- \
     --use-system-libraries
