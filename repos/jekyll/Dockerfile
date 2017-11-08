@@ -103,7 +103,7 @@ RUN apk --no-cache add \
 # Update
 # --
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-# RUN yes | gem update --system
+RUN yes | gem update --system
 
 # --
 # Gems
