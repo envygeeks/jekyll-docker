@@ -44,6 +44,7 @@ jobs:
         builder:3.6 \
         builder:stable \
         builder:latest \
+        jekyll:builder \
         builder:3\
       '\
     "
@@ -56,6 +57,7 @@ jobs:
         minimal:3.6 \
         minimal:stable \
         minimal:latest \
+        jekyll:minimal \
         minimal:3\
       '\
     "
