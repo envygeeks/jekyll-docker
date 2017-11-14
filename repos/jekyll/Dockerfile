@@ -146,8 +146,7 @@ RUN adduser  -Su 1000 -G \
     yaml-dev \
     zlib-dev \
     libffi-dev \
-    cmake \
-    git
+    cmake
 <% end %>
 
 # --
