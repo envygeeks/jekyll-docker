@@ -3,8 +3,8 @@
     <img src=https://envygeeks.io/badges/paypal-large_1.png alt=Donate>
   </a>
   <br>
-  <a href=https://travis-ci.org/jekyll/docker>
-    <img src="https://travis-ci.org/jekyll/docker.svg?branch=master">
+  <a href=https://travis-ci.org/envygeeks/jekyll-docker>
+    <img src="https://travis-ci.org/envygeeks/jekyll-docker.svg?branch=master">
   </a>
 </div>
 
