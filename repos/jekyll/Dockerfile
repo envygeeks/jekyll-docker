@@ -82,6 +82,7 @@ RUN apk --no-cache add \
 # Main
 # --
 RUN apk --no-cache add \
+  openjdk8-jre \
   less \
   zlib \
   libxml2 \
@@ -136,6 +137,7 @@ RUN adduser  -Su 1000 -G \
 # --
 <% if @meta.name == "minimal" || @meta.name == "pages" || @meta.tag == "pages" %>
   RUN apk --no-cache del \
+    openjdk8-jre \
     zlib-dev \
     build-base \
     libxml2-dev \
