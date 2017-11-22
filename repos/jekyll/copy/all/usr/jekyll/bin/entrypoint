@@ -1,0 +1,34 @@
+#!/bin/bash
+[ "$DEBUG" = "true" ] && set -x
+set -e
+
+# --
+: ${JEKYLL_UID:=$(id -u jekyll)}
+: ${JEKYLL_GID:=$(id -g jekyll)}
+
+# --
+export JEKYLL_UID
+export JEKYLL_GID
+
+# --
+# Users can customize our UID's to fit their own so that
+#   we don't have to chown constantly.  Well it's not like
+#   we do so much of it (anymore) it's slow, but we do
+#   change permissions which can result in some bad
+#   behavior on OS X.
+# --
+if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
+  usermod  -u $JEKYLL_UID jekyll
+  groupmod -g $JEKYLL_GID jekyll
+
+  if [ "$FULL_CHOWN" ]; then
+    chown -R jekyll:jekyll
+      $JEKYLL_DATA_DIR
+  else
+    chown jekyll:jekyll \
+      $JEKYLL_DATA_DIR
+  fi
+fi
+
+# --
+exec "$@"

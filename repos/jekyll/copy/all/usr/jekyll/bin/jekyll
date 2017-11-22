@@ -2,10 +2,7 @@
 [ "$DEBUG" = "true" ] && set -x
 set -e
 
-: ${JEKYLL_UID:=$(id -u)}
-: ${JEKYLL_GID:=$JEKYLL_UID}
 args=$(default-args $@)
-export JEKYLL_UID
 
 # --
 # The assumption here is that if we aren't ID 0 then
@@ -15,18 +12,6 @@ export JEKYLL_UID
 # --
 if [ "$(id -u)" != "0" ]; then
   exec $BUNDLE_BIN/jekyll "$@"
-fi
-
-# --
-# Users can customize our UID's to fit their own so that
-#   we don't have to chown constantly.  Well it's not like
-#   we do so much of it (anymore) it's slow, but we do
-#   change permissions which can result in some bad
-#   behavior on OS X.
-# --
-if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
-  usermod  -u $JEKYLL_UID jekyll
-  groupmod -g $JEKYLL_GID jekyll
 fi
 
 # --

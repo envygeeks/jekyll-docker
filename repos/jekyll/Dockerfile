@@ -15,18 +15,6 @@ ENV GEM_HOME=/usr/gem
 
 # --
 # EnvVars
-# System
-# --
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US:en
-ENV TZ=America/Chicago
-ENV PATH="/usr/jekyll/bin:$PATH"
-ENV LC_ALL=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US
-
-# --
-# EnvVars
 # Image
 # --
 ENV JEKYLL_VAR_DIR=/var/jekyll
@@ -35,7 +23,20 @@ ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
 ENV JEKYLL_DOCKER_NAME=<%= @meta.name %>
 ENV JEKYLL_DATA_DIR=/srv/jekyll
+ENV JEKYLL_BIN=/usr/jekyll/bin
 ENV JEKYLL_ENV=development
+
+# --
+# EnvVars
+# System
+# --
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV TZ=America/Chicago
+ENV PATH="$JEKYLL_BIN:$PATH"
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US
 
 # --
 # EnvVars
@@ -166,6 +167,7 @@ RUN rm -rf $GEM_HOME/cache
 
 # --
 CMD ["jekyll", "--help"]
+ENTRYPOINT ["/usr/jekyll/bin/entrypoint"]
 WORKDIR /srv/jekyll
 VOLUME  /srv/jekyll
 EXPOSE 35729
