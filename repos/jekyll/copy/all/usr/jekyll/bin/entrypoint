@@ -22,7 +22,7 @@ if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   groupmod -g $JEKYLL_GID jekyll
 
   if [ "$FULL_CHOWN" ]; then
-    chown -R jekyll:jekyll
+    chown -R jekyll:jekyll \
       $JEKYLL_DATA_DIR
   else
     chown jekyll:jekyll \
