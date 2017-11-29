@@ -1,12 +1,4 @@
-<p align=center>
-  <a href=https://goo.gl/BhrgjW>
-    <img src=https://envygeeks.io/badges/paypal-large_1.png alt=Donate>
-  </a>
-  <br>
-  <a href=https://travis-ci.org/envygeeks/jekyll-docker>
-    <img src="https://travis-ci.org/envygeeks/jekyll-docker.svg?branch=master">
-  </a>
-</div>
+[![Travis branch](https://img.shields.io/travis/envygeeks/jekyll-docker/master.svg?style=for-the-badge)](https://travis-ci.org/envygeeks/jekyll-docker) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate) [![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]() [![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
 
 # Jekyll Docker
 
