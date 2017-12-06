@@ -12,12 +12,12 @@ branches:
   - master
 env:
   global:
-  - DOCKER_EMAIL=jekyllbot@jekyllrb.com
-  - DOCKER_USERNAME=jekyllbot
+  - DOCKER_EMAIL=jordon@envygeeks.io
+  - DOCKER_USERNAME=envygeeks
   - secure: "\
-      MA62JC8Fp1ww4ui3Wphy9bXaZymez5qEDsX5PKNy+Q7EZx++BhAOQVMugwdN2bpuiP5G6x\
-      JX/DKOQ3fGUFAgYe5TZJgLt+DYTc+i+JU+2twPOfh98OseFWgRk4SnrbpxtcBYt4I8Iv1o\
-      tjdW4P0aAGAvA1YYopGE70+WTrqixeY=\
+      Vp8S6Pevc4pidnNM1NZx/1rCckOFc5C90a/0c6F/fIhGiOfl3o3yaUBKqbBLNTYxYCH8J0Hko\
+      S/Y5Xs2K5XMlsnQXXxeBQntDVMS6XX5q7j65EcK+bRNUxOo2A51rw0jUmPDNa2i7g90sNExjW\
+      XYh03nFe6cbXXHrLdrOt4+A4I=
     "
 jobs:
   include:
