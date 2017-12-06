@@ -4,6 +4,7 @@ aliases:
 gems:
   all:
     - html-proofer
+    - jekyll-reload
     - jekyll-mentions
     - jekyll-coffeescript
     - jekyll-sass-converter
@@ -22,7 +23,6 @@ gems:
       - minima
     stable:
       - *relative
-
     pages:
       - jekyll-github-metadata
       - github-pages
