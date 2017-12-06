@@ -1,5 +1,9 @@
 source "https://rubygems.org"
 
-gem "travis"
 gem "docker-template"
-gem "pry"
+group :development do
+  unless ENV["CI"] == "true"
+    gem "travis"
+    gem "pry"
+  end
+end
