@@ -1,4 +1,4 @@
-FROM ruby:alpine3.6
+FROM ruby:alpine3.7
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 COPY copy /
 
