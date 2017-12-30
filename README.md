@@ -114,6 +114,8 @@ You will find directions for using our image with various tools.
 ### Docker-Compose
 
 ```yml
+version: "3"
+
 services:
   site:
     command: jekyll serve
