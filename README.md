@@ -140,13 +140,15 @@ docker-compose run site jekyll b
 
 ### LiveReload
 
-This image supports LiveReload, all you need do is add LiveReload to your Jekyll Plugins, and then map the port, and your browser should be able to communicate with your LiveReload listener.
+This image supports [LiveReload](https://github.com/RobertDeRose/jekyll-livereload), all you need do is add LiveReload to your Jekyll Plugins, and then map the port, and your browser should be able to communicate with your LiveReload listener.
 
 ```rb
 gem "jekyll-livereload", {
   group: :jekyll_plugins
 }
 ```
+
+See [Jekyll::Livereload Usage](https://github.com/RobertDeRose/jekyll-livereload#usage) for usagae and configuration.
 
 #### Usage
 
