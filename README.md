@@ -140,7 +140,7 @@ docker-compose run site jekyll b
 
 ### LiveReload
 
-This image supports [jekyll-reload](https://rubygems.org/gems/jekyll-reload), all you need do is to [http://www.rubydoc.info/gems/jekyll-reload/](configure it according to your needs).
+This image supports [jekyll-reload](https://rubygems.org/gems/jekyll-reload), all you need do is to [configure it according to your needs](http://www.rubydoc.info/gems/jekyll-reload/).
 
 #### Usage
 
