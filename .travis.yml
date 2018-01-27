@@ -36,7 +36,6 @@ jobs:
       '\
     "
   - env: DOCKER_REPO=jekyll:3.7.0 # Remove after 26/1/2017
-  - env: DOCKER_REPO=jekyll:3.7.1 # Remove after 26/1/2017
   - env: DOCKER_REPO=jekyll:pages
   # --
   # jekyll/builder
@@ -51,7 +50,6 @@ jobs:
       '\
     "
   - env: DOCKER_REPO=builder:3.7.0 # Remove after 26/1/2017
-  - env: DOCKER_REPO=builder:3.7.1 # Remove after 26/1/2017
   - env: DOCKER_REPO=builder:pages
   # --
   # jekyll/minimal
@@ -66,5 +64,4 @@ jobs:
       '\
     "
   - env: DOCKER_REPO=minimal:3.7.0 # Remove after 26/1/2017
-  - env: DOCKER_REPO=minimal:3.7.1 # Remove after 26/1/2017
   - env: DOCKER_REPO=minimal:pages
