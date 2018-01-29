@@ -108,12 +108,6 @@ RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN yes | gem update --system
 
 # --
-# Ruby 
-# Version
-# --
-RUN echo "ruby --version"
-
-# --
 # Gems
 # Main
 # --
