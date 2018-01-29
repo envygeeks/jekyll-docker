@@ -28,6 +28,8 @@ if [ -f "Gemfile" ] && connected; then
   bundle install
 fi
 
+echo "$(ruby --version)"
+
 sup_args=""
 exe=$BUNDLE_BIN/jekyll
 [ "$JEKYLL_DOCKER_TAG" = "pages" ] && sup_args="-r github-pages"
