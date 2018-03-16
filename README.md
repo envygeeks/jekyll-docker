@@ -129,7 +129,7 @@ services:
       -   80:4000
 ```
 
-#### Usage with compose
+#### Usage
 
 Create site:
 
