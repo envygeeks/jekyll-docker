@@ -147,20 +147,9 @@ docker-compose up -d
 
 While running with above command you can:
 
-Update bundle:
-
-```sh
-docker-compose exec site bundle update
-```
-
 Build again (for apply `_config.yml` file):
 ```sh
 docker-compose exec site jekyll build
-```
-
-or simply stop and up:
-```sh
-docker-compose stop && docker-compose up -d
 ```
 
 ### LiveReload
