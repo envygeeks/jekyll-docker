@@ -156,7 +156,14 @@ Build again (for apply `_config.yml` file):
 docker-compose exec site jekyll build
 ```
 
-If you want to create another site, you change to the docker-compose's root folder and repeat the steps above. 
+**Note:** If you want to create another site, then you have to stop the container, change to docker-compose's root folder and repeat the steps above.
+
+```sh
+docker-compose stop
+cd ..
+```
+
+and back to **1**.
 
 ### LiveReload
 
