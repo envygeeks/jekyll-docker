@@ -28,14 +28,14 @@ jobs:
     # jekyll/jekyll
     # --
     env: "\
-      DOCKER_REPO='
-        jekyll:3.8.2\
+      DOCKER_REPO='\
+        jekyll:3.8.2 \
         jekyll:3.8.3 \
         jekyll:stable \
         jekyll:latest \
         jekyll:pages \
         jekyll:3.8 \
-        jekyll:3 \
+        jekyll:3\
       '\
     "
   # --
@@ -43,7 +43,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        builder:3.8.2
+        builder:3.8.2 \
         builder:3.8.3 \
         builder:stable \
         builder:latest \
