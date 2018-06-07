@@ -28,37 +28,42 @@ jobs:
     # jekyll/jekyll
     # --
     env: "\
-      DOCKER_REPO='jekyll:3.8.1 \
-        jekyll:3.8 \
+      DOCKER_REPO='
+        jekyll:3.8.2\
+        jekyll:3.8.3 \
         jekyll:stable \
         jekyll:latest \
-        jekyll:3\
+        jekyll:pages \
+        jekyll:3.8 \
+        jekyll:3 \
       '\
     "
-  - env: DOCKER_REPO=jekyll:pages
   # --
   # jekyll/builder
   # --
   - env: "\
-      DOCKER_REPO='builder:3.8.1 \
-        builder:3.8 \
+      DOCKER_REPO='\
+        builder:3.8.2
+        builder:3.8.3 \
         builder:stable \
         builder:latest \
         jekyll:builder \
+        builder:pages \
+        builder:3.8 \
         builder:3\
       '\
     "
-  - env: DOCKER_REPO=builder:pages
   # --
   # jekyll/minimal
   # --
   - env: "\
-      DOCKER_REPO='minimal:3.8.1 \
-        minimal:3.8 \
+      DOCKER_REPO='\
+        minimal:3.8.3 \
         minimal:stable \
         minimal:latest \
         jekyll:minimal \
+        minimal:pages \
+        minimal:3.8 \
         minimal:3\
       '\
     "
-  - env: DOCKER_REPO=minimal:pages

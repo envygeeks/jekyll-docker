@@ -1,13 +1,14 @@
 maintainer: Jordon Bedwell <jordon@envygeeks.io>
 user: jekyll
 aliases:
-  latest: 3.8.1
-  stable: 3.8.1
-  3.8: 3.8.1
-  3: 3.8.1
+  latest: 3.8.3
+  stable: 3.8.3
+  3.8: 3.8.3
+  3: 3.8.3
 tags:
-  3.8.1: stable
+  3.8.3: stable
+  3.8.2: stable
   pages: pages
 releases:
   tag:
-    pages: 3.7.3 # 05/18/2018
+    pages: 3.7.3 # 06/05/2018
