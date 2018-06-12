@@ -131,15 +131,19 @@ services:
 
 #### Usage
 
-Create site:
+**1.** Create site:
 
 ```sh
-docker-compose run site jekyll new . --force
+docker-compose run site jekyll mysite
 ```
 
-Note: Create site on current folder "."  instead of "mysite" is the only way to run all commands easy and from the same folder with `docker-compose`
+**2.** Change to the new site's folder:
 
-Initial build and serve:
+```sh
+cd mysite
+```
+
+**3.** Initial build and serve:
 
 ```sh
 docker-compose up -d
@@ -151,6 +155,15 @@ Build again (for apply `_config.yml` file):
 ```sh
 docker-compose exec site jekyll build
 ```
+
+**Note:** If you want to create another site, then you have to stop the container, change to docker-compose's root folder and repeat the steps above.
+
+```sh
+docker-compose stop
+cd ..
+```
+
+and back to **1**.
 
 ### LiveReload
 
