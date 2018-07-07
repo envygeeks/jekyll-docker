@@ -20,14 +20,12 @@ export JEKYLL_GID
 if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   usermod  -u $JEKYLL_UID jekyll
   groupmod -g $JEKYLL_GID jekyll
+  chown_args=""
 
-  if [ "$FULL_CHOWN" ]; then
-    chown -R jekyll:jekyll \
-      $JEKYLL_DATA_DIR
-  else
-    chown jekyll:jekyll \
-      $JEKYLL_DATA_DIR
-  fi
+  [ "$FULL_CHOWN" ] && chown_args="-r"
+  for d in "$JEKYLL_DATA_DIR" "$JEKYLL_VAR_DIR"; do
+    chown $chown_args "$d"
+  done
 fi
 
 # --
