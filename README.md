@@ -134,7 +134,7 @@ services:
 **1.** Create site:
 
 ```sh
-docker-compose run site jekyll mysite
+docker-compose run site jekyll new mysite
 ```
 
 **2.** Change to the new site's folder:
