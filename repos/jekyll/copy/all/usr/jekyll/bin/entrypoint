@@ -22,7 +22,7 @@ if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   groupmod -g $JEKYLL_GID jekyll
   chown_args=""
 
-  [ "$FULL_CHOWN" ] && chown_args="-r"
+  [ "$FULL_CHOWN" ] && chown_args="-R"
   for d in "$JEKYLL_DATA_DIR" "$JEKYLL_VAR_DIR"; do
     chown $chown_args "$d"
   done
