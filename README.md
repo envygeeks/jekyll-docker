@@ -165,19 +165,21 @@ cd ..
 
 and back to **1**.
 
-### LiveReload
+### Live Reload
 
-This image supports [jekyll-reload](https://rubygems.org/gems/jekyll-reload), all you need do is to [configure it according to your needs](http://www.rubydoc.info/gems/jekyll-reload/).
+As of Jekyll 3.7.0, [Jekyll supports live reload out of the box](https://jekyllrb.com/news/2018/01/02/jekyll-3-7-0-released/).  All you need do is to run the server with the `--live-reload` flag.
 
-#### Usage
+#### Example Usage
 
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
   --volume=$PWD:/srv/jekyll \
+  --volume="$PWD/vendor/bundle:/usr/local/bundle" \
   -p 35729:35729 -p 4000:4000 \
-  -it jekyll/builder:$JEKYLL_VERSION \
-  jekyll build
+  -it --name jekyll_server \
+  jekyll/builder:$JEKYLL_VERSION \
+  jekyll serve --incremental --livereload
 ```
 
 ## Building Our Images
