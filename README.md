@@ -88,6 +88,7 @@ docker run --rm \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
+***The root of the cache volume (in this case vendor) must also be excluded from the Jekyll build via the `_config.yml` exclude array setting.***
 
 ## Configuration
 
