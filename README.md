@@ -167,7 +167,7 @@ and back to **1**.
 
 ### Live Reload
 
-As of Jekyll 3.7.0, [Jekyll supports live reload out of the box](https://jekyllrb.com/news/2018/01/02/jekyll-3-7-0-released/).  All you need do is to run the server with the `--live-reload` flag.
+As of Jekyll 3.7.0, [Jekyll supports live reload out of the box](https://jekyllrb.com/news/2018/01/02/jekyll-3-7-0-released/).  All you need do is to run the server with the `--livereload` flag.
 
 #### Example Usage
 
