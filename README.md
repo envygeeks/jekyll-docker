@@ -1,4 +1,4 @@
-[![Travis branch](https://img.shields.io/travis/envygeeks/jekyll-docker/master.svg?style=for-the-badge)](https://travis-ci.org/envygeeks/jekyll-docker) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate) [![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]() [![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
+[![Backers on Open Collective](https://opencollective.com/jekyll-docker/backers/badge.svg?style=for-the-badge)](#backers) [![Sponsors on Open Collective](https://opencollective.com/jekyll-docker/sponsors/badge.svg?style=for-the-badge)](#sponsors) [![Travis branch](https://img.shields.io/travis/envygeeks/jekyll-docker/master.svg?style=for-the-badge)](https://travis-ci.org/envygeeks/jekyll-docker) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate) [![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]() [![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
 
 # Jekyll Docker
 
@@ -195,3 +195,33 @@ You can build our images or any specific tag of an image with `bundle exec docke
 
 [1]: https://travis-ci.org/jekyll/docker
 [2]: http://jekyllrb.com/docs/configuration/#build-command-options
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/undefined/undefinedgraphs/contributors"><img src="https://opencollective.com/jekyll-docker/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/jekyll-docker#backer)]
+
+<a href="https://opencollective.com/jekyll-docker#backers" target="_blank"><img src="https://opencollective.com/jekyll-docker/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/jekyll-docker#sponsor)]
+
+<a href="https://opencollective.com/jekyll-docker/sponsor/0/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/1/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/2/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/3/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/4/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/5/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/6/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/7/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/8/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/jekyll-docker/sponsor/9/website" target="_blank"><img src="https://opencollective.com/jekyll-docker/sponsor/9/avatar.svg"></a>
+
+
