@@ -29,8 +29,8 @@ jobs:
     # --
     env: "\
       DOCKER_REPO='\
-        jekyll:3.8.2 \
         jekyll:3.8.3 \
+        jekyll:3.8.4 \
         jekyll:stable \
         jekyll:latest \
         jekyll:pages \
@@ -43,8 +43,8 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        builder:3.8.2 \
         builder:3.8.3 \
+        builder:3.8.4 \
         builder:stable \
         builder:latest \
         jekyll:builder \
@@ -58,7 +58,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        minimal:3.8.3 \
+        minimal:3.8.4 \
         minimal:stable \
         minimal:latest \
         jekyll:minimal \
