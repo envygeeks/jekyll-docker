@@ -1,36 +1,50 @@
-#!/bin/bash -l
+#!/bin/bash
+# Copyright: 2017 - 2018 - MIT License
+# Source: https://github.com/envygeeks/devfiles
+# Author: Jordon Bedwell
+[ "$DEBUG" = "true" ] && set -x
 set -e
 
-# --
-# Update Docker
-# This is for the CI only.
-# @private
-# --
-update-docker() {
-  # Only update our Docker sources, that's it.
-  sudo apt-get update -o Dir::Etc::sourceparts="-" \
-    -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/docker.list" \
-    -o APT::Get::List-Cleanup="0"
-}
+f=script/script.d/install
+if [ "$SKIP_SCRIPTD" != "true" ] && [ -x $f ]; then
+  exec $f "$@"
+else
+  if [[ "$CI" != "true" ]]; then
+    bundle check 1>/dev/null 2>&1 && bundle update ||
+    bundle install --path vendor/bundle
+    bundle clean
+  else
 
-# --
-# Install Docker
-# This is for the CI only.
-# @private
-# --
-upgrade-docker() {
-  # Only upgrade Docker, nothing else, if we update.
-  sudo apt-get install --assume-yes --only-upgrade \
-    -o Dpkg::Options::="--force-confdef" \
-    -o Dpkg::Options::="--force-confold" \
-      docker-ce
-}
+    # --
+    # Update Docker
+    # This is for the CI only.
+    # @private
+    # --
+    update-docker() {
+      # Only update our Docker sources, that's it.
+      sudo apt-get update -o Dir::Etc::sourceparts="-" \
+        -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/docker.list" \
+        -o APT::Get::List-Cleanup="0"
+    }
 
-# --
-if [ "$CI" = "true" ]; then
-  sudo mkdir -p /etc/docker
-  update-docker && upgrade-docker
-  json="{\n  \"experimental\": true\n}\n"
-  printf "$json" | sudo tee /etc/docker/daemon.json
-  sudo service docker restart
+    # --
+    # Install Docker
+    # This is for the CI only.
+    # @private
+    # --
+    upgrade-docker() {
+      # Only upgrade Docker, nothing else, if we update.
+      sudo apt-get install --assume-yes --only-upgrade \
+        -o Dpkg::Options::="--force-confdef" \
+        -o Dpkg::Options::="--force-confold" \
+          docker-ce
+    }
+
+    # --
+    sudo mkdir -p /etc/docker
+    update-docker && upgrade-docker
+    json="{\n  \"experimental\": true\n}\n"
+    printf "$json" | sudo tee /etc/docker/daemon.json
+    sudo service docker restart
+  fi
 fi
