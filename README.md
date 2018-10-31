@@ -108,90 +108,11 @@ If you would like to know the CLI options for Jekyll, you can visit [Jekyll's He
 
 You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit https://pkgs.alpinelinux.org. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
 
-### Tools
-
-You will find directions for using our image with various tools.
-
-### Docker-Compose
-
-```yml
-version: "3"
-services:
-  site:
-    command: jekyll serve
-    image: jekyll/jekyll:latest
-    volumes:
-      - $PWD:/srv/jekyll
-      - $PWD/vendor/bundle:/usr/local/bundle
-    ports:
-      - 4000:4000
-      - 35729:35729
-      - 3000:3000
-      -   80:4000
-```
-
-#### Usage
-
-**1.** Create site:
+## Building
 
 ```sh
-docker-compose run site jekyll new mysite
+script/build
 ```
-
-**2.** Change to the new site's folder:
-
-```sh
-cd mysite
-```
-
-**3.** Initial build and serve:
-
-```sh
-docker-compose up -d
-```
-
-While running with above command you can:
-
-Build again (for apply `_config.yml` file):
-```sh
-docker-compose exec site jekyll build
-```
-
-**Note:** If you want to create another site, then you have to stop the container, change to docker-compose's root folder and repeat the steps above.
-
-```sh
-docker-compose stop
-cd ..
-```
-
-and back to **1**.
-
-### LiveReload
-
-This image supports [jekyll-reload](https://rubygems.org/gems/jekyll-reload), all you need do is to [configure it according to your needs](http://www.rubydoc.info/gems/jekyll-reload/).
-
-#### Usage
-
-```sh
-export JEKYLL_VERSION=3.8
-docker run --rm \
-  --volume=$PWD:/srv/jekyll \
-  -p 35729:35729 -p 4000:4000 \
-  -it jekyll/builder:$JEKYLL_VERSION \
-  jekyll build
-```
-
-## Building Our Images
-
-You can build our images or any specific tag of an image with `bundle exec docker-template build` or `bundle exec docker-template build repo:tag`, yes it's that simple to build our images; even if it looks complicated it's not.
-
-## Contributing
-
-* Fork the current repo; `bundle install`
-* `opts.yml` holds most of the versions, and gems.
-* Test your image manually `script/debug` will help you with that.
-* Ensure that your intended changes work as they're supposed to.
-* Ship a pull request if you wish to have it reviewed!
 
 [1]: https://travis-ci.org/jekyll/docker
 [2]: http://jekyllrb.com/docs/configuration/#build-command-options
