@@ -4,6 +4,7 @@
 # Author: Jordon Bedwell
 script/install
 
+[[ "$1" ]] && export $DOCKER_REPO="$1"
 bundle exec docker-template build $DOCKER_REPO \
   --no-push --force --squash || \
       exit $?
