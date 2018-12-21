@@ -1,6 +1,6 @@
 #!/bin/bash
 [ "$DEBUG" = "true" ] && set -x
-exe=$GEM_BIN/bundle
+exe=/usr/local/bin/bundle
 set -e
 
 # --

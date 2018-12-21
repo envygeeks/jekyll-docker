@@ -106,14 +106,15 @@ RUN apk --no-cache add \
 # Update
 # --
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
-RUN yes | gem update --system
+RUN unset GEM_HOME && unset GEM_BIN && \
+  yes | gem update --system
 
 # --
 # Gems
 # Main
 # --
-# We do this to work around: https://github.com/rubygems/rubygems/issues/2062
-RUN gem install bundler
+# Work around a nonsense RubyGem permission bug.
+RUN unset GEM_HOME && unset GEM_BIN && yes | gem install --force bundler
 RUN gem install jekyll -v<%= @meta.release?? \
   @meta.release : @meta.tag %> -- \
     --use-system-libraries
