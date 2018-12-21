@@ -1,24 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 [ "$DEBUG" = "true" ] && set -x
+exe=$GEM_BIN/bundle
 set -e
 
 # --
-# We don't need to run if there is no Gemfile.
-# We should just bail out and leave this place for
-#   we are nothing but a problem from here.
+# Skip out if we aren't UID=0 because it's Jekyll
+# Don't prevent the user from doing normal bundle stuff
+#   this is really rare but can happen during debugs
 # --
-if [ ! -f "Gemfile" ]; then
-  exit 0
-fi
-
-# --
-# This can happen sometimes, this mostly happens when
-# the user has either 1.) set their own USER= which is not
-# what we want, or if inside of `jekyll new` because
-# Jekyll will simply call `bundle`
-# --
-if [ "$(id -u)" != "0" ]; then
-   exec $GEM_BIN/bundle "$@"
+if [[ ! -f "Gemfile" ]] || [ "$(id -u)" != "0" ]; then
+   exec $exe "$@"
 fi
 
 
@@ -34,7 +25,6 @@ fi
 
 
 # --
-exe=$GEM_BIN/bundle
 if [ "$1" = "install" ] || [ "$1" = "update" ]; then
   # There is no need to report that we are using check.
   if [ "$1" = "update" ] || ! su-exec jekyll $exe check 1>/dev/null 2>&1; then
