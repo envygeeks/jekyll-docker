@@ -1,4 +1,4 @@
-FROM ruby:alpine
+FROM <%= @meta.base_image %>
 LABEL maintainer "Jordon Bedwell <jordon@envygeeks.io>"
 COPY copy /
 

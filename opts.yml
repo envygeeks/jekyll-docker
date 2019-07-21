@@ -1,4 +1,4 @@
-maintainer: Jordon Bedwell <jordon@envygeeks.io>
+base_image: ruby:alpine
 user: jekyll
 aliases:
   latest: 3.8.6
