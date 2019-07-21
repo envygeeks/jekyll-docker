@@ -1,3 +1,4 @@
+---
 services: docker
 script: script/travis
 sudo: required
@@ -29,7 +30,7 @@ jobs:
     # --
     env: "\
       DOCKER_REPO='\
-        jekyll:3.8.5 \
+        jekyll:3.8.6 \
         jekyll:stable \
         jekyll:latest \
         jekyll:pages \
@@ -42,7 +43,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        builder:3.8.5 \
+        builder:3.8.6 \
         builder:stable \
         builder:latest \
         jekyll:builder \
@@ -56,7 +57,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        minimal:3.8.5 \
+        minimal:3.8.6 \
         minimal:stable \
         minimal:latest \
         jekyll:minimal \
