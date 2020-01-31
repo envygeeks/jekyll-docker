@@ -3,6 +3,20 @@
 set -e
 
 # --
+# Running rootless means that we force Jekyll to run entirely as 'root'.
+# This is substituted by the container to the uid of the actual user.
+#
+# This is mildly dirty because other parts try and su-exec as 'jekyll'.
+# --
+if [ "$JEKYLL_ROOTLESS" ]; then
+  JEKYLL_UID=0
+  JEKYLL_GID=0
+
+  usermod -u 0 jekyll
+  groupmod -g 0 jekyll
+fi
+
+# --
 : ${JEKYLL_UID:=$(id -u jekyll)}
 : ${JEKYLL_GID:=$(id -g jekyll)}
 
