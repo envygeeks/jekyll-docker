@@ -3,17 +3,13 @@
 set -e
 
 # --
-# Running rootless means that we force Jekyll to run entirely as 'root'.
-# This is substituted by the container to the uid of the actual user.
-#
-# This is mildly dirty because other parts try and su-exec as 'jekyll'.
+# Running rootless means that we force Jekyll to run 
+# entirely as 'root'. This is substituted by the container 
+# to the uid of the actual user.
 # --
 if [ "$JEKYLL_ROOTLESS" ]; then
   JEKYLL_UID=0
   JEKYLL_GID=0
-
-  usermod -o -u 0 jekyll
-  groupmod -o -g 0 jekyll
 fi
 
 # --
@@ -40,6 +36,15 @@ if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
   for d in "$JEKYLL_DATA_DIR" "$JEKYLL_VAR_DIR"; do
     chown $chown_args jekyll:jekyll "$d"
   done
+fi
+
+# --
+# Make sure JEKYLL matches the UID/GID
+# This will most likely end up as 1
+# --
+if [ "$JEKYLL_ROOTLESS" ]; then
+  usermod  -o -u $JEKYLL_UID jekyll
+  groupmod -o -g $JEKYLL_GID jekyll
 fi
 
 # --
