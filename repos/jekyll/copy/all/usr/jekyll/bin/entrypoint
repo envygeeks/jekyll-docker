@@ -12,8 +12,8 @@ if [ "$JEKYLL_ROOTLESS" ]; then
   JEKYLL_UID=0
   JEKYLL_GID=0
 
-  usermod -u 0 jekyll
-  groupmod -g 0 jekyll
+  usermod -o -u 0 jekyll
+  groupmod -o -g 0 jekyll
 fi
 
 # --
