@@ -116,3 +116,10 @@ script/build
 
 [1]: https://travis-ci.org/jekyll/docker
 [2]: http://jekyllrb.com/docs/configuration/#build-command-options
+
+## Deploy
+
+Site built using Jekyll can be deployed in a large number of ways due to the static nature of the generated output. One of the easiest ways to set up an automated deployment flow is by using a CI.
+You can use: Travis CI, Circle Ci, Buddy. 
+
+Read tutorial how automatic deploy [docker jekyll](https://buddy.works/docs/quickstart/jekyll). After reading this tutorial, you’ll be able to apply techniques to deploy CI/CD tool for your jekyll.
