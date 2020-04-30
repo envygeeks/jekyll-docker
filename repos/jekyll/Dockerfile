@@ -175,10 +175,15 @@ RUN mkdir -p $JEKYLL_DATA_DIR
 RUN chown -R jekyll:jekyll $JEKYLL_DATA_DIR
 RUN chown -R jekyll:jekyll $JEKYLL_VAR_DIR
 RUN chown -R jekyll:jekyll $BUNDLE_HOME
-RUN rm -rf /root/.gem
 RUN rm -rf /home/jekyll/.gem
 RUN rm -rf $BUNDLE_HOME/cache
 RUN rm -rf $GEM_HOME/cache
+RUN rm -rf /root/.gem
+
+# Work around rubygems/rubygems#3572
+RUN mkdir -p /usr/gem/cache/bundle
+RUN chown -R jekyll:jekyll \
+  /usr/gem/cache/bundle
 
 CMD ["jekyll", "--help"]
 ENTRYPOINT ["/usr/jekyll/bin/entrypoint"]

@@ -18,10 +18,10 @@ fi
 
 if [ "$1" = "install" ] || [ "$1" = "clean" ] || [ "$1" = "update" ]; then
   if [ "$(stat -c '%U' "$BUNDLE_HOME")" != "jekyll" ]; then
+    chown -R jekyll:jekyll /usr/gem/cache/bundle
     chown -R jekyll:jekyll "$BUNDLE_HOME"
   fi
 fi
-
 
 if [ "$1" = "install" ] || [ "$1" = "update" ]; then
   # There is no need to report that we are using check.
