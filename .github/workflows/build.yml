@@ -10,8 +10,8 @@ jobs:
       matrix:
         env:
           - jekyll:latest
-          - builder:pages
-          - minimal:pages
+          - builder:latest
+          - minimal:latest
           - jekyll:pages
     steps:
       - uses: actions/checkout@v2
