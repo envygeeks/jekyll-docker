@@ -15,8 +15,6 @@ else
     bundle clean
   else
     sudo mkdir -p /etc/docker
-    json="{\n  \"experimental\": true\n}\n"
-    printf "$json" | sudo tee /etc/docker/daemon.json
     sudo service docker restart
   fi
 fi
