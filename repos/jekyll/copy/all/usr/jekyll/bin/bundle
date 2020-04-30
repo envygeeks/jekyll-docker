@@ -3,28 +3,26 @@
 exe=/usr/local/bin/bundle
 set -e
 
-# --
+#
 # Skip out if we aren't UID=0 because it's Jekyll
 # Don't prevent the user from doing normal bundle stuff
 #   this is really rare but can happen during debugs
-# --
+#
 if [[ ! -f "Gemfile" ]] || [ "$(id -u)" != "0" ]; then
    exec $exe "$@"
 fi
 
-
-
-# --
+#
 # Make sure we have permissions.
-# --
+#
+
 if [ "$1" = "install" ] || [ "$1" = "clean" ] || [ "$1" = "update" ]; then
-  if [ "$(stat -c '%U' $BUNDLE_HOME)" != "jekyll" ]; then
-    chown -R jekyll:jekyll $BUNDLE_HOME
+  if [ "$(stat -c '%U' "$BUNDLE_HOME")" != "jekyll" ]; then
+    chown -R jekyll:jekyll "$BUNDLE_HOME"
   fi
 fi
 
 
-# --
 if [ "$1" = "install" ] || [ "$1" = "update" ]; then
   # There is no need to report that we are using check.
   if [ "$1" = "update" ] || ! su-exec jekyll $exe check 1>/dev/null 2>&1; then
