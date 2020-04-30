@@ -13,6 +13,7 @@ ENV BUNDLE_DISABLE_PLATFORM_WARNINGS=true
 ENV BUNDLE_BIN=/usr/local/bundle/bin
 ENV GEM_BIN=/usr/gem/bin
 ENV GEM_HOME=/usr/gem
+ENV RUBYOPT=-W0
 
 #
 # EnvVars
