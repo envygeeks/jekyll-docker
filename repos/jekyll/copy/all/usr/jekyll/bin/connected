@@ -2,28 +2,23 @@
 [ "$DEBUG" = "true" ] && set -x
 set -e
 
-con=$JEKYLL_VAR_DIR/con
-dis=$JEKYLL_VAR_DIR/dis
+connected=$JEKYLL_VAR_DIR/connected
+disconnected=$JEKYLL_VAR_DIR/disconnected
+[ -f "$disconnected" ] && [ -f "$connected" ] &&  rm -f "$disconnected" "$connected"
+{ [ "$CONNECTED" = "false" ] || [ -f "$disconnected" ]; } && exit 1
+{ [ "$CONNECTED" =  "true" ] || [ -f "$connected" ]; } && exit 0
 
-# --
-# If we have both, then someting has gone terribly wrong,
-#  this isn't very likely but it could very well happen and
-#  we need to guard against it...
-# --
-[ -f $dis ] && [ -f $con ] &&  rm -f $dis $con
-([ "$CONNECTED" =  "true" ] || [ -f $con ]) && exit 0
-([ "$CONNECTED" = "false" ] || [ -f $dis ]) && exit 1
-
-# --
+#
 # If we aren't connected, or forced as connected, or not
 # connected then we should check with WGet (because of Proxies)
 # whether we are connected to the internet.
-# --
-d=https://www.google.com
-if wget -q --spider $d -O /dev/null 2>/dev/null; then
-  su-exec jekyll touch $con
+#
+
+url=https://www.google.com
+if wget -q --spider "$url" -O /dev/null 2>/dev/null; then
+  su-exec jekyll touch "$connected"
   exit 0
 else
-  su-exec jekyll touch $dis
+  su-exec jekyll touch $disconnected
   exit 1
 fi
