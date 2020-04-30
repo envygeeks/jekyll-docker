@@ -9,6 +9,7 @@ COPY copy /
 
 ENV BUNDLE_HOME=/usr/local/bundle
 ENV BUNDLE_APP_CONFIG=/usr/local/bundle
+ENV BUNDLE_DISABLE_PLATFORM_WARNINGS=true
 ENV BUNDLE_BIN=/usr/local/bundle/bin
 ENV GEM_BIN=/usr/gem/bin
 ENV GEM_HOME=/usr/gem
