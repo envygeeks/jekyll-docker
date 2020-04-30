@@ -14,35 +14,7 @@ else
     bundle install --path vendor/bundle
     bundle clean
   else
-
-    # --
-    # Update Docker
-    # This is for the CI only.
-    # @private
-    # --
-    update-docker() {
-      # Only update our Docker sources, that's it.
-      sudo apt-get update -o Dir::Etc::sourceparts="-" \
-        -o Dir::Etc::sourcelist="/etc/apt/sources.list.d/docker.list" \
-        -o APT::Get::List-Cleanup="0"
-    }
-
-    # --
-    # Install Docker
-    # This is for the CI only.
-    # @private
-    # --
-    upgrade-docker() {
-      # Only upgrade Docker, nothing else, if we update.
-      sudo apt-get install --assume-yes --only-upgrade \
-        -o Dpkg::Options::="--force-confdef" \
-        -o Dpkg::Options::="--force-confold" \
-          docker-ce
-    }
-
-    # --
     sudo mkdir -p /etc/docker
-    update-docker && upgrade-docker
     json="{\n  \"experimental\": true\n}\n"
     printf "$json" | sudo tee /etc/docker/daemon.json
     sudo service docker restart
