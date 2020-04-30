@@ -68,14 +68,16 @@ env DRAFTS=false
 # --
 RUN apk --no-cache add \
   zlib-dev \
+  libffi-dev \
   build-base \
   libxml2-dev \
-  libxslt-dev \
+  imagemagick-dev \
   readline-dev \
+  libxslt-dev \
   libffi-dev \
   yaml-dev \
   zlib-dev \
-  libffi-dev \
+  vips-dev \
   cmake
 
 # --
@@ -147,11 +149,13 @@ RUN adduser  -Su 1000 -G \
     libxml2-dev \
     libxslt-dev \
     readline-dev \
+    imagemagick-dev\
     libffi-dev \
     ruby-dev \
     yaml-dev \
     zlib-dev \
     libffi-dev \
+    vips-dev \
     cmake
 <% end %>
 
