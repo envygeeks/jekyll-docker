@@ -86,6 +86,7 @@ RUN apk --no-cache add \
   yaml-dev \
   zlib-dev \
   vips-dev \
+  sqlite-dev \
   cmake
 
 #
