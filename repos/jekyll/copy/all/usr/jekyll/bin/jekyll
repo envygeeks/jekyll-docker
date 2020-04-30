@@ -14,7 +14,6 @@ if [ "$(id -u)" != "0" ]; then
   exec $BUNDLE_BIN/jekyll "$@"
 fi
 
-# --
 [ -d ".cache" ] && chown -R jekyll:jekyll .cache
 [ -d ".jekyll-cache" ] && chown -R jekyll:jekyll .jekyll-cache
 [ -d ".sass-cache" ] && chown -R jekyll:jekyll .sass-cache
