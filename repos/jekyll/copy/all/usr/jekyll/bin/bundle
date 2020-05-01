@@ -18,8 +18,8 @@ fi
 
 if [ "$1" = "install" ] || [ "$1" = "clean" ] || [ "$1" = "update" ]; then
   if [ "$(stat -c '%U' "$BUNDLE_HOME")" != "jekyll" ]; then
-    chown -R jekyll:jekyll /usr/gem/cache/bundle
     chown -R jekyll:jekyll "$BUNDLE_HOME"
+    chown -R jekyll:jekyll /usr/gem
   fi
 fi
 
