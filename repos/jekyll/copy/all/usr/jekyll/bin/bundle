@@ -1,6 +1,7 @@
 #!/bin/bash
 [ "$DEBUG" = "true" ] && set -x
 exe=/usr/local/bin/bundle
+default-gem-permissions
 set -e
 
 #
@@ -10,17 +11,6 @@ set -e
 #
 if [[ ! -f "Gemfile" ]] || [ "$(id -u)" != "0" ]; then
    exec $exe "$@"
-fi
-
-#
-# Make sure we have permissions.
-#
-
-if [ "$1" = "install" ] || [ "$1" = "clean" ] || [ "$1" = "update" ]; then
-  if [ "$(stat -c '%U' "$BUNDLE_HOME")" != "jekyll" ]; then
-    chown -R jekyll:jekyll "$BUNDLE_HOME"
-    chown -R jekyll:jekyll /usr/gem
-  fi
 fi
 
 if [ "$1" = "install" ] || [ "$1" = "update" ]; then
