@@ -30,7 +30,7 @@ jobs:
     # --
     env: "\
       DOCKER_REPO='\
-        jekyll:4.0.0 \
+        jekyll:4.0.1 \
         jekyll:stable \
         jekyll:latest \
         jekyll:pages \
@@ -43,7 +43,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        builder:4.0.0 \
+        builder:4.0.1 \
         builder:stable \
         builder:latest \
         jekyll:builder \
@@ -57,7 +57,7 @@ jobs:
   # --
   - env: "\
       DOCKER_REPO='\
-        minimal:4.0.0 \
+        minimal:4.0.1 \
         minimal:stable \
         minimal:latest \
         jekyll:minimal \
