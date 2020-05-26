@@ -26,7 +26,8 @@ if [ "$1" = "install" ] || [ "$1" = "update" ]; then
     su-exec jekyll $exe config build.nokogiri --use-system-libraries
     su-exec jekyll $exe config disable_version_check true
     unset DEBUG; su-exec jekyll $exe "$@"
-    su-exec jekyll $exe clean 2>/dev/null
+    su-exec jekyll $exe clean \
+      2>/dev/null || true
   fi
 else
   su-exec jekyll $exe "$@"
