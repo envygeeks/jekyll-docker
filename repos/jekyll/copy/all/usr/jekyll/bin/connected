@@ -14,7 +14,7 @@ disconnected=$JEKYLL_VAR_DIR/disconnected
 # whether we are connected to the internet.
 #
 
-url=https://www.google.com
+url=https://detectportal.firefox.com
 if wget -q --spider "$url" -O /dev/null 2>/dev/null; then
   su-exec jekyll touch "$connected"
   exit 0
