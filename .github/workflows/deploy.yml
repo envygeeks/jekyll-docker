@@ -18,18 +18,27 @@ jobs:
             - jekyll:latest
             - jekyll:4.0
             - jekyll:4
+            - jekyll:3.9.0
+            - jekyll:3.9
+            - jekyll:3
           -
             - builder:4.1.0
             - builder:stable
             - builder:latest
             - builder:4.0
             - builder:4
+            - builder:3.9.0
+            - builder:3.9
+            - builder:3
           -
             - minimal:4.1.0
             - minimal:stable
             - minimal:latest
             - minimal:4.0
             - minimal:4
+            - minimal:3.9.0
+            - minimal:3.9
+            - minimal:3
           - builder:pages
           - minimal:pages
           - jekyll:pages
