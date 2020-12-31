@@ -1,5 +1,5 @@
-base_image: ruby:2.7.1-alpine3.11
-user: jekyll
+base_image: ruby:2.7.2-alpine3.12
+user: palazzo
 aliases:
   latest: 4.2.0
   stable: 4.2.0
