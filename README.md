@@ -54,6 +54,19 @@ docker run --rm \
   jekyll build
 ```
 
+## Server
+
+For local development, Jekyll can be run in server mode inside the container. It will watch for changes, rebuild the site, and provide access through its included web server. You can then check the results of changes by reloading http://localhost:4000/ in a browser.
+
+#### Usage
+
+```sh
+docker run --rm \
+  --volume="$PWD:/srv/jekyll" \
+  --publish [::1]:4000:4000 \
+  jekyll/jekyll \
+  jekyll serve
+```
 ## Dependencies
 
 Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 3.8"` so that minor versions are installed if you use say image tag "3.7.3").
