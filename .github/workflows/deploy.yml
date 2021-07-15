@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - $default-branch
+  schedule:
+    - cron: 2 4 10 * *
 jobs:
   build:
     runs-on: ubuntu-latest
