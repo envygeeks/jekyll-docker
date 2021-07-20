@@ -19,7 +19,7 @@ The standard images (`jekyll/jekyll`) include a default set of "dev" packages, a
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/jekyll:Z" \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
@@ -33,7 +33,7 @@ The builder image comes with extra stuff that is not included in the standard im
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/jekyll:Z" \
   -it jekyll/builder:$JEKYLL_VERSION \
   jekyll build
 ```
@@ -49,7 +49,7 @@ The minimal image skips all the extra gems, all the extra dev dependencies and l
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/jekyll:Z" \
   -it jekyll/minimal:$JEKYLL_VERSION \
   jekyll build
 ```
@@ -62,7 +62,7 @@ For local development, Jekyll can be run in server mode inside the container. It
 
 ```sh
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/jekyll:Z" \
   --publish [::1]:4000:4000 \
   jekyll/jekyll \
   jekyll serve
@@ -78,7 +78,7 @@ If you provide a `Gemfile` and would like to update your `Gemfile.lock` you can 
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
+  --volume="$PWD:/srv/jekyll:Z" \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   bundle update
 ```
@@ -96,8 +96,8 @@ You can enable caching in Jekyll Docker by using a `docker --volume` that points
 ```sh
 export JEKYLL_VERSION=3.8
 docker run --rm \
-  --volume="$PWD:/srv/jekyll" \
-  --volume="$PWD/vendor/bundle:/usr/local/bundle" \
+  --volume="$PWD:/srv/jekyll:Z" \
+  --volume="$PWD/vendor/bundle:/usr/local/bundle:Z" \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
