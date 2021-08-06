@@ -54,6 +54,14 @@ docker run --rm \
   jekyll build
 ```
 
+#### Rootless Containers
+
+If you are using a rootless container management system, you can set the `JEKYLL_ROOTLESS` environment variable to any non-zero value. For example, you can use the following to initialize a new jekyll project in the current directory using [`podman`](https://podman.io/).
+
+```sh
+podman run -ti --rm -v .:/srv/jekyll -e JEKYLL_ROOTLESS=1 docker.io/jekyll/jekyll jekyll new .
+```
+
 ## Server
 
 For local development, Jekyll can be run in server mode inside the container. It will watch for changes, rebuild the site, and provide access through its included web server. You can then check the results of changes by reloading http://localhost:4000/ in a browser.
