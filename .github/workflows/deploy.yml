@@ -13,7 +13,7 @@ jobs:
       matrix:
         env:
           -
-            - jekyll:4.1.0
+            - jekyll:4.2.0
             - jekyll:stable
             - jekyll:latest
             - jekyll:4.0
@@ -22,7 +22,7 @@ jobs:
             - jekyll:3.9
             - jekyll:3
           -
-            - builder:4.1.0
+            - builder:4.2.0
             - builder:stable
             - builder:latest
             - builder:4.0
@@ -31,7 +31,7 @@ jobs:
             - builder:3.9
             - builder:3
           -
-            - minimal:4.1.0
+            - minimal:4.2.0
             - minimal:stable
             - minimal:latest
             - minimal:4.0
