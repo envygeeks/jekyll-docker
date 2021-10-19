@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  jekyll:
+    image: jekyll/jekyll:3.8
+    ports:
+      - "4000:4000"
+    volumes:
+      - $PWD:/srv/jekyll
+    restart: unless-stopped
+    command: jekyll serve --watch
+    expose:
+      - "4000"
