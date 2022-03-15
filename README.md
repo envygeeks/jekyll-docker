@@ -23,7 +23,14 @@ docker run --rm \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
-
+#### Quick start under Windows (cmd)
+```
+set new_site_name="my-awesome-site" && docker run --rm --volume="%CD%:/srv/jekyll" -it jekyll/jekyll jekyll new %new_site_name% && cd %new_site_name%
+```
+#### Quick start under Linux / Git Bash
+```sh
+export new_site_name="my-awesome-site" && docker run --rm --volume="$PWD:/srv/jekyll" -it jekyll/jekyll jekyll new $new_site_name && cd $new_site_name
+```
 ### Builder
 
 The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
