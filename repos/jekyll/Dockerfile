@@ -109,7 +109,7 @@ RUN apk --no-cache add \
   shadow \
   bash \
   su-exec \
-  nodejs-npm \
+  npm \
   libressl \
   yarn
 

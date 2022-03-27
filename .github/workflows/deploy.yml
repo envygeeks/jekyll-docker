@@ -2,7 +2,9 @@ name: 'Push'
 on:
   push:
     branches:
-      - master
+      - $default-branch
+  schedule:
+    - cron: 2 4 10 * *
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,19 +15,19 @@ jobs:
       matrix:
         env:
           -
-            - jekyll:4.2.0
+            - jekyll:4.2.2
             - jekyll:stable
             - jekyll:latest
             - jekyll:4.0
             - jekyll:4
           -
-            - builder:4.2.0
+            - builder:4.2.2
             - builder:stable
             - builder:latest
             - builder:4.0
             - builder:4
           -
-            - minimal:4.2.0
+            - minimal:4.2.2
             - minimal:stable
             - minimal:latest
             - minimal:4.0
@@ -34,7 +36,7 @@ jobs:
           - minimal:pages
           - jekyll:pages
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
