@@ -23,7 +23,21 @@ docker run --rm \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
-
+#### Quick start under Windows (cmd)
+```cmd
+set site_name=my-blog
+docker run --rm --volume="%CD%:/srv/jekyll" -it jekyll/jekyll sh -c "chown -R jekyll /usr/gem/ && jekyll new %site_name%" && cd %site_name%
+```
+#### Quick start under Linux / Git Bash
+If you are under linux skip `export MSYS_NO_PATHCONV=1`. It is added for compatibility. You can check [here](https://github.com/docker-archive/toolbox/issues/673).
+```sh
+export site_name="my-blog" && export MSYS_NO_PATHCONV=1
+docker run --rm \
+  --volume="$PWD:/srv/jekyll" \
+  -it jekyll/jekyll \
+  sh -c "chown -R jekyll /usr/gem/ && jekyll new $site_name" \
+  && cd $site_name
+```
 ### Builder
 
 The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
