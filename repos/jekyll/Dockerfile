@@ -86,6 +86,7 @@ RUN apk --no-cache add \
   yaml-dev \
   zlib-dev \
   vips-dev \
+  vips-tools \
   sqlite-dev \
   cmake
 
@@ -168,6 +169,7 @@ RUN adduser  -Su 1000 -G \
     zlib-dev \
     libffi-dev \
     vips-dev \
+    vips-tools \
     cmake
 <% end %>
 
