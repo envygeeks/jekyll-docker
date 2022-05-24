@@ -38,6 +38,20 @@ docker run --rm \
   sh -c "chown -R jekyll /usr/gem/ && jekyll new $site_name" \
   && cd $site_name
 ```
+
+### Quick start under VS Code
+Install this at /.devcontainer/devcontainer.json:
+
+```json
+{
+    "image": "jekyll/minimal",
+    "forwardPorts": [4000]
+}
+```
+
+Then go to the Run and Debug sidebar and click play.
+
+
 ### Builder
 
 The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
