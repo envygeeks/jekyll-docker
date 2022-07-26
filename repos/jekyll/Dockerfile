@@ -34,8 +34,6 @@ ENV JEKYLL_ENV=development
 # System
 #
 
-ENV LANG=en_US.UTF-8
-ENV LANGUAGE=en_US:en
 ENV TZ=America/Chicago
 ENV PATH="$JEKYLL_BIN:$PATH"
 ENV LC_ALL=en_US.UTF-8
@@ -75,20 +73,18 @@ env DRAFTS=false
 #
 
 RUN apk --no-cache add \
-  zlib-dev \
-  libffi-dev \
   build-base \
-  libxml2-dev \
+  cmake \
   imagemagick-dev \
-  readline-dev \
-  libxslt-dev \
   libffi-dev \
-  yaml-dev \
-  zlib-dev \
+  libxml2-dev \
+  libxslt-dev \
+  readline-dev \
+  sqlite-dev \
   vips-dev \
   vips-tools \
-  sqlite-dev \
-  cmake
+  yaml-dev \
+  zlib-dev
 
 #
 # Packages
@@ -96,23 +92,23 @@ RUN apk --no-cache add \
 #
 
 RUN apk --no-cache add \
-  linux-headers \
-  openjdk8-jre \
-  less \
-  zlib \
-  libxml2 \
-  readline \
-  libxslt \
-  libffi \
-  git \
-  nodejs \
-  tzdata \
-  shadow \
   bash \
-  su-exec \
-  npm \
+  git \
+  less \
+  libffi \
   libressl \
-  yarn
+  libxml2 \
+  libxslt \
+  linux-headers \
+  nodejs \
+  npm \
+  openjdk8-jre \
+  readline \
+  shadow \
+  su-exec \
+  tzdata \
+  yarn \
+  zlib
 
 #
 # Gems
@@ -145,7 +141,7 @@ RUN gem install jekyll -v<%= @meta.release?? \
 <% end %>
 
 RUN addgroup -Sg 1000 jekyll
-RUN adduser  -Su 1000 -G \
+RUN adduser -Su 1000 -G \
   jekyll jekyll
 
 #
@@ -155,22 +151,20 @@ RUN adduser  -Su 1000 -G \
 
 <% if @meta.name == "minimal" || @meta.name == "pages" || @meta.tag == "pages" %>
   RUN apk --no-cache del \
-    linux-headers \
-    openjdk8-jre \
-    zlib-dev \
     build-base \
+    cmake \
+    imagemagick-dev \
+    libffi-dev \
     libxml2-dev \
     libxslt-dev \
+    linux-headers \
+    openjdk8-jre \
     readline-dev \
-    imagemagick-dev\
-    libffi-dev \
     ruby-dev \
-    yaml-dev \
-    zlib-dev \
-    libffi-dev \
     vips-dev \
     vips-tools \
-    cmake
+    yaml-dev \
+    zlib-dev
 <% end %>
 
 RUN mkdir -p $JEKYLL_VAR_DIR
@@ -191,6 +185,6 @@ RUN chown -R jekyll:jekyll \
 CMD ["jekyll", "--help"]
 ENTRYPOINT ["/usr/jekyll/bin/entrypoint"]
 WORKDIR /srv/jekyll
-VOLUME  /srv/jekyll
+VOLUME /srv/jekyll
 EXPOSE 35729
 EXPOSE 4000
