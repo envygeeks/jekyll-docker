@@ -5,9 +5,12 @@ aliases:
   stable: 4.2.2
   4.0: 4.2.2
   4: 4.2.2
+  3.9.2: 3.9.2
+  3.0: 3.9.2
+  3: 3.9.2
 tags:
   4.2.2: stable
   pages: pages
 releases:
   tag:
-    pages: 3.8.5 # 05-15-2020
+    pages: 3.9.2 # 04-18-2022

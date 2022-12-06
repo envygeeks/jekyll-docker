@@ -36,6 +36,8 @@ jobs:
         jekyll:pages \
         jekyll:4.0 \
         jekyll:4 \
+        jekyll:3.0 \
+        jekyll:3 \
       '\
     "
   # --
@@ -50,6 +52,8 @@ jobs:
         builder:pages \
         builder:4.0 \
         builder:4 \
+        builder:3.0 \
+        builder:3 \
       '\
     "
   # --
@@ -64,5 +68,7 @@ jobs:
         minimal:pages \
         minimal:4.0 \
         minimal:4 \
+        minimal:3.0 \
+        minimal:3 \
       '\
     "
