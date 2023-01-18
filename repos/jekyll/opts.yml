@@ -7,7 +7,7 @@ gems:
     - jekyll-reload
     - jekyll-mentions
     - jekyll-coffeescript
-    - jekyll-sass-converter
+    - jekyll-sass-converter:'< 3'
     - jekyll-commonmark
     - jekyll-paginate
     - jekyll-compose
