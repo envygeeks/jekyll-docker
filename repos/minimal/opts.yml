@@ -1,7 +1,7 @@
 gems:
   all: &gems
     - kramdown
-    - jekyll-sass-converter
+    - jekyll-sass-converter:'< 3'
     - jekyll-coffeescript
     - minima
   group:
