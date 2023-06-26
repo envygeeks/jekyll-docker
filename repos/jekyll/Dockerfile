@@ -21,7 +21,7 @@ ENV RUBYOPT=-W0
 #
 
 ENV JEKYLL_VAR_DIR=/var/jekyll
-ENV JEKYLL_DOCKER_TAG=<%= @meta.tag?? @meta.tag : `` %>
+ENV JEKYLL_DOCKER_TAG=<%= @meta.tag %>
 ENV JEKYLL_VERSION=<%= @meta.release?? @meta.release : @meta.tag %>
 ENV JEKYLL_DOCKER_COMMIT=<%= `git rev-parse --verify HEAD`.strip %>
 ENV JEKYLL_DOCKER_NAME=<%= @meta.name %>
