@@ -61,6 +61,15 @@ env FORCE_POLLING=false
 env DRAFTS=false
 
 #
+# Alpine 3.15 is not supported by sass-embedded. Please upgrade to Alpine 3.18
+# See <https://github.com/jekyll/jekyll/issues/9381#issuecomment-1585493647>
+# How to upgrade alpine docker base images for security patches
+# See <https://stackoverflow.com/a/75407593/2477854>
+#
+
+RUN apk update && apk upgrade
+
+#
 # Packages
 # User
 #
@@ -114,14 +123,7 @@ RUN apk --no-cache add \
   libressl \
   yarn
 
-#
-# Alpine 3.15 is not supported by sass-embedded. Please upgrade to Alpine 3.18
-# See <https://github.com/jekyll/jekyll/issues/9381#issuecomment-1585493647>
-# How to upgrade alpine docker base images for security patches
-# See <https://stackoverflow.com/a/75407593/2477854>
-#
 
-RUN apk update && apk upgrade
 
 #
 # Gems

@@ -1,4 +1,4 @@
-base_image: ruby:3.1.1-alpine3.15
+base_image: ruby:3.1.1-alpine3.18
 user: jekyll
 aliases:
   latest: 4.2.2
