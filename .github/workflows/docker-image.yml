@@ -1,8 +1,7 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: $default-branch
+  - pull_request
 
 jobs:
   build:
