@@ -22,7 +22,7 @@ jobs:
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag JV-conseil/jekyll-docker:$(date +%s)
+      run: docker build . --file Dockerfile --tag jv-conseil/jekyll-docker:$(date +%s)
       
     - name: Docker Push
-      run: docker push JV-conseil/jekyll-docker
+      run: docker push jv-conseil/jekyll-docker
