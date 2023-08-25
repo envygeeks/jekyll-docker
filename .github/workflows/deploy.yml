@@ -2,7 +2,8 @@ name: 'Push'
 on:
   push:
     branches:
-      - $default-branch
+      # - $default-branch
+      - main
   schedule:
     - cron: 2 4 10 * *
 jobs:
