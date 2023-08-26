@@ -34,5 +34,6 @@ ruby --version
 sup_args=""
 exe=$BUNDLE_BIN/jekyll
 [ "$JEKYLL_DOCKER_TAG" = "pages" ] && sup_args="-r github-pages"
-[ -x "$exe" ] && exec su-exec jekyll bundle exec ruby $sup_args $exe $args
-su-exec jekyll ruby $sup_args "$GEM_BIN/jekyll" $args & wait ${!}
+[ -x "$exe" ] && exec su-exec jekyll bundle exec ruby "$sup_args" "$exe" "$args"
+su-exec jekyll ruby "$sup_args" "$GEM_BIN/jekyll" "$args" &
+wait ${!}

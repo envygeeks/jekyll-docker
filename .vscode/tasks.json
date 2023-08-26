@@ -1,0 +1,37 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "type": "shell",
+  "presentation": {
+    "panel": "new",
+    "focus": true,
+    "revealProblems": "onProblem",
+  },
+  "problemMatcher": [],
+  "tasks": [
+    {
+      "label": "dist",
+      "command": "git checkout dist && git pull origin dist && rm -vrf bin cron/record* dev gists img plist && git commit -a -S -m 'signed commit' && git push origin dist",
+      "detail": "Git push on dist branch"
+    },
+    {
+      "label": "homebrew",
+      "command": ". ./main.sh ; jv brew",
+      "detail": "Homebrew installs the stuff you need that Apple (or your Linux system) didn’t",
+      "problemMatcher": []
+    },
+    {
+      "label": "mac",
+      "osx": {
+        "command": ". ./main.sh ; _jvcl_::mac_audit ; _jvcl_::launch_monitoring_apps"
+      },
+      "detail": "Audit your mac"
+    },
+    {
+      "label": "record",
+      "command": ". ./main.sh ; jv record",
+      "detail": "Download stream"
+    }
+  ]
+}

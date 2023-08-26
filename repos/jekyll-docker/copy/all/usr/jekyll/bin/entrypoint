@@ -12,8 +12,8 @@ if [ "$JEKYLL_ROOTLESS" ]; then
   JEKYLL_GID=0
 fi
 
-: ${JEKYLL_UID:=$(id -u jekyll)}
-: ${JEKYLL_GID:=$(id -g jekyll)}
+: "${JEKYLL_UID:=$(id -u jekyll)}"
+: "${JEKYLL_GID:=$(id -g jekyll)}"
 export JEKYLL_UID
 export JEKYLL_GID
 
@@ -25,7 +25,7 @@ export JEKYLL_GID
 #   behavior on OS X.
 #
 if [ "$JEKYLL_UID" != "0" ] && [ "$JEKYLL_UID" != "$(id -u jekyll)" ]; then
-  usermod  -o -u "$JEKYLL_UID" jekyll
+  usermod -o -u "$JEKYLL_UID" jekyll
   groupmod -o -g "$JEKYLL_GID" jekyll
   chown_args=""
 
@@ -40,8 +40,8 @@ fi
 # This will most likely end up as 1
 #
 if [ "$JEKYLL_ROOTLESS" ]; then
-  usermod  -o -u $JEKYLL_UID jekyll
-  groupmod -o -g $JEKYLL_GID jekyll
+  usermod -o -u "$JEKYLL_UID" jekyll
+  groupmod -o -g "$JEKYLL_GID" jekyll
 fi
 
 exec "$@"

@@ -15,9 +15,11 @@ jobs:
           - jekyll:pages
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-ruby@v1
+      - name: 'Setup Ruby'
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.x'
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
       - run: bundle install
       - run: |
           echo $'{\n    "experimental": true\n}' | \
