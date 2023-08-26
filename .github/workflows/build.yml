@@ -18,10 +18,11 @@ jobs:
     strategy:
       matrix:
         env:
-          - jekyll:latest
-          - builder:latest
-          - minimal:latest
-          - jekyll:pages
+          # - jekyll:latest
+          # - builder:latest
+          # - minimal:latest
+          # - jekyll:pages
+          - jekyll-docker:latest
 
     steps:
       - uses: actions/checkout@v3
