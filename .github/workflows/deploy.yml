@@ -50,11 +50,12 @@ jobs:
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - run: bundle install
-      - run: |
+
+      - name: "Docker Experimental"
+        run: |
           echo $'{\n    "experimental": true\n}' | \
             sudo tee /etc/docker/daemon.json
           sudo systemctl restart docker
-        name: "Docker Experimental"
 
       # - name: 'docker login'
       #   run: |
