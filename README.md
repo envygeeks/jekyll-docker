@@ -1,10 +1,8 @@
-[![Github Workflow Status](https://img.shields.io/github/workflow/status/envygeeks/jekyll-docker/Push?style=for-the-badge)](https://github.com/envygeeks/jekyll-docker/actions) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate)
-[![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]()
-[![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
+[![Github Workflow Status](https://img.shields.io/github/workflow/status/envygeeks/jekyll-docker/Push?style=for-the-badge)](https://github.com/envygeeks/jekyll-docker/actions) [![Donate](https://img.shields.io/badge/DONATE-MONEY-yellow.svg?style=for-the-badge)](https://envygeeks.io#donate) [![Docker Stars](https://img.shields.io/docker/stars/jekyll/jekyll.svg?style=for-the-badge)]() [![Docker Pulls](https://img.shields.io/docker/pulls/jekyll/jekyll.svg?style=for-the-badge)]()
 
 # Jekyll Docker
 
-Jekyll Docker is a software image that has Jekyll and many of its dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit <https://docker.com>, and if you would like to know more about Jekyll, you can visit <https://github.com/jekyll/jekyll>
+Jekyll Docker is a software image that has Jekyll and many of its dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit https://docker.com, and if you would like to know more about Jekyll, you can visit https://github.com/jekyll/jekyll
 
 ## Image Types
 
@@ -25,18 +23,13 @@ docker run --rm \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
-
 #### Quick start under Windows (cmd)
-
 ```cmd
 set site_name=my-blog
 docker run --rm --volume="%CD%:/srv/jekyll" -it jekyll/jekyll sh -c "chown -R jekyll /usr/gem/ && jekyll new %site_name%" && cd %site_name%
 ```
-
 #### Quick start under Linux / Git Bash
-
 If you are under linux skip `export MSYS_NO_PATHCONV=1`. It is added for compatibility. You can check [here](https://github.com/docker-archive/toolbox/issues/673).
-
 ```sh
 export site_name="my-blog" && export MSYS_NO_PATHCONV=1
 docker run --rm \
@@ -45,7 +38,6 @@ docker run --rm \
   sh -c "chown -R jekyll /usr/gem/ && jekyll new $site_name" \
   && cd $site_name
 ```
-
 ### Builder
 
 The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
@@ -86,7 +78,7 @@ podman run -ti --rm -v .:/srv/jekyll -e JEKYLL_ROOTLESS=1 docker.io/jekyll/jekyl
 
 ## Server
 
-For local development, Jekyll can be run in server mode inside the container. It will watch for changes, rebuild the site, and provide access through its included web server. You can then check the results of changes by reloading <http://localhost:4000/> in a browser.
+For local development, Jekyll can be run in server mode inside the container. It will watch for changes, rebuild the site, and provide access through its included web server. You can then check the results of changes by reloading http://localhost:4000/ in a browser.
 
 #### Usage
 
@@ -97,7 +89,6 @@ docker run --rm \
   jekyll/jekyll \
   jekyll serve
 ```
-
 ## Dependencies
 
 Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 3.8"` so that minor versions are installed if you use say image tag "3.7.3").
@@ -132,7 +123,6 @@ docker run --rm \
   -it jekyll/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
-
 ***The root of the cache volume (in this case vendor) must also be excluded from the Jekyll build via the `_config.yml` exclude array setting.***
 
 ## Configuration
@@ -151,7 +141,7 @@ If you would like to know the CLI options for Jekyll, you can visit [Jekyll's He
 
 ## Packages
 
-You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit <https://pkgs.alpinelinux.org>. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
+You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit https://pkgs.alpinelinux.org. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
 
 ## Building
 
@@ -159,5 +149,5 @@ You can install system packages by providing a file named `.apk` with one packag
 script/build
 ```
 
+[1]: https://travis-ci.org/jekyll/docker
 [2]: http://jekyllrb.com/docs/configuration/#build-command-options
-
