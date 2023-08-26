@@ -7,8 +7,8 @@
 <!-- omit in toc -->
 # Jekyll Docker
 
-![Docker Pulls](https://img.shields.io/docker/pulls/jvconseil/jekyll-docker?logo=docker)
-![Docker Stars](https://img.shields.io/docker/stars/jvconseil/jekyll-docker?logo=docker&color=orange)
+[![Docker Pulls](https://img.shields.io/docker/pulls/jvconseil/jekyll-docker?logo=docker)](https://hub.docker.com/r/jvconseil/jekyll-docker)
+[![Docker Stars](https://img.shields.io/docker/stars/jvconseil/jekyll-docker?logo=docker&color=orange)](https://hub.docker.com/r/jvconseil/jekyll-docker)
 [![Deploy](https://github.com/JV-conseil/jekyll-docker/actions/workflows/deploy.yml/badge.svg)](https://github.com/JV-conseil/jekyll-docker/actions/workflows/deploy.yml)
 ![visitors](https://visitor-badge.laobi.icu/badge?page_id=JV-conseil.jekyll-docker)
 [![License EUPL 1.2](https://img.shields.io/badge/License-EUPL--1.2-blue.svg)](LICENSE)
