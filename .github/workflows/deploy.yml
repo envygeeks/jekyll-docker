@@ -62,18 +62,18 @@ jobs:
       #       --username ${{ secrets.DOCKER_USERNAME }} \
       #       --password-stdin
 
-      - name: "Login to Docker Hub"
+      - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: "docker build"
-        run: bundle exec docker-template build $DOCKER_REPO --no-push --force --squash
+      - run: bundle exec docker-template build $DOCKER_REPO --no-push --force --squash
+        env:
+          RUBYOPT: "-W0"
+          DOCKER_REPO: "${{join(matrix.env, ' ')}}"
 
-      - name: "docker push"
-        run: bundle exec docker-template push $DOCKER_REPO
-
+      - run: bundle exec docker-template push $DOCKER_REPO
         env:
           RUBYOPT: "-W0"
           DOCKER_REPO: "${{join(matrix.env, ' ')}}"
