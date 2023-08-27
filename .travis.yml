@@ -7,42 +7,37 @@ os: linux
 cache:
   bundler: true
   directories:
-  - vendor/bundle
+    - vendor/bundle
 branches:
   only:
-  - main
+    - main
 env:
   global:
-  - DOCKER_EMAIL=contact@jv-conseil.net
-  - DOCKER_USERNAME=jvconseil
-  # - secure: "\
-  #     Vp8S6Pevc4pidnNM1NZx/1rCckOFc5C90a/0c6F/fIhGiOfl3o3yaUBKqbBLNTYxYCH8J0Hko\
-  #     S/Y5Xs2K5XMlsnQXXxeBQntDVMS6XX5q7j65EcK+bRNUxOo2A51rw0jUmPDNa2i7g90sNExjW\
-  #     XYh03nFe6cbXXHrLdrOt4+A4I=
-  #   "
+    - DOCKER_EMAIL=contact@jv-conseil.net
+    - DOCKER_USERNAME=jvconseil
 jobs:
   include:
-  - script: true
-    stage: precache
-  - stage: build
+    - script: true
+      stage: precache
+    - stage: build
     # --
-    # jekyll/jekyll
+    # jvconseil/jekyll
     # --
-    # env: "\
-    #   DOCKER_REPO='\
-    #     jekyll:4.3.2 \
-    #     jekyll:stable \
-    #     jekyll:latest \
-    #     jekyll:pages \
-    #     jekyll:4.0 \
-    #     jekyll:4 \
-    #   '\
-    # "
-  # --
-  # jvconseil/jekyll-docker
-  # --
-  - env: "\
+    env: "\
       DOCKER_REPO='\
+        jekyll:4.3.2 \
+        jekyll:stable \
+        jekyll:latest \
+        jekyll:pages \
+        jekyll:4.0 \
+        jekyll:4 \
+      '\
+    "
+    # --
+    # jvconseil/jekyll-docker
+    # --
+    - env: "\
+        DOCKER_REPO='\
         jekyll-docker:4.3.2 \
         jekyll-docker:stable \
         jekyll-docker:latest \
@@ -50,19 +45,19 @@ jobs:
         jekyll-docker:pages \
         jekyll-docker:4.0 \
         jekyll-docker:4 \
+        '\
+        "
+  # --
+  # jvconseil/jekyll-minimal
+  # --
+  - env: "\
+      DOCKER_REPO='\
+        jekyll-minimal:4.3.2 \
+        jekyll-minimal:stable \
+        jekyll-minimal:latest \
+        jvconseil:jekyll-minimal \
+        jekyll-minimal:pages \
+        jekyll-minimal:4.0 \
+        jekyll-minimal:4 \
       '\
     "
-  # --
-  # jekyll/minimal
-  # --
-  # - env: "\
-  #     DOCKER_REPO='\
-  #       minimal:4.3.2 \
-  #       minimal:stable \
-  #       minimal:latest \
-  #       jekyll:minimal \
-  #       minimal:pages \
-  #       minimal:4.0 \
-  #       minimal:4 \
-  #     '\
-  #   "

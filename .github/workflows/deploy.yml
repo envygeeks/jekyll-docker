@@ -31,13 +31,13 @@ jobs:
             - jekyll-docker:4.0
             - jekyll-docker:4
           # -
-          #   - minimal:4.3.2
-          #   - minimal:stable
-          #   - minimal:latest
-          #   - minimal:4.0
-          #   - minimal:4
+          #   - jekyll-minimal:4.3.2
+          #   - jekyll-minimal:stable
+          #   - jekyll-minimal:latest
+          #   - jekyll-minimal:4.0
+          #   - jekyll-minimal:4
           # - jekyll-docker:pages
-          # - minimal:pages
+          # - jekyll-minimal:pages
           # - jekyll:pages
 
     steps:
@@ -46,7 +46,6 @@ jobs:
       - name: "Setup Ruby"
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - run: bundle install

@@ -9,21 +9,30 @@ env:
     JEKYLL_ENV: production
 gems:
   all: &gems
-    - s3_website
     - html-proofer
-    - jekyll-sitemap
-    - jekyll-mentions
+    - jekyll-avatar
     - jekyll-coffeescript
-    - jekyll-sass-converter
-    - jekyll-redirect-from
-    - jekyll-paginate
     - jekyll-compose
-    - jekyll-feed
+    - jekyll-default-layout
     - jekyll-docs
-    - RedCloth
-    - kramdown
+    - jekyll-feed
+    - jekyll-include-cache
+    - jekyll-last-modified-at
+    - jekyll-mentions
+    - jekyll-optional-front-matter
+    - jekyll-paginate
+    - jekyll-readme-index
+    - jekyll-redirect-from
+    - jekyll-relative-links
+    - jekyll-sass-converter
+    - jekyll-seo-tag
+    - jekyll-sitemap
+    - jekyll-titles-from-headings
     - jemoji
+    - kramdown
     - minima
+    - RedCloth
+    - s3_website
   group:
     pages:
       - *gems

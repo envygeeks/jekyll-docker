@@ -16,8 +16,7 @@ jobs:
       matrix:
         env:
           # - jekyll:latest
-          # - builder:latest
-          # - minimal:latest
+          # - jekyll-minimal:latest
           # - jekyll:pages
           - jekyll-docker:latest
 
@@ -27,7 +26,6 @@ jobs:
       - name: "Setup Ruby"
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.0
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
 
       - run: bundle install

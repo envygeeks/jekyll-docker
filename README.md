@@ -22,21 +22,21 @@ Jekyll Docker is a software image that has Jekyll and many of its dependencies r
 
 ## Image Types
 
-* `jekyll/jekyll`: Default image.
-* `jekyll/minimal`: Very minimal image.
+* `jvconseil/jekyll`: Default image.
+* `jvconseil/jekyll-minimal`: Very minimal image.
 * `jvconseil/jekyll-docker`: Includes tools.
 
 ### Standard
 
-The standard images (`jekyll/jekyll`) include a default set of "dev" packages, along with Node.js, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
+The standard images (`jvconseil/jekyll`) include a default set of "dev" packages, along with Node.js, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
 
 #### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export JEKYLL_VERSION=4.3.2
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  -it jvconseil/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
 
@@ -44,7 +44,7 @@ docker run --rm \
 
 ```cmd
 set site_name=my-blog
-docker run --rm --volume="%CD%:/srv/jekyll" -it jekyll/jekyll sh -c "chown -R jekyll /usr/gem/ && jekyll new %site_name%" && cd %site_name%
+docker run --rm --volume="%CD%:/srv/jekyll" -it jvconseil/jekyll sh -c "chown -R jekyll /usr/gem/ && jekyll new %site_name%" && cd %site_name%
 ```
 
 #### Quick start under Linux / Git Bash
@@ -55,7 +55,7 @@ If you are under linux skip `export MSYS_NO_PATHCONV=1`. It is added for compati
 export site_name="my-blog" && export MSYS_NO_PATHCONV=1
 docker run --rm \
   --volume="$PWD:/srv/jekyll" \
-  -it jekyll/jekyll \
+  -it jvconseil/jekyll \
   sh -c "chown -R jekyll /usr/gem/ && jekyll new $site_name" \
   && cd $site_name
 ```
@@ -67,7 +67,7 @@ The builder image comes with extra stuff that is not included in the standard im
 #### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export JEKYLL_VERSION=4.3.2
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
   -it jvconseil/jekyll-docker:$JEKYLL_VERSION \
@@ -83,10 +83,10 @@ The minimal image skips all the extra gems, all the extra dev dependencies and l
 ***You will need to provide a `.apk` file if you intend to use anything like Nokogiri or otherwise, we do not install any development headers or dependencies so C based gems will fail to install.***
 
 ```sh
-export JEKYLL_VERSION=3.8
+export JEKYLL_VERSION=4.3.2
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
-  -it jekyll/minimal:$JEKYLL_VERSION \
+  -it jvconseil/jekyll-minimal:$JEKYLL_VERSION \
   jekyll build
 ```
 
@@ -95,7 +95,7 @@ docker run --rm \
 If you are using a rootless container management system, you can set the `JEKYLL_ROOTLESS` environment variable to any non-zero value. For example, you can use the following to initialize a new jekyll project in the current directory using [`podman`](https://podman.io/).
 
 ```sh
-podman run -ti --rm -v .:/srv/jekyll -e JEKYLL_ROOTLESS=1 docker.io/jekyll/jekyll jekyll new .
+podman run -ti --rm -v .:/srv/jekyll -e JEKYLL_ROOTLESS=1 docker.io/jvconseil/jekyll jekyll new .
 ```
 
 ## Server
@@ -108,23 +108,23 @@ For local development, Jekyll can be run in server mode inside the container. It
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
   --publish [::1]:4000:4000 \
-  jekyll/jekyll \
+  jvconseil/jekyll \
   jekyll serve
 ```
 
 ## Dependencies
 
-Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 3.8"` so that minor versions are installed if you use say image tag "3.7.3").
+Jekyll Docker will attempt to install any dependencies that you list inside of your `Gemfile`, matching the versions you have in your `Gemfile.lock`, including Jekyll if you have a version that does not match the version of the image you are using (you should be doing `gem "jekyll", "~> 4.3.2"` so that minor versions are installed if you use say image tag "3.7.3").
 
 ### Updating
 
 If you provide a `Gemfile` and would like to update your `Gemfile.lock` you can run
 
 ```sh
-export JEKYLL_VERSION=3.8
+export JEKYLL_VERSION=4.3.2
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  -it jvconseil/jekyll:$JEKYLL_VERSION \
   bundle update
 ```
 
@@ -139,11 +139,11 @@ You can enable caching in Jekyll Docker by using a `docker --volume` that points
 ### Usage
 
 ```sh
-export JEKYLL_VERSION=3.8
+export JEKYLL_VERSION=4.3.2
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
   --volume="$PWD/vendor/bundle:/usr/local/bundle:Z" \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  -it jvconseil/jekyll:$JEKYLL_VERSION \
   jekyll build
 ```
 
@@ -166,12 +166,6 @@ If you would like to know the CLI options for Jekyll, you can visit [Jekyll's He
 ## Packages
 
 You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit <https://pkgs.alpinelinux.org>. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
-
-## Building
-
-```sh
-script/build
-```
 
 ## Sponsorship
 

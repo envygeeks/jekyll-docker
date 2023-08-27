@@ -11,27 +11,14 @@
   "problemMatcher": [],
   "tasks": [
     {
-      "label": "dist",
-      "command": "git checkout dist && git pull origin dist && rm -vrf bin cron/record* dev gists img plist && git commit -a -S -m 'signed commit' && git push origin dist",
-      "detail": "Git push on dist branch"
+      "label": "build",
+      "command": "bundle exec docker-template build jekyll-docker:latest --no-push --force --squash",
+      "detail": "docker-template build jekyll-docker:latest"
     },
     {
-      "label": "homebrew",
-      "command": ". ./main.sh ; jv brew",
-      "detail": "Homebrew installs the stuff you need that Apple (or your Linux system) didn’t",
-      "problemMatcher": []
+      "label": "bundle update",
+      "command": ".bash/bundle.sh",
+      "detail": "update bundler and gems"
     },
-    {
-      "label": "mac",
-      "osx": {
-        "command": ". ./main.sh ; _jvcl_::mac_audit ; _jvcl_::launch_monitoring_apps"
-      },
-      "detail": "Audit your mac"
-    },
-    {
-      "label": "record",
-      "command": ". ./main.sh ; jv record",
-      "detail": "Download stream"
-    }
   ]
 }
