@@ -1,6 +1,6 @@
 aliases:
-  builder: jvconseil/jekyll-builder:latest
-  minimal: jvconseil/jekyll-minimal:latest
+  builder: jekyll/builder:latest
+  minimal: jekyll/minimal:latest
 gems:
   all:
     - html-proofer
