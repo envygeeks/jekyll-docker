@@ -18,15 +18,29 @@
 [![Follow JVconseil on Mastodon](https://img.shields.io/mastodon/follow/110950122046692405)](https://mastodon.social/@JVconseil "Follow JVconseil@mastodon.social on Mastodon")
 [![Follow JV conseil on GitHub](https://img.shields.io/github/followers/JV-conseil?label=JV-conseil&style=social)](https://github.com/JV-conseil "Follow JV-conseil on GitHub")
 
-Jekyll Docker is a software image that has Jekyll and many of its dependencies ready to use for you in an encapsulated format.  It includes a default set of gems, different image types with different extra packages, and wrappers to make Jekyll run more smoothly from start to finish for most Jekyll users. If you would like to know more about Docker you can visit <https://docker.com>, and if you would like to know more about Jekyll, you can visit <https://github.com/jekyll/jekyll>
+Jekyll Docker is a software image that has Jekyll and many of its dependencies ready to use for you in an encapsulated format. It includes a default set of gems, wrappers and extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI. If you would like to know more about Docker you can visit <https://docker.com>, and if you would like to know more about Jekyll, you can visit <https://github.com/jekyll/jekyll>
 
 ## Image Types
 
-* `jvconseil/jekyll`: Default image.
-* `jvconseil/jekyll-minimal`: Very minimal image.
-* `jvconseil/jekyll-docker`: Includes tools.
+1. `jvconseil/jekyll-docker`: Includes tools.
+2. <s>`jvconseil/jekyll`: Standard image.</s>
+3. <s>`jvconseil/jekyll-minimal`: Very minimal image.</s>
 
-### Standard
+### Builder
+
+The builder image (`jvconseil/jekyll-docker`) comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
+
+#### Usage
+
+```sh
+export JEKYLL_VERSION=4.3.2
+docker run --rm \
+  --volume="$PWD:/srv/jekyll:Z" \
+  -it jvconseil/jekyll-docker:$JEKYLL_VERSION \
+  jekyll build
+```
+
+### Standard (unsupported)
 
 The standard images (`jvconseil/jekyll`) include a default set of "dev" packages, along with Node.js, and other stuff that makes Jekyll easy.  It also includes a bunch of default gems that the community wishes us to maintain on the image.
 
@@ -60,23 +74,9 @@ docker run --rm \
   && cd $site_name
 ```
 
-### Builder
+### Minimal (unsupported)
 
-The builder image comes with extra stuff that is not included in the standard image, like `lftp`, `openssh` and other extra packages meant to be used by people who are deploying their Jekyll builds to another server with a CI.
-
-#### Usage
-
-```sh
-export JEKYLL_VERSION=4.3.2
-docker run --rm \
-  --volume="$PWD:/srv/jekyll:Z" \
-  -it jvconseil/jekyll-docker:$JEKYLL_VERSION \
-  jekyll build
-```
-
-### Minimal
-
-The minimal image skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
+The minimal image (`jvconseil/jekyll-minimal`) skips all the extra gems, all the extra dev dependencies and leaves a very small image to download.  This is intended for people who do not need anything extra but Jekyll.
 
 #### Usage
 
