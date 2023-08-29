@@ -1,13 +1,14 @@
-base_image: ruby:3.1.1-alpine3.15
+base_image: ruby:3.2.2-alpine3.18
 user: jekyll
 aliases:
-  latest: 4.2.2
-  stable: 4.2.2
-  4.0: 4.2.2
-  4: 4.2.2
+  latest: 4.3.2
+  stable: 4.3.2
+  4.0: 4.3.2
+  4: 4.3.2
 tags:
-  4.2.2: stable
+  4.3.2: stable
   pages: pages
 releases:
   tag:
-    pages: 3.8.5 # 05-15-2020
+    # pages: 3.8.5 # 05-15-2020
+    pages: 3.9.0 # 27.08.2023
