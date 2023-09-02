@@ -167,6 +167,10 @@ If you would like to know the CLI options for Jekyll, you can visit [Jekyll's He
 
 You can install system packages by providing a file named `.apk` with one package per line.  If you need to find out what the package names are for a given command you wish to use you can visit <https://pkgs.alpinelinux.org>. ***We provide many dependencies for most Ruby stuff by default for `builder` and standard images.  This includes `ruby-dev`, `xml`, `xslt`, `git` and other stuff that most Ruby packages might need.***
 
+## Credits
+
+This Docker image is inspired by and builds on functionality in <https://github.com/envygeeks/jekyll-docker>, with both feature and version improvements.
+
 ## Sponsorship
 
 If this project helps you, you can offer me a cup of coffee ☕️ :-)
