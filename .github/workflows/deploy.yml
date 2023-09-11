@@ -36,7 +36,7 @@ jobs:
           - minimal:pages
           - jekyll:pages
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.x'
