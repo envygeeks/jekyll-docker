@@ -85,7 +85,7 @@ For local development, Jekyll can be run in server mode inside the container. It
 ```sh
 docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
-  --publish [::1]:4000:4000 \
+  --publish '[::1]:4000:4000' \
   jekyll/jekyll \
   jekyll serve
 ```
