@@ -1,0 +1,7 @@
+title: Jekyll Docker Fixture
+description: A tiny fixture site used by the image smoke tests.
+url: ""
+baseurl: ""
+markdown: kramdown
+exclude:
+  - README.md
