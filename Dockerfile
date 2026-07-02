@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.7
+# syntax=docker/dockerfile:1
 
 ARG BASE_IMAGE=ruby:3.4
 FROM ${BASE_IMAGE}
