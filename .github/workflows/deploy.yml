@@ -1,4 +1,5 @@
 name: Push Images
+
 on:
   push:
     branches:
@@ -6,22 +7,72 @@ on:
   schedule:
     - cron: 2 4 10 * *
   workflow_dispatch:
+
 concurrency:
   group: push-images-${{ github.ref }}
   cancel-in-progress: false
+
 permissions:
   contents: read
+
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
-      - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
       - uses: actions/checkout@v4
       - run: script/test
-      - uses: docker/login-action@v4
-        with:
+
+  publish:
+    name: Publish ${{ matrix.target }}
+    needs: test
+    uses: docker/github-builder/.github/workflows/bake.yml@v1
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: jekyll
+            image: jekyll/jekyll
+            tags: |
+              type=raw,value=latest
+              type=raw,value=4.4.1
+              type=raw,value=4.4
+              type=raw,value=4
+          - target: builder
+            image: jekyll/builder
+            tags: |
+              type=raw,value=latest
+              type=raw,value=4.4.1
+              type=raw,value=4.4
+              type=raw,value=4
+          - target: minimal
+            image: jekyll/minimal
+            tags: |
+              type=raw,value=latest
+              type=raw,value=4.4.1
+              type=raw,value=4.4
+              type=raw,value=4
+          - target: pages
+            image: jekyll/jekyll
+            tags: |
+              type=raw,value=pages
+    with:
+      output: image
+      push: true
+      target: ${{ matrix.target }}
+      set: |
+        ${{ matrix.target }}.platform=linux/amd64,linux/arm64
+      cache: true
+      cache-mode: max
+      cache-scope: ${{ matrix.target }}
+      meta-images: ${{ matrix.image }}
+      meta-tags: ${{ matrix.tags }}
+      meta-flavor: latest=false
+      sign: false
+    secrets:
+      registry-auths: |
+        - registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      - run: docker buildx bake --push --set '*.platform=linux/amd64,linux/arm64'
