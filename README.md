@@ -37,6 +37,19 @@ docker run --rm \
   jekyll serve --host 0.0.0.0 --livereload
 ```
 
+On Docker Desktop for Windows or other bind mount setups
+where host file changes do not trigger rebuilds, use
+Jekyll's polling watcher:
+
+```sh
+docker run --rm \
+  --volume "$PWD:/srv/jekyll" \
+  --publish 4000:4000 \
+  --publish 35729:35729 \
+  jekyll/jekyll \
+  jekyll serve --host 0.0.0.0 --livereload --force_polling
+```
+
 Run Bundler explicitly when your project has a `Gemfile`:
 
 ```sh
