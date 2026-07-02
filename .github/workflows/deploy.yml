@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - docker-bake.hcl
+      - .github/workflows/deploy.yml
+      - Dockerfile
   schedule:
     - cron: 2 4 10 * *
   workflow_dispatch:
