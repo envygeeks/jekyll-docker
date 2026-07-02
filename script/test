@@ -58,6 +58,8 @@ for index in "${!targets[@]}"; do
   docker exec "$container" ruby --version
   docker exec "$container" bundle --version
   docker exec "$container" jekyll --version
+  docker exec "$container" sh -lc 'command -v jekyll'
+  docker exec "$container" sh -lc 'jekyll --version'
   docker exec "$container" node --version
   docker exec "$container" gem --version
 

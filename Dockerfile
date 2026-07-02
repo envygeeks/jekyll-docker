@@ -17,6 +17,15 @@ ENV \
   JEKYLL_ENV=${JEKYLL_ENV} \
   JEKYLL_VERSION=${JEKYLL_VERSION}
 
+RUN printf '%s\n' \
+  'if [ -n "${GEM_HOME:-}" ]; then' \
+  '  case ":${PATH}:" in' \
+  '    *":${GEM_HOME}/bin:"*) ;;' \
+  '    *) export PATH="${GEM_HOME}/bin:${PATH}" ;;' \
+  '  esac' \
+  'fi' \
+  > /etc/profile.d/ruby-gems-path.sh
+
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends ${APT_PACKAGES} \
