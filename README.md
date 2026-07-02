@@ -79,6 +79,17 @@ docker run --rm \
   jekyll build
 ```
 
+For rootless Podman, do not pass Docker's `--user`
+flag. Run the image as-is so Podman maps container root to
+your host user:
+
+```sh
+podman run --rm \
+  --volume "$PWD:/srv/jekyll" \
+  docker.io/jekyll/jekyll \
+  jekyll build
+```
+
 ## Custom System Packages
 
 The images do not install operating-system packages at
