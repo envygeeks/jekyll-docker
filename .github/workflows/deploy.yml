@@ -37,8 +37,8 @@ jobs:
         run: |
           target="${{ matrix.target }}"
           platform="${{ matrix.platform }}"
-          tag="${GITHUB_SHA::7}-${arch}"
           arch="${platform##*/}"
+          tag="${GITHUB_SHA::7}-${arch}"
 
           [ "$target" = "pages" ] && tag="pages-${tag}"
           docker buildx bake "$target" --push \
@@ -70,8 +70,8 @@ jobs:
         run: |
           target="${{ matrix.target }}"
           platform="${{ matrix.platform }}"
-          tag="${GITHUB_SHA::7}-${arch}"
           arch="${platform##*/}"
+          tag="${GITHUB_SHA::7}-${arch}"
 
           image="jekyll/jekyll:latest"
           if [ "$target" = "pages" ]; then
@@ -82,8 +82,7 @@ jobs:
           ref="jekyll/jekyll:$tag"
           docker pull --platform "$platform" "$ref"
           docker tag "$ref" "$image"
-          script/test "$target" \
-            "$arch"
+          script/test "$target" "$arch"
 
   promote:
     name: Promote ${{ matrix.target }}
