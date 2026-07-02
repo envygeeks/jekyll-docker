@@ -146,8 +146,14 @@ jobs:
           for final_tag in $tags; do
             docker buildx imagetools inspect "jekyll/jekyll:${final_tag}"
           done
-      - uses: regclient/actions/regctl-installer@v0.1.0
-      - uses: regclient/actions/regctl-login@v0.1.0
+      - uses: regclient/actions/regctl-installer@1b705e32d40851370799ea5814e83d0a5f6a70dc
+        with:
+          release: v0.11.5
+      - name: Verify Regctl
+        run: |
+          regctl_path="$(command -v regctl)"
+          echo "c93aa7638749f5aaac1a8e01787321889c78f0101809bb2880343478d0ba0467  $regctl_path" | sha256sum --check
+      - uses: regclient/actions/regctl-login@1b705e32d40851370799ea5814e83d0a5f6a70dc
         with:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
@@ -156,6 +162,5 @@ jobs:
         run: |
           tag="${GITHUB_SHA::7}"
           [ "${{ matrix.target }}" = "pages" ] && tag="pages-${tag}"
-
           regctl tag delete --ignore-missing "jekyll/jekyll:${tag}-amd64"
           regctl tag delete --ignore-missing "jekyll/jekyll:${tag}-arm64"
