@@ -11,9 +11,12 @@ pattern of running as root by default.
 | Image | Purpose |
 | --- | --- |
 | `jekyll/jekyll` | Default image with Jekyll and common community gems. |
-| `jekyll/builder` | Default image plus deployment tools such as `rsync`, `lftp`, and `openssh-client`. |
-| `jekyll/minimal` | Smaller image with Jekyll and a minimal gem set. |
 | `jekyll/jekyll:pages` | GitHub Pages-compatible image using versions from `docker-bake.hcl`. |
+
+`jekyll/builder` and `jekyll/minimal` are archived and
+no longer built or published. Their final release was
+`4.4.1`; existing `latest`, `4`, and `4.4` tags for those
+images should be treated as aliases of that final release.
 
 ## Usage
 
@@ -90,9 +93,9 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 ```
 
-The images include Node.js. Corepack package managers
-are configured per target in `docker-bake.hcl`; the default,
-builder, and minimal targets currently include pnpm.
+The default image includes Node.js and pnpm. Corepack
+package managers are configured per target in
+`docker-bake.hcl`.
 
 ## Local Development
 
@@ -106,15 +109,14 @@ Build and load a single target locally:
 
 ```sh
 docker buildx bake --load jekyll
-docker buildx bake --load builder
-docker buildx bake --load minimal
 docker buildx bake --load pages
 ```
 
 Run the smoke test suite:
 
 ```sh
-script/test
+script/test jekyll amd64
+script/test pages amd64
 ```
 
 Refresh GitHub Pages versions in `docker-bake.hcl`:

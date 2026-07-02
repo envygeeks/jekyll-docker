@@ -10,7 +10,25 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - jekyll
+          - pages
+        arch:
+          - amd64
+          - arm64
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
-      - run: script/test
+      - name: Build
+        run: |
+          image="jekyll/jekyll:latest"
+          [ "${{ matrix.target }}" = "pages" ] && image="jekyll/jekyll:pages"
+
+          docker buildx bake "${{ matrix.target }}" --load \
+            --set "${{ matrix.target }}.platform=linux/${{ matrix.arch }}" \
+            --set "${{ matrix.target }}.tags=$image"
+      - run: script/test "${{ matrix.target }}" "${{ matrix.arch }}"

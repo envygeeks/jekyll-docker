@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-cd "$root"
-
-targets=(jekyll builder minimal pages)
-images=(
-  jekyll/jekyll:latest
-  jekyll/builder:latest
-  jekyll/minimal:latest
-  jekyll/jekyll:pages
-)
-
-docker buildx bake --load "${targets[@]}"
-
-container=""
 tmp_dir=""
+arch="${2:-}"
+target="${1:-}"
+container=""
+
+[ -n "$target" ] && [ -n "$arch" ] || {
+  printf 'usage: script/test <target> <arch>\n' >&2
+  exit 1
+}
+
+image="jekyll/jekyll:latest"
+if [ "$target" = "pages" ]
+  then image="jekyll/jekyll:pages"
+fi
 
 cleanup() {
   if [ -n "$container" ]; then
@@ -28,48 +27,42 @@ cleanup() {
     tmp_dir=""
   fi
 }
+
 trap cleanup EXIT
+tmp_dir="$(mktemp -d)"
+cp -R test/fixtures/blog/. "$tmp_dir/"
 
-for index in "${!targets[@]}"; do
-  image="${images[$index]}"
-  target="${targets[$index]}"
-  tmp_dir="$(mktemp -d)"
+container="$(
+  docker run --detach \
+  --platform="linux/$arch" \
+  --env="TARGET=$target" \
+  --volume="$tmp_dir:/srv/jekyll" "$image" \
+  sh -c 'echo "ready: $TARGET"; exec sleep infinity'
+)"
 
-  cp -R test/fixtures/blog/. "$tmp_dir/"
-
-  container="$(
-    docker run --detach \
-    --env="TARGET=$target" \
-    --volume="$tmp_dir:/srv/jekyll" \
-    "$image" \
-    sh -c 'echo "ready: $TARGET"; exec sleep infinity'
-  )"
-
-  logs=""
-  for _ in {1..20}; do
-    logs="$(docker logs "$container")"
-    [[ "$logs" == *"ready: $target"* ]] && break
-    sleep 0.25
-  done
-
-  printf '%s\n' "$logs"
-  [[ "$logs" == *"ready: $target"* ]]
-
-  docker exec "$container" ruby --version
-  docker exec "$container" bundle --version
-  docker exec "$container" jekyll --version
-  docker exec "$container" sh -lc 'command -v jekyll'
-  docker exec "$container" sh -lc 'jekyll --version'
-  docker exec "$container" node --version
-  docker exec "$container" gem --version
-
-  docker exec \
-    --env=HOME=/srv/jekyll \
-    --user="$(id -u):$(id -g)" \
-    "$container" \
-    jekyll build
-
-  test -f "$tmp_dir/_site/index.html"
-  test -f "$tmp_dir/_site/about/index.html"
-  cleanup
+logs=""
+for _ in {1..20}; do
+  logs="$(docker logs "$container")"
+  [[ "$logs" == *"ready: $target"* ]] && break
+  sleep 0.25
 done
+
+printf '%s\n' "$logs"
+[[ "$logs" == *"ready: $target"* ]]
+
+docker exec "$container" ruby --version
+docker exec "$container" bundle --version
+docker exec "$container" jekyll --version
+docker exec "$container" sh -lc 'command -v jekyll'
+docker exec "$container" sh -lc 'jekyll --version'
+docker exec "$container" node --version
+docker exec "$container" gem --version
+
+docker exec \
+  --env=HOME=/srv/jekyll \
+  --user="$(id -u):$(id -g)" \
+  "$container" \
+  jekyll build
+
+test -f "$tmp_dir/_site/index.html"
+test -f "$tmp_dir/_site/about/index.html"

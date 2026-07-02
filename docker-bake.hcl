@@ -40,14 +40,6 @@ variable "BUILD_APT_PACKAGES" {
   ]
 }
 
-variable "BUILDER_APT_PACKAGES" {
-  default = [
-    "lftp",
-    "openssh-client",
-    "rsync",
-  ]
-}
-
 variable "JEKYLL_EXTRA_GEMS" {
   default = [
     "jemoji",
@@ -67,38 +59,9 @@ variable "JEKYLL_EXTRA_GEMS" {
   ]
 }
 
-variable "BUILDER_EXTRA_GEMS" {
-  default = [
-    "RedCloth",
-    "html-proofer",
-    "jekyll-compose",
-    "jekyll-mentions",
-    "jekyll-coffeescript",
-    "jekyll-redirect-from",
-    "jekyll-sass-converter",
-    "jekyll-paginate",
-    "jekyll-sitemap",
-    "jekyll-feed",
-    "kramdown",
-    "minima",
-    "jemoji",
-  ]
-}
-
-variable "MINIMAL_EXTRA_GEMS" {
-  default = [
-    "kramdown",
-    "jekyll-coffeescript",
-    "jekyll-sass-converter",
-    "minima",
-  ]
-}
-
 group "default" {
   targets = [
     "jekyll",
-    "builder",
-    "minimal",
     "pages",
   ]
 }
@@ -107,8 +70,8 @@ target "_common" {
   context = "."
   dockerfile = "Dockerfile"
   args = {
-    APT_PACKAGES = join(" ", concat(RUNTIME_APT_PACKAGES, BUILD_APT_PACKAGES))
     APT_PURGE_PACKAGES = ""
+    APT_PACKAGES = join(" ", concat(RUNTIME_APT_PACKAGES, BUILD_APT_PACKAGES))
     COREPACK_PACKAGE_SPECS = join(" ", COREPACK_PACKAGE_SPECS)
   }
   labels = {
@@ -128,41 +91,6 @@ target "jekyll" {
   args = {
     BASE_IMAGE = "ruby:${RUBY_VERSION}"
     EXTRA_GEMS = join(" ", JEKYLL_EXTRA_GEMS)
-    JEKYLL_GEM_VERSION = "${JEKYLL_VERSION}"
-    JEKYLL_VERSION = "${JEKYLL_VERSION}"
-  }
-}
-
-target "builder" {
-  inherits = ["_common"]
-  tags = [
-    "${IMAGE_NAMESPACE}/builder:latest",
-    "${IMAGE_NAMESPACE}/builder:${JEKYLL_VERSION}",
-    "${IMAGE_NAMESPACE}/builder:4.4",
-    "${IMAGE_NAMESPACE}/builder:4",
-  ]
-  args = {
-    BASE_IMAGE = "ruby:${RUBY_VERSION}"
-    APT_PACKAGES = join(" ", concat(RUNTIME_APT_PACKAGES, BUILD_APT_PACKAGES, BUILDER_APT_PACKAGES))
-    EXTRA_GEMS = join(" ", BUILDER_EXTRA_GEMS)
-    JEKYLL_GEM_VERSION = "${JEKYLL_VERSION}"
-    JEKYLL_VERSION = "${JEKYLL_VERSION}"
-    JEKYLL_ENV = "production"
-  }
-}
-
-target "minimal" {
-  inherits = ["_common"]
-  tags = [
-    "${IMAGE_NAMESPACE}/minimal:latest",
-    "${IMAGE_NAMESPACE}/minimal:${JEKYLL_VERSION}",
-    "${IMAGE_NAMESPACE}/minimal:4.4",
-    "${IMAGE_NAMESPACE}/minimal:4",
-  ]
-  args = {
-    BASE_IMAGE = "ruby:${RUBY_VERSION}"
-    APT_PURGE_PACKAGES = join(" ", BUILD_APT_PACKAGES)
-    EXTRA_GEMS = join(" ", MINIMAL_EXTRA_GEMS)
     JEKYLL_GEM_VERSION = "${JEKYLL_VERSION}"
     JEKYLL_VERSION = "${JEKYLL_VERSION}"
   }
