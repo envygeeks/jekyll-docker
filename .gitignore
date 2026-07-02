@@ -1,55 +1,20 @@
-# --
-# OS Level
-# --
 .DS_Store
-
-# --
-# Ruby
-# --
-vendor/
+.bundle/
 coverage/
 Gemfile.lock
-spec/fixture/site/
-spec/fixture/result/
-spec/fixture/out/
-.bundle/
 *.gem
+vendor/
 
-# --
-# CodeClimate
-# --
-cctr
-
-# --
-# Jekyll
-# --
-_site/
+.asset-cache/
 .jekyll-cache/
 .jekyll-metadata
-.asset-cache/
+_site/
+node_modules/
+npm-error.log
+__pycache__/
+*.pyc
 site/
-
-# --
-# Rails
-# --
-/db/*.sqlite3
-/npm-error.log
-.byebug_history
-/db/*.sqlite3-journal
-/config/application.yml
-/config/master.key
-/yarn-error.log
-/node_modules
-.pry_history
-/log
-/tmp
-
-# --
-# Yarn
-# --
+tmp/
 yarn.lock
 
-#
-# Editor
-#
 /.idea

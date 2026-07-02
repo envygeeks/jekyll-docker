@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+import json
+import urllib.request
+from pathlib import Path
+import re
+
+root = Path(__file__).resolve().parents[1]
+github_url = "https://pages.github.com/versions.json"
+bake_file = root / "docker-bake.hcl"
+
+with urllib.request.urlopen(github_url, timeout=30) as response:
+    versions = json.load(response)
+
+replacements = {
+    "PAGES_JEKYLL_VERSION": versions["jekyll"],
+    "GITHUB_PAGES_VERSION": versions["github-pages"],
+    "PAGES_RUBY_VERSION": versions["ruby"],
+}
+
+hcl = bake_file.read_text()
+for name, value in replacements.items():
+    hcl = re.sub(
+        rf'variable "{re.escape(name)}" \{{ default = "[^"]*" \}}',
+        f'variable "{name}" {{ default = "{value}" }}',
+        hcl,
+    )
+
+bake_file.write_text(hcl)
+print(f"Updated pages variables in {bake_file}")
