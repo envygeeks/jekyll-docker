@@ -150,7 +150,7 @@ jobs:
           for final_tag in $tags; do
             docker buildx imagetools inspect "jekyll/jekyll:${final_tag}"
           done
-      - uses: regclient/actions/regctl-installer@1b705e32d40851370799ea5814e83d0a5f6a70dc
+      - uses: regclient/actions/regctl-installer@dd58ad94f76adb73d8ac1bf75ed25f01545d5b32
         with:
           release: v0.11.5
       - name: Verify Regctl
